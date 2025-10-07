@@ -16,6 +16,13 @@ body {
   color: var(--color-text);
   background-color: var(--color-background);
   overflow-x: hidden;
+  /* quitamos padding-top global; lo gestiona el hero */
+}
+
+/* Títulos con fuente Manrope */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family);
+  font-weight: 400;
 }
 
 /* Evitar scroll chaining/rebote que empuja el header (Home y Dashboard) */

@@ -1,0 +1,369 @@
+---
+import ButtonPrimary from '../../buttons/primary/ButtonPrimary.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  description: string;
+  ctaTitle: string;
+  ctaDescription: string;
+  ctaButtonText: string;
+  ctaButtonHref: string;
+  showForm?: boolean;
+  formTitle?: string;
+  formFields?: Array<{
+    name: string;
+    type: string;
+    placeholder: string;
+    required?: boolean;
+    options?: Array<{ value: string; label: string }>;
+  }>;
+  formSubmitText?: string;
+  lang?: string;
+}
+
+const {
+  title,
+  subtitle,
+  description,
+  ctaTitle,
+  ctaDescription,
+  ctaButtonText,
+  ctaButtonHref,
+  showForm = false,
+  formTitle = "",
+  formFields = [],
+  formSubmitText = "Enviar",
+  lang = "es"
+} = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="page-hero-text">
+        <h1 class="page-hero-title">{title}</h1>
+        <p class="page-hero-subtitle">{subtitle}</p>
+        <p class="page-hero-description">{description}</p>
+        
+        <div class="page-hero-cta">
+          <h2 class="page-hero-cta-title">{ctaTitle}</h2>
+          <p class="page-hero-cta-description">{ctaDescription}</p>
+        </div>
+      </div>
+      
+      {showForm && (
+        <div class="page-hero-form">
+          <div class="page-hero-form-container">
+            <h3 class="page-hero-form-title">{formTitle}</h3>
+            
+            <form id="pageHeroForm" class="page-hero-form-fields">
+              {formFields.map((field) => (
+                <div class="page-hero-form-group">
+                  {field.type === 'select' ? (
+                    <select name={field.name} class="page-hero-form-input" required={field.required}>
+                      <option value="">{field.placeholder}</option>
+                      {field.options?.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input 
+                      type={field.type} 
+                      name={field.name} 
+                      class="page-hero-form-input" 
+                      placeholder={field.placeholder}
+                      required={field.required}
+                    />
+                  )}
+                </div>
+              ))}
+              
+              <ButtonPrimary type="submit" class="page-hero-form-submit">
+                {formSubmitText}
+              </ButtonPrimary>
+            </form>
+            
+            <div id="pageHeroFormMessage" class="page-hero-form-message" style="display: none;"></div>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('pageHeroForm') as HTMLFormElement;
+    const messageDiv = document.getElementById('pageHeroFormMessage') as HTMLDivElement;
+    
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        
+        // Simular envío (aquí conectarías con tu backend)
+        try {
+          // Simular delay de red
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          // Mostrar mensaje de éxito
+          messageDiv.textContent = '¡Mensaje enviado correctamente!';
+          messageDiv.className = 'page-hero-form-message success';
+          messageDiv.style.display = 'block';
+          
+          // Limpiar formulario
+          form.reset();
+          
+          // Ocultar mensaje después de 5 segundos
+          setTimeout(() => {
+            messageDiv.style.display = 'none';
+          }, 5000);
+          
+        } catch (error) {
+          // Mostrar mensaje de error
+          messageDiv.textContent = 'Error al enviar el mensaje';
+          messageDiv.className = 'page-hero-form-message error';
+          messageDiv.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  .page-hero {
+    position: relative;
+    height: 40vh;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .page-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/images/contact.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .page-hero-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Asegurar que el container dentro del page-hero funcione correctamente */
+  .page-hero .container {
+    position: relative;
+    z-index: 2;
+    width: 100% !important;
+    max-width: var(--max-width) !important;
+    margin: 0 auto !important;
+    padding: 0 var(--space-4) !important;
+  }
+  
+  .page-hero-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: center;
+    width: 100%;
+  }
+  
+  .page-hero-text {
+    color: white;
+  }
+  
+  .page-hero-title {
+    font-size: 32px;
+    font-weight: 400;
+    margin: 0 0 var(--space-2) 0;
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.1s forwards;
+  }
+  
+  .page-hero-subtitle {
+    font-size: 18px;
+    margin: 0 0 var(--space-4) 0;
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.2s forwards;
+  }
+  
+  .page-hero-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 var(--space-6) 0;
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.3s forwards;
+  }
+  
+  .page-hero-cta {
+    margin-top: var(--space-6);
+  }
+  
+  .page-hero-cta-title {
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 67px;
+    margin: 0 0 var(--space-3) 0;
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.4s forwards;
+  }
+  
+  .page-hero-cta-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.5s forwards;
+  }
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .page-hero-form {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .page-hero-form-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: var(--space-6);
+    border-radius: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .page-hero-form-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-black);
+  }
+  
+  .page-hero-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  
+  .page-hero-form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .page-hero-form-input {
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: 0px;
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--color-background);
+    color: var(--color-text);
+    transition: border-color 0.2s ease;
+  }
+  
+  .page-hero-form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+  
+  .page-hero-form-submit {
+    margin-top: var(--space-2);
+    width: 100%;
+  }
+  
+  .page-hero-form-message {
+    margin-top: var(--space-3);
+    padding: var(--space-2);
+    border-radius: 0px;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .page-hero-form-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  
+  .page-hero-form-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .page-hero {
+      height: 35vh;
+      min-height: 280px;
+    }
+    
+    .page-hero-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    
+    .page-hero-form {
+      justify-content: center;
+    }
+    
+    .page-hero-cta-title {
+      font-size: 48px;
+      line-height: 58px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .page-hero {
+      height: 35vh;
+      min-height: 250px;
+    }
+    
+    .page-hero-cta-title {
+      font-size: 40px;
+      line-height: 48px;
+    }
+    
+    .page-hero-form-container {
+      padding: var(--space-4);
+    }
+  }
+</style>

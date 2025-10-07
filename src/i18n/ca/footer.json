@@ -1,0 +1,41 @@
+{
+  "description": "Despatx d'advocats especialitzat en dret fiscal, laboral, mercantil i successions. Oferim assessorament legal integral amb més de 15 anys d'experiència.",
+  "navigation": {
+    "title": "Navegació",
+    "links": {
+      "home": "Inici",
+      "despacho": "Despatx",
+      "blog": "Blog",
+      "servicios": "Serveis",
+      "contacto": "Contacte"
+    }
+  },
+  "services": {
+    "title": "Serveis",
+    "links": {
+      "fiscal": "Fiscal i Comptable",
+      "laboral": "Laboral",
+      "mercantil": "Mercantil i Societari",
+      "sucesiones": "Successions"
+    }
+  },
+  "legal": {
+    "title": "Legal",
+    "links": {
+      "privacy": "Política de Privacitat",
+      "terms": "Termes i Condicions",
+      "legal": "Avís Legal"
+    }
+  },
+  "contact": {
+    "title": "Contacte",
+    "email": "info@jflegal.com",
+    "phone": "+34 000 000 000",
+    "location": "Barcelona, Espanya"
+  },
+  "credits": {
+    "copyright": "© {year} JF Legal. Tots els drets reservats.",
+    "design": "Disseny web per ",
+    "designUrl": "https://bcnwebstudio.net"
+  }
+}

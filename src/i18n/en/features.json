@@ -1,0 +1,21 @@
+{
+  "sucesiones": {
+    "title": "Inheritance: comprehensive planning and processing",
+    "description": "We accompany you in inheritances, wills and succession agreements. We optimize the tax burden and prevent family conflicts. Complete management: from documentation and Inheritance Tax settlement to registry registration."
+  },
+  "mercantil": {
+    "title": "Commercial and corporate: security in your decisions",
+    "subtitle": "Company formation, shareholder agreements and commercial contracting with legal rigor.",
+    "sections": {
+      "constitucion": {
+        "title": "Company formation and reorganization",
+        "description": "Comprehensive advice to choose legal form, incorporation, statutory reforms, mergers and acquisitions, and holding structures."
+      },
+      "contratacion": {
+        "title": "Commercial contracting",
+        "description": "Drafting and review of distribution, supply, franchise and lease contracts with real protection of interests."
+      }
+    },
+    "additional": "We also help you with dissolutions, insolvencies and corporate restructurings."
+  }
+}

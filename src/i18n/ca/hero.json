@@ -1,0 +1,19 @@
+{
+  "title": "Assessorament legal per a empreses i famílies",
+  "description": "Especialistes en successions i mercantil. També t'acompanyem en fiscal/comptable i laboral.",
+  "buttonText": "Contactar",
+  "formTitle": "Consulta legal",
+  "formServicePlaceholder": "Selecciona un servei",
+  "formNamePlaceholder": "Nom",
+  "formEmailPlaceholder": "Email",
+  "formPhonePlaceholder": "Telèfon",
+  "formMessagePlaceholder": "Descriu breument la teva consulta",
+  "formSubmitButton": "Enviar consulta",
+  "formSuccessMessage": "Gràcies per enviar el teu missatge! Et respondrem el més aviat possible, en un termini màxim de 24 hores.",
+  "services": {
+    "fiscal": "Fiscal i Comptable",
+    "laboral": "Laboral",
+    "mercantil": "Mercantil i Societari",
+    "sucesiones": "Successions"
+  }
+}

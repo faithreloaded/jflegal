@@ -1,0 +1,19 @@
+{
+  "title": "Asesoría legal para empresas y familias",
+  "description": "Especialistas en sucesiones y mercantil. También te acompañamos en fiscal/contable y laboral.",
+  "buttonText": "Contactar",
+  "formTitle": "Consulta legal",
+  "formServicePlaceholder": "Selecciona un servicio",
+  "formNamePlaceholder": "Nombre",
+  "formEmailPlaceholder": "Email",
+  "formPhonePlaceholder": "Teléfono",
+  "formMessagePlaceholder": "Describe brevemente tu consulta",
+  "formSubmitButton": "Enviar consulta",
+  "formSuccessMessage": "¡Gracias por enviar tu mensaje! Te responderemos lo antes posible, en un plazo máximo de 24 horas.",
+  "services": {
+    "fiscal": "Fiscal y Contable",
+    "laboral": "Laboral",
+    "mercantil": "Mercantil y Societario",
+    "sucesiones": "Sucesiones"
+  }
+}

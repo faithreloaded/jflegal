@@ -1,0 +1,26 @@
+{
+  "title": "Serveis",
+  "services": {
+    "fiscal": {
+      "title": "Fiscal i Comptable",
+      "description": "Assessorament fiscal integral, comptabilitat empresarial i optimització tributària per a empreses i particulars."
+    },
+    "laboral": {
+      "title": "Laboral",
+      "description": "Dret laboral, contractes, acomiadaments, negociació col·lectiva i assessorament en recursos humans."
+    },
+    "mercantil": {
+      "title": "Mercantil i Societari",
+      "description": "Constitució d'empreses, fusions, adquisicions, contractes mercantils i dret corporatiu."
+    },
+    "sucesiones": {
+      "title": "Successions",
+      "description": "Planificació successòria, testaments, herències, liquidació d'impostos i gestió patrimonial."
+    }
+  },
+  "legal": {
+    "privacy": "Política de Privacitat",
+    "terms": "Termes i Condicions",
+    "legal": "Avís Legal"
+  }
+}

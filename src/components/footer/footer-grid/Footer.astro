@@ -1,52 +1,197 @@
 ---
 import "./Footer.css";
-const year = new Date().getFullYear();
+import { type Locale, loadT } from '../../../i18n';
 
-interface LinkItem { label: string; href: string }
 interface Props {
-  description?: string;
-  linksTitle?: string;
-  links?: LinkItem[];
-  legalTitle?: string;
-  legalLinks?: LinkItem[];
-  contactTitle?: string;
-  contactEmail?: string;
-  contactPhone?: string;
-  contactLocation?: string;
-  creditLine1?: string; // may include {year}
-  creditLine2?: string; // designer credit text (site name appended as link)
-  creditUrl?: string;
+  lang: Locale;
 }
 
-const {
-  description = 'Despacho de abogados especializado en derecho fiscal, laboral, mercantil y sucesiones. Ofrecemos asesoramiento legal integral con más de 15 años de experiencia.',
-  linksTitle = 'Navegación',
-  links = [
-    { label: 'Inicio', href: '/' },
-    { label: 'Despacho', href: '/despacho' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Servicios', href: '/servicios' },
-  ],
-  servicesTitle = 'Servicios',
-  services = [
-    { label: 'Fiscal y Contable', href: '/fiscal-contable' },
-    { label: 'Laboral', href: '/laboral' },
-    { label: 'Mercantil y Societario', href: '/mercantil-societario' },
-    { label: 'Sucesiones', href: '/sucesiones' },
-  ],
-  legalTitle = 'Legal',
-  legalLinks = [
-    { label: 'Política de Privacidad', href: '/privacy' },
-    { label: 'Aviso Legal', href: '/legal' },
-  ],
-  contactTitle = 'Contacto',
-  contactEmail = 'info@jflegal.com',
-  contactPhone = '+34 000 000 000',
-  contactLocation = 'Barcelona, España',
-  creditLine1 = `© {year} JF Legal. Todos los derechos reservados.`,
-  creditLine2 = 'Diseño web por ',
-  creditUrl = 'https://bcnwebstudio.net',
-} = Astro.props as Props;
+const { lang } = Astro.props as Props;
+
+// Cargar traducciones del footer usando el sistema JSON
+let t: any;
+try {
+  t = await loadT(lang, ['footer']);
+} catch (error) {
+  console.error('Error loading footer translations:', error);
+  t = (key: string) => key; // Fallback function
+}
+
+// Fallback básico por si falla el sistema
+const footerFallback = {
+  es: {
+    description: "Despacho de abogados especializado en derecho fiscal, laboral, mercantil y sucesiones. Ofrecemos asesoramiento legal integral con más de 15 años de experiencia.",
+    navigation: {
+      title: "Navegación",
+      links: {
+        home: "Inicio",
+        despacho: "Despacho",
+        blog: "Blog",
+        servicios: "Servicios",
+        contacto: "Contacto"
+      }
+    },
+    services: {
+      title: "Servicios",
+      links: {
+        fiscal: "Fiscal y Contable",
+        laboral: "Laboral",
+        mercantil: "Mercantil y Societario",
+        sucesiones: "Sucesiones"
+      }
+    },
+    legal: {
+      title: "Legal",
+      links: {
+        privacy: "Política de Privacidad",
+        terms: "Términos y Condiciones",
+        legal: "Aviso Legal"
+      }
+    },
+    contact: {
+      title: "Contacto",
+      email: "info@jflegalconsulting.com",
+      phone: "931701480",
+      location: "Calle Córsega 239, Principal 2, Barcelona"
+    },
+    credits: {
+      copyright: "© {year} JF Legal. Todos los derechos reservados.",
+      design: "Diseño web por ",
+      designUrl: "https://bcnwebstudio.net"
+    }
+  },
+  en: {
+    description: "Law firm specialized in tax, labor, commercial and inheritance law. We offer comprehensive legal advice with over 15 years of experience.",
+    navigation: {
+      title: "Navigation",
+      links: {
+        home: "Home",
+        despacho: "About Us",
+        blog: "Blog",
+        servicios: "Services",
+        contacto: "Contact"
+      }
+    },
+    services: {
+      title: "Services",
+      links: {
+        fiscal: "Tax and Accounting",
+        laboral: "Labor Law",
+        mercantil: "Commercial and Corporate",
+        sucesiones: "Inheritance"
+      }
+    },
+    legal: {
+      title: "Legal",
+      links: {
+        privacy: "Privacy Policy",
+        terms: "Terms and Conditions",
+        legal: "Legal Notice"
+      }
+    },
+    contact: {
+      title: "Contact",
+      email: "info@jflegalconsulting.com",
+      phone: "931701480",
+      location: "Calle Córsega 239, Principal 2, Barcelona"
+    },
+    credits: {
+      copyright: "© {year} JF Legal. All rights reserved.",
+      design: "Web design by ",
+      designUrl: "https://bcnwebstudio.net"
+    }
+  },
+  ca: {
+    description: "Despatx d'advocats especialitzat en dret fiscal, laboral, mercantil i successions. Oferim assessorament legal integral amb més de 15 anys d'experiència.",
+    navigation: {
+      title: "Navegació",
+      links: {
+        home: "Inici",
+        despacho: "Despatx",
+        blog: "Blog",
+        servicios: "Serveis",
+        contacto: "Contacte"
+      }
+    },
+    services: {
+      title: "Serveis",
+      links: {
+        fiscal: "Fiscal i Comptable",
+        laboral: "Laboral",
+        mercantil: "Mercantil i Societari",
+        sucesiones: "Successions"
+      }
+    },
+    legal: {
+      title: "Legal",
+      links: {
+        privacy: "Política de Privacitat",
+        terms: "Termes i Condicions",
+        legal: "Avís Legal"
+      }
+    },
+    contact: {
+      title: "Contacte",
+      email: "info@jflegalconsulting.com",
+      phone: "931701480",
+      location: "Carrer Córsega 239, Principal 2, Barcelona"
+    },
+    credits: {
+      copyright: "© {year} JF Legal. Tots els drets reservats.",
+      design: "Disseny web per ",
+      designUrl: "https://bcnwebstudio.net"
+    }
+  }
+};
+
+// Función helper para obtener traducciones de footer con fallback
+function getFooterTranslation(key: string) {
+  const translation = t(`footer.${key}`);
+  if (translation === `footer.${key}`) {
+    // Si no encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value: any = (footerFallback as any)[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+const year = new Date().getFullYear();
+const prefix = `/${lang}`;
+
+// Construir datos desde las traducciones
+const description = getFooterTranslation('description');
+const linksTitle = getFooterTranslation('navigation.title');
+const links = [
+  { label: getFooterTranslation('navigation.links.home'), href: `${prefix}/` },
+  { label: getFooterTranslation('navigation.links.servicios'), href: `${prefix}/servicios` },
+  { label: getFooterTranslation('navigation.links.despacho'), href: `${prefix}/despacho` },
+  { label: getFooterTranslation('navigation.links.blog'), href: `${prefix}/blog` },
+  { label: getFooterTranslation('navigation.links.contacto'), href: `${prefix}/contacto` },
+];
+const servicesTitle = getFooterTranslation('services.title');
+const services = [
+  { label: getFooterTranslation('services.links.fiscal'), href: `${prefix}/fiscal-contable` },
+  { label: getFooterTranslation('services.links.laboral'), href: `${prefix}/laboral` },
+  { label: getFooterTranslation('services.links.mercantil'), href: `${prefix}/mercantil-societario` },
+  { label: getFooterTranslation('services.links.sucesiones'), href: `${prefix}/sucesiones` },
+];
+const legalTitle = getFooterTranslation('legal.title');
+const legalLinks = [
+  { label: getFooterTranslation('legal.links.privacy'), href: `${prefix}/politica-privacidad` },
+  { label: getFooterTranslation('legal.links.terms'), href: `${prefix}/terminos-condiciones` },
+  { label: getFooterTranslation('legal.links.legal'), href: `${prefix}/aviso-legal` },
+];
+const contactTitle = getFooterTranslation('contact.title');
+const contactEmail = getFooterTranslation('contact.email');
+const contactPhone = getFooterTranslation('contact.phone');
+const contactLocation = getFooterTranslation('contact.location');
+const creditLine1 = getFooterTranslation('credits.copyright');
+const creditLine2 = getFooterTranslation('credits.design');
+const creditUrl = getFooterTranslation('credits.designUrl');
 ---
 
 <footer class="footer">

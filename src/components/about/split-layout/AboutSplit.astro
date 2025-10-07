@@ -1,0 +1,267 @@
+---
+import ButtonLink from '../../buttons/link/ButtonLink.astro';
+import { type Locale, loadT } from '../../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = await loadT(lang, ['about']);
+
+// Fallback translations para about si el sistema no funciona
+const aboutFallback = {
+  es: {
+    title: "JF Legal es un despacho de abogados especializado en asesoramiento integral para empresas y familias.",
+    description: "Nuestros abogados experimentados aportan soluciones creativas en las etapas pre-contrato, ejecución contractual y post-contrato, proporcionando soluciones prácticas y rentables adaptadas a las necesidades únicas de cada cliente.",
+    buttons: {
+      team: "NUESTRO EQUIPO",
+      services: "NUESTROS SERVICIOS"
+    }
+  },
+  en: {
+    title: "JF Legal is a law firm specialized in comprehensive legal advice for companies and families.",
+    description: "Our experienced lawyers provide creative solutions in pre-contract, contractual execution and post-contract stages, delivering practical and profitable solutions tailored to each client's unique needs.",
+    buttons: {
+      team: "OUR TEAM",
+      services: "OUR SERVICES"
+    }
+  },
+  ca: {
+    title: "JF Legal és un despatx d'advocats especialitzat en assessorament legal integral per a empreses i famílies.",
+    description: "Els nostres advocats experimentats aporten solucions creatives en les etapes pre-contrat, execució contractual i post-contrat, proporcionant solucions pràctiques i rendibles adaptades a les necessitats úniques de cada client.",
+    buttons: {
+      team: "EL NOSTRE EQUIP",
+      services: "ELS NOSTRES SERVEIS"
+    }
+  }
+};
+
+// Función helper para obtener traducciones del about con fallback
+function getAboutTranslation(key: string) {
+  const translation = t(`about.${key}`);
+  if (translation === `about.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value = aboutFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+const title = getAboutTranslation('title');
+const description = getAboutTranslation('description');
+const button1Text = getAboutTranslation('buttons.team');
+const button2Text = getAboutTranslation('buttons.services');
+const button1Href = `/${lang}/despacho`;
+const button2Href = `/${lang}/servicios`;
+---
+
+<script>
+  // Animated text effect
+  function initAnimatedText() {
+    const section = document.querySelector('.about-split');
+    const titleElement = document.getElementById('about-animated-title');
+    
+    if (!section || !titleElement) return;
+    
+    let progress = 0;
+    let originalText = titleElement.textContent;
+    
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calcular el progreso basado en la posición del elemento
+      const elementTop = rect.top;
+      
+      // Empezar la animación antes y hacerla más rápida
+      const startOffset = windowHeight * 0.8; // Empezar cuando esté al 80% del viewport
+      const endOffset = windowHeight * 0.2; // Terminar cuando esté al 20% del viewport
+      
+      if (elementTop <= startOffset && elementTop >= endOffset) {
+        const totalDistance = startOffset - endOffset;
+        const currentDistance = startOffset - elementTop;
+        const scrollProgress = Math.min(Math.max(currentDistance / totalDistance, 0), 1);
+        progress = scrollProgress;
+      } else if (elementTop > startOffset) {
+        progress = 0;
+      } else if (elementTop < endOffset) {
+        progress = 1;
+      }
+      
+      // Aplicar animación al texto
+      animateText(titleElement, progress, originalText);
+    };
+    
+    const animateText = (element, progress, text) => {
+      const words = text.split(' ');
+      const totalWords = words.length;
+      
+      let animatedHTML = '';
+      
+      for (let i = 0; i < words.length; i++) {
+        const wordProgress = Math.min(Math.max((progress * totalWords) - i, 0), 1);
+        
+        // Colores: de gris oscuro (inicial) a negro (final)
+        const startColor = 100; // gris oscuro
+        const endColor = 0;     // negro
+        const startAlpha = 0.4; // translúcido al inicio
+        const endAlpha = 1;     // opaco al final
+        
+        const currentColor = Math.round(startColor + (endColor - startColor) * wordProgress);
+        const currentAlpha = Math.max(0, Math.min(1, startAlpha + (endAlpha - startAlpha) * wordProgress));
+        
+        animatedHTML += `<span style="color: rgba(${currentColor}, ${currentColor}, ${currentColor}, ${currentAlpha}); transition: color 0.1s ease;">${words[i]}</span>`;
+        
+        // Añadir espacio entre palabras (excepto en la última palabra)
+        if (i < words.length - 1) {
+          animatedHTML += ' ';
+        }
+      }
+      
+      element.innerHTML = animatedHTML;
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Ejecutar una vez para el estado inicial
+  }
+  
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimatedText);
+  } else {
+    initAnimatedText();
+  }
+</script>
+
+<section class="about-split">
+  <div class="about-split-container">
+    <div class="about-split-content">
+      <div class="about-split-header">
+        <h2 class="about-split-title" id="about-animated-title">{title}</h2>
+      </div>
+      
+      <div class="about-split-bottom">
+        <div class="about-split-description-container">
+          <p class="about-split-description">{description}</p>
+          <div class="about-split-buttons">
+            <ButtonLink href={button1Href}>{button1Text}</ButtonLink>
+            <ButtonLink href={button2Href}>{button2Text}</ButtonLink>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-split {
+    background-color: var(--color-background-alt);
+    padding: var(--space-8) 0;
+  }
+
+  .about-split-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+    overflow: hidden;
+  }
+
+  .about-split-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .about-split-header {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    max-width: 80%;
+  }
+
+  .about-split-title {
+    font-size: 56px;
+    line-height: 67px;
+    font-weight: 300;
+    color: var(--color-text);
+    margin: 0;
+    max-width: 800px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .about-split-bottom {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .about-split-description-container {
+    max-width: 500px;
+    text-align: left;
+  }
+
+  .about-split-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .about-split-buttons {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    
+    .about-split-title {
+      font-size: 42px;
+      line-height: 50px;
+      max-width: 100%;
+    }
+    
+    .about-split-bottom {
+      justify-content: flex-start;
+    }
+    
+    .about-split-description-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-split {
+      padding: var(--space-6) 0;
+    }
+    
+    .about-split-title {
+      font-size: 32px;
+      line-height: 40px;
+    }
+    
+    .about-split-buttons {
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-split-title {
+      font-size: 26px;
+      line-height: 34px;
+    }
+    
+    .about-split-description {
+      font-size: 15px;
+    }
+  }
+</style>

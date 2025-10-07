@@ -1,0 +1,27 @@
+{
+  "title": "Nuestros servicios",
+  "description": "Especialistas en asesoramiento legal integral para empresas y particulares. Ofrecemos soluciones personalizadas en las áreas de derecho fiscal, laboral, mercantil y sucesiones, adaptadas a las necesidades específicas de cada cliente.",
+  "services": {
+    "fiscal": {
+      "number": "01",
+      "title": "Fiscal y Contable",
+      "description": "Asesoramiento fiscal integral, contabilidad empresarial y optimización tributaria para empresas y particulares."
+    },
+    "laboral": {
+      "number": "02",
+      "title": "Laboral",
+      "description": "Derecho laboral, contratos, despidos, negociación colectiva y asesoramiento en recursos humanos."
+    },
+    "mercantil": {
+      "number": "03",
+      "title": "Mercantil y Societario",
+      "description": "Constitución de empresas, fusiones, adquisiciones, contratos mercantiles y derecho corporativo."
+    },
+    "sucesiones": {
+      "number": "04",
+      "title": "Sucesiones",
+      "description": "Planificación sucesoria, testamentos, herencias, liquidación de impuestos y gestión patrimonial."
+    }
+  },
+  "buttonText": "VERMÁS"
+}

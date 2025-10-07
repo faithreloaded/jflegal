@@ -1,5 +1,91 @@
 ---
 import './FeaturesSplitRight.css';
+import { type Locale, loadT } from '../../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = await loadT(lang, ['features']);
+
+// Fallback translations para features si el sistema no funciona
+const featuresFallback = {
+  es: {
+    mercantil: {
+      title: "Mercantil y societario: seguridad en tus decisiones",
+      subtitle: "Constitución de sociedades, pactos entre socios y contratación mercantil con rigor jurídico.",
+      sections: {
+        constitucion: {
+          title: "Constitución y reorganización de sociedades",
+          description: "Asesoramiento integral para elegir forma jurídica, constitución, reformas estatutarias, fusiones y adquisiciones, y estructuras holding."
+        },
+        contratacion: {
+          title: "Contratación mercantil",
+          description: "Redacción y revisión de contratos de distribución, suministro, franquicia y arrendamientos con protección real de intereses."
+        }
+      },
+      additional: "También te ayudamos en disoluciones, concursos y reestructuraciones societarias."
+    }
+  },
+  en: {
+    mercantil: {
+      title: "Commercial and corporate: security in your decisions",
+      subtitle: "Company formation, shareholder agreements and commercial contracting with legal rigor.",
+      sections: {
+        constitucion: {
+          title: "Company formation and reorganization",
+          description: "Comprehensive advice to choose legal form, incorporation, statutory reforms, mergers and acquisitions, and holding structures."
+        },
+        contratacion: {
+          title: "Commercial contracting",
+          description: "Drafting and review of distribution, supply, franchise and lease contracts with real protection of interests."
+        }
+      },
+      additional: "We also help you with dissolutions, insolvencies and corporate restructurings."
+    }
+  },
+  ca: {
+    mercantil: {
+      title: "Mercantil i societari: seguretat en les teves decisions",
+      subtitle: "Constitució de societats, pactes entre socis i contractació mercantil amb rigor jurídic.",
+      sections: {
+        constitucion: {
+          title: "Constitució i reorganització de societats",
+          description: "Assessorament integral per triar forma jurídica, constitució, reformes estatutàries, fusions i adquisicions, i estructures holding."
+        },
+        contratacion: {
+          title: "Contractació mercantil",
+          description: "Redacció i revisió de contractes de distribució, subministrament, franquícia i arrendaments amb protecció real d'interessos."
+        }
+      },
+      additional: "També t'ajudem en dissolucions, concursos i reestructuracions societàries."
+    }
+  }
+};
+
+// Función helper para obtener traducciones de features con fallback
+function getFeaturesTranslation(key: string) {
+  const translation = t(`features.${key}`);
+  if (translation === `features.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value = featuresFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+const title = getFeaturesTranslation('mercantil.title');
+const subtitle = getFeaturesTranslation('mercantil.subtitle');
+const constitucionTitle = getFeaturesTranslation('mercantil.sections.constitucion.title');
+const constitucionDescription = getFeaturesTranslation('mercantil.sections.constitucion.description');
+const contratacionTitle = getFeaturesTranslation('mercantil.sections.contratacion.title');
+const contratacionDescription = getFeaturesTranslation('mercantil.sections.contratacion.description');
+const additional = getFeaturesTranslation('mercantil.additional');
 ---
 
 <section class="features-split-section">
@@ -9,30 +95,30 @@ import './FeaturesSplitRight.css';
       <div class="features-split-content features-split-animate">
         <!-- First Container: Title + CTA -->
         <div class="features-split-header features-split-animate">
-          <h2 class="features-split-title features-split-animate">We identify the best solution for you.</h2>
+          <h2 class="features-split-title features-split-animate">{title}</h2>
           <div class="features-split-cta features-split-animate">
-            <p>Ready to get started? <a href="#" class="features-split-link">Contact us</a></p>
+            <p>{subtitle}</p>
           </div>
         </div>
 
         <!-- Second Container: Content Items -->
         <div class="features-split-items-container features-split-animate">
           <div class="features-split-item features-split-animate">
-            <h3 class="features-split-subtitle features-split-animate">Meet growing tenant demand</h3>
+            <h3 class="features-split-subtitle features-split-animate">{constitucionTitle}</h3>
             <p class="features-split-description features-split-animate">
-              With EV ownership on the rise, home charging is set to become an essential requirement for an increasing number of tenants. Preparing for this growing demand now will help to future-proof your site and increase appeal among current and future tenants.
+              {constitucionDescription}
             </p>
           </div>
 
           <div class="features-split-item features-split-animate">
-            <h3 class="features-split-subtitle features-split-animate">A funded solution</h3>
+            <h3 class="features-split-subtitle features-split-animate">{contratacionTitle}</h3>
             <p class="features-split-description features-split-animate">
-              We remove many of the financial and operational barriers to large-scale EV infrastructure investment for residential landlords by offering a fully funded, maintained and managed EV charging solution.
+              {contratacionDescription}
             </p>
           </div>
 
           <div class="features-split-cta features-split-animate">
-            <p><a href="#" class="features-split-link">Contact us</a> to find out more about our funded solutions.</p>
+            <p>{additional}</p>
           </div>
         </div>
       </div>

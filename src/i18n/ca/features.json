@@ -1,0 +1,21 @@
+{
+  "sucesiones": {
+    "title": "Successions: planificació i tramitació integral",
+    "description": "T'acompanyem en herències, testaments i pactes successoris. Optimitzem la càrrega fiscal i prevenim conflictes familiars. Gestió completa: des de documentació i liquidació de l'Impost de Successions fins a inscripció registral."
+  },
+  "mercantil": {
+    "title": "Mercantil i societari: seguretat en les teves decisions",
+    "subtitle": "Constitució de societats, pactes entre socis i contractació mercantil amb rigor jurídic.",
+    "sections": {
+      "constitucion": {
+        "title": "Constitució i reorganització de societats",
+        "description": "Assessorament integral per triar forma jurídica, constitució, reformes estatutàries, fusions i adquisicions, i estructures holding."
+      },
+      "contratacion": {
+        "title": "Contractació mercantil",
+        "description": "Redacció i revisió de contractes de distribució, subministrament, franquícia i arrendaments amb protecció real d'interessos."
+      }
+    },
+    "additional": "També t'ajudem en dissolucions, concursos i reestructuracions societàries."
+  }
+}

@@ -1,12 +1,41 @@
 {
-  "description": "Una librería de componentes limpia y profesional diseñada para desarrolladores que valoran la velocidad, calidad y principios de diseño moderno.",
-  "linksTitle": "Enlaces",
-  "legalTitle": "Legal",
-  "privacy": "Política de privacidad",
-  "legal": "Aviso legal",
-  "contactTitle": "Contacto",
-  "credit1": "© {year} Starter UI. Todos los derechos reservados.",
-  "credit2": "Diseño web por "
+  "description": "Despacho de abogados especializado en derecho fiscal, laboral, mercantil y sucesiones. Ofrecemos asesoramiento legal integral con más de 15 años de experiencia.",
+  "navigation": {
+    "title": "Navegación",
+    "links": {
+      "home": "Inicio",
+      "despacho": "Despacho",
+      "blog": "Blog",
+      "servicios": "Servicios",
+      "contacto": "Contacto"
+    }
+  },
+  "services": {
+    "title": "Servicios",
+    "links": {
+      "fiscal": "Fiscal y Contable",
+      "laboral": "Laboral",
+      "mercantil": "Mercantil y Societario",
+      "sucesiones": "Sucesiones"
+    }
+  },
+  "legal": {
+    "title": "Legal",
+    "links": {
+      "privacy": "Política de Privacidad",
+      "terms": "Términos y Condiciones",
+      "legal": "Aviso Legal"
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "email": "info@jflegal.com",
+    "phone": "+34 000 000 000",
+    "location": "Barcelona, España"
+  },
+  "credits": {
+    "copyright": "© {year} JF Legal. Todos los derechos reservados.",
+    "design": "Diseño web por ",
+    "designUrl": "https://bcnwebstudio.net"
+  }
 }
-
-

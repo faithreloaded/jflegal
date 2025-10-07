@@ -20,17 +20,19 @@ console.log('Posts found:', posts.length);
 console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
 ---
 
-<BaseLayout title={`${lang==='es' ? 'Blog' : 'Blog'} | Starter UI`} description={lang==='es' ? 'Artículos y novedades' : 'Articles and updates'} lang={lang}>
+<BaseLayout title={`${lang==='es' ? 'Blog' : lang==='ca' ? 'Blog' : 'Blog'} | JF Legal`} description={lang==='es' ? 'Artículos y novedades sobre derecho fiscal, laboral, mercantil y sucesiones' : lang==='ca' ? 'Articles i novetats sobre dret fiscal, laboral, mercantil i successions' : 'Articles and updates about tax, labor, commercial and inheritance law'} lang={lang}>
   <HeaderMega lang={lang} />
   <main class="main">
     <div class="container blog-list">
       <header class="blog-header">
-        <h1 class="blog-title">{lang==='es' ? 'Blog' : 'Blog'}</h1>
-        <p class="blog-sub">{lang==='es' ? 'Artículos y novedades' : 'Articles and updates'}</p>
+        <h1 class="blog-title">{lang==='es' ? 'Blog' : lang==='ca' ? 'Blog' : 'Blog'}</h1>
+        <p class="blog-sub">{lang==='es' ? 'Artículos y novedades' : lang==='ca' ? 'Articles i novetats' : 'Articles and updates'}</p>
             <div class="blog-filters">
-              <button class="chip">{lang==='es' ? 'Todos' : 'All'}</button>
-              <button class="chip">{lang==='es' ? 'Diseño' : 'Design'}</button>
-              <button class="chip">{lang==='es' ? 'Código' : 'Code'}</button>
+              <button class="chip">{lang==='es' ? 'Todos' : lang==='ca' ? 'Tots' : 'All'}</button>
+              <button class="chip">{lang==='es' ? 'Fiscal' : lang==='ca' ? 'Fiscal' : 'Tax'}</button>
+              <button class="chip">{lang==='es' ? 'Laboral' : lang==='ca' ? 'Laboral' : 'Labor'}</button>
+              <button class="chip">{lang==='es' ? 'Mercantil' : lang==='ca' ? 'Mercantil' : 'Commercial'}</button>
+              <button class="chip">{lang==='es' ? 'Sucesiones' : lang==='ca' ? 'Successions' : 'Inheritance'}</button>
             </div>
       </header>
 
@@ -42,11 +44,11 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
             </span>
-            <input id="blogSearchInput" type="search" placeholder={lang==='es' ? 'Buscar en el blog…' : 'Search the blog…'} aria-label={lang==='es' ? 'Buscar en el blog' : 'Search the blog'} />
+            <input id="blogSearchInput" type="search" placeholder={lang==='es' ? 'Buscar en el blog…' : lang==='ca' ? 'Cercar al blog…' : 'Search the blog…'} aria-label={lang==='es' ? 'Buscar en el blog' : lang==='ca' ? 'Cercar al blog' : 'Search the blog'} />
           </div>
 
           <section class="latest">
-            <h3 class="latest-title">{lang==='es' ? 'Últimos posts' : 'Latest posts'}</h3>
+            <h3 class="latest-title">{lang==='es' ? 'Últimos posts' : lang==='ca' ? 'Últims posts' : 'Latest posts'}</h3>
             <div class="latest-grid">
               {posts.length > 0 ? Array.from({ length: 3 }, (_, index) => {
                 const post = posts[0]; // Usar el primer (y único) post
@@ -60,23 +62,23 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
                       </div>
                       <p class="blog-card-description">{post.data.excerpt}</p>
                       <div class="blog-card-tags">
-                        <span class="blog-tag">{lang==='es' ? 'Blog' : 'Blog'}</span>
-                        <span class="blog-tag">{lang==='es' ? 'Artículo' : 'Article'}</span>
+                        <span class="blog-tag">{lang==='es' ? 'Blog' : lang==='ca' ? 'Blog' : 'Blog'}</span>
+                        <span class="blog-tag">{lang==='es' ? 'Artículo' : lang==='ca' ? 'Article' : 'Article'}</span>
                       </div>
-                      <button class="blog-card-cta">{lang==='es' ? 'Leer más' : 'Read more'}</button>
+                      <button class="blog-card-cta">{lang==='es' ? 'Leer más' : lang==='ca' ? 'Llegir més' : 'Read more'}</button>
                     </div>
                   </a>
                 );
               }) : (
                 <div class="no-posts">
-                  <p>{lang==='es' ? 'No hay posts disponibles' : 'No posts available'}</p>
+                  <p>{lang==='es' ? 'No hay posts disponibles' : lang==='ca' ? 'No hi ha posts disponibles' : 'No posts available'}</p>
                 </div>
               )}
             </div>
           </section>
     </div>
   </main>
-  <FooterGrid />
+  <FooterGrid lang={lang} />
 </BaseLayout>
 
 <script>
@@ -106,6 +108,9 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.6s ease-out 0.1s forwards;
       }
       
       .blog-title { 
@@ -129,13 +134,16 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         gap: var(--space-1); 
         justify-content: center; 
         flex-wrap: wrap;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.6s ease-out 0.2s forwards;
       }
       
       .chip { 
         border: 1px solid var(--color-border); 
         background: transparent; 
         padding: var(--space-1) var(--space-3); 
-        border-radius: 16px; 
+        border-radius: 0px; 
         font-size: 12px; 
         cursor: pointer; 
         transition: all 0.2s ease;
@@ -150,12 +158,20 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
       }
 
       /* Minimal search */
-      .blog-search { max-width: 680px; margin: 0 auto 0; padding: 0 var(--space-4); position: relative; }
+      .blog-search { 
+        max-width: 680px; 
+        margin: 0 auto 0; 
+        padding: 0 var(--space-4); 
+        position: relative;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.6s ease-out 0.3s forwards;
+      }
       .blog-search input[type="search"] {
         width: 100%;
         height: 44px;
         line-height: 44px; /* centra el texto verticalmente */
-        border-radius: 24px;
+        border-radius: 0px;
         border: 1px solid var(--color-border);
         background: var(--color-background);
         padding: 0 16px 0 40px;
@@ -173,7 +189,11 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         max-width: 1200px; 
         margin: 0 auto; 
         padding: 0 var(--space-4);
-        margin-top: var(--space-6);
+        margin-top: var(--space-8);
+        margin-bottom: var(--space-8);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.6s ease-out 0.4s forwards;
       }
       
       .latest-title { 
@@ -195,7 +215,7 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
       
       .blog-card { 
         position: relative;
-        border-radius: 18px;
+        border-radius: 0px;
         overflow: hidden;
         background: #0b0b0c;
         aspect-ratio: 4 / 5; /* punto intermedio */
@@ -246,8 +266,8 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         padding: 16px;
-        border-bottom-left-radius: 18px;
-        border-bottom-right-radius: 18px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
         display: flex;
         flex-direction: column;
         min-height: 34%; /* equilibrado para el punto intermedio */
@@ -274,7 +294,7 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         color: white;
         background: rgba(0,0,0,0.35);
         padding: 6px 10px;
-        border-radius: 8px;
+        border-radius: 0px;
         font-weight: var(--font-weight-light);
         font-size: 14px;
         backdrop-filter: blur(3px);
@@ -298,7 +318,7 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
       .blog-tag {
         color: rgba(255,255,255,0.9);
         background: rgba(255,255,255,0.14);
-        border-radius: 10px;
+        border-radius: 0px;
         padding: 0 10px;
         font-size: 12px;
         display: inline-flex;
@@ -315,7 +335,7 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         font-weight: 400;
         font-size: 14px;
         border: none;
-        border-radius: 50px;
+        border-radius: 0px;
         padding: 12px 16px;
         cursor: pointer;
         margin-top: auto;
@@ -449,6 +469,18 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
       @media (max-width: 600px) {
         .latest-grid {
           grid-template-columns: 1fr;
+        }
+      }
+
+      /* Animación fade up muy sutil */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
     </style>

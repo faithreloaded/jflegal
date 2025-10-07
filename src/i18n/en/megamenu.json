@@ -1,0 +1,26 @@
+{
+  "title": "Services",
+  "services": {
+    "fiscal": {
+      "title": "Tax and Accounting",
+      "description": "Comprehensive tax advice, business accounting and tax optimization for companies and individuals."
+    },
+    "laboral": {
+      "title": "Labor Law",
+      "description": "Labor law, contracts, dismissals, collective bargaining and human resources consulting."
+    },
+    "mercantil": {
+      "title": "Commercial and Corporate",
+      "description": "Company formation, mergers, acquisitions, commercial contracts and corporate law."
+    },
+    "sucesiones": {
+      "title": "Inheritance",
+      "description": "Succession planning, wills, inheritances, tax settlement and wealth management."
+    }
+  },
+  "legal": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms and Conditions",
+    "legal": "Legal Notice"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Servicios",
+  "services": {
+    "fiscal": {
+      "title": "Fiscal y Contable",
+      "description": "Asesoramiento fiscal integral, contabilidad empresarial y optimización tributaria para empresas y particulares."
+    },
+    "laboral": {
+      "title": "Laboral",
+      "description": "Derecho laboral, contratos, despidos, negociación colectiva y asesoramiento en recursos humanos."
+    },
+    "mercantil": {
+      "title": "Mercantil y Societario",
+      "description": "Constitución de empresas, fusiones, adquisiciones, contratos mercantiles y derecho corporativo."
+    },
+    "sucesiones": {
+      "title": "Sucesiones",
+      "description": "Planificación sucesoria, testamentos, herencias, liquidación de impuestos y gestión patrimonial."
+    }
+  },
+  "legal": {
+    "privacy": "Política de Privacidad",
+    "terms": "Términos y Condiciones",
+    "legal": "Aviso Legal"
+  }
+}

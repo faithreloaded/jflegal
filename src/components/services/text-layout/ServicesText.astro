@@ -1,0 +1,384 @@
+---
+import { type Locale, loadT } from '../../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = await loadT(lang, ['services']);
+
+// Fallback translations para services si el sistema no funciona
+const servicesFallback = {
+  es: {
+    title: "Nuestros servicios",
+    description: "Especialistas en asesoramiento legal integral para empresas y particulares. Ofrecemos soluciones personalizadas en las áreas de derecho fiscal, laboral, mercantil y sucesiones, adaptadas a las necesidades específicas de cada cliente.",
+    services: {
+      fiscal: {
+        number: "01",
+        title: "Fiscal y Contable",
+        description: "Asesoramiento fiscal integral, contabilidad empresarial y optimización tributaria para empresas y particulares."
+      },
+      laboral: {
+        number: "02",
+        title: "Laboral",
+        description: "Derecho laboral, contratos, despidos, negociación colectiva y asesoramiento en recursos humanos."
+      },
+      mercantil: {
+        number: "03",
+        title: "Mercantil y Societario",
+        description: "Constitución de empresas, fusiones, adquisiciones, contratos mercantiles y derecho corporativo."
+      },
+      sucesiones: {
+        number: "04",
+        title: "Sucesiones",
+        description: "Planificación sucesoria, testamentos, herencias, liquidación de impuestos y gestión patrimonial."
+      }
+    },
+    buttonText: "VERMÁS"
+  },
+  en: {
+    title: "Our services",
+    description: "Specialists in comprehensive legal advice for companies and individuals. We offer personalized solutions in the areas of tax, labor, commercial and inheritance law, adapted to the specific needs of each client.",
+    services: {
+      fiscal: {
+        number: "01",
+        title: "Tax and Accounting",
+        description: "Comprehensive tax advice, business accounting and tax optimization for companies and individuals."
+      },
+      laboral: {
+        number: "02",
+        title: "Labor Law",
+        description: "Labor law, contracts, dismissals, collective bargaining and human resources consulting."
+      },
+      mercantil: {
+        number: "03",
+        title: "Commercial and Corporate",
+        description: "Company formation, mergers, acquisitions, commercial contracts and corporate law."
+      },
+      sucesiones: {
+        number: "04",
+        title: "Inheritance",
+        description: "Succession planning, wills, inheritances, tax settlement and wealth management."
+      }
+    },
+    buttonText: "SEE MORE"
+  },
+  ca: {
+    title: "Els nostres serveis",
+    description: "Especialistes en assessorament legal integral per a empreses i particulars. Oferim solucions personalitzades en les àrees de dret fiscal, laboral, mercantil i successions, adaptades a les necessitats específiques de cada client.",
+    services: {
+      fiscal: {
+        number: "01",
+        title: "Fiscal i Comptable",
+        description: "Assessorament fiscal integral, comptabilitat empresarial i optimització tributària per a empreses i particulars."
+      },
+      laboral: {
+        number: "02",
+        title: "Laboral",
+        description: "Dret laboral, contractes, acomiadaments, negociació col·lectiva i assessorament en recursos humans."
+      },
+      mercantil: {
+        number: "03",
+        title: "Mercantil i Societari",
+        description: "Constitució d'empreses, fusions, adquisicions, contractes mercantils i dret corporatiu."
+      },
+      sucesiones: {
+        number: "04",
+        title: "Successions",
+        description: "Planificació successòria, testaments, herències, liquidació d'impostos i gestió patrimonial."
+      }
+    },
+    buttonText: "VEURE MÉS"
+  }
+};
+
+// Función helper para obtener traducciones de services con fallback
+function getServicesTranslation(key: string) {
+  const translation = t(`services.${key}`);
+  if (translation === `services.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value: any = servicesFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+const title = getServicesTranslation('title');
+const description = getServicesTranslation('description');
+const buttonText = getServicesTranslation('buttonText');
+
+// Construir array de servicios desde las traducciones
+const services = [
+  {
+    name: getServicesTranslation('services.fiscal.title'),
+    description: getServicesTranslation('services.fiscal.description'),
+    number: getServicesTranslation('services.fiscal.number')
+  },
+  {
+    name: getServicesTranslation('services.laboral.title'),
+    description: getServicesTranslation('services.laboral.description'),
+    number: getServicesTranslation('services.laboral.number')
+  },
+  {
+    name: getServicesTranslation('services.mercantil.title'),
+    description: getServicesTranslation('services.mercantil.description'),
+    number: getServicesTranslation('services.mercantil.number')
+  },
+  {
+    name: getServicesTranslation('services.sucesiones.title'),
+    description: getServicesTranslation('services.sucesiones.description'),
+    number: getServicesTranslation('services.sucesiones.number')
+  }
+];
+---
+
+<section class="services-text">
+  <div class="services-text-container">
+    <div class="services-text-layout">
+      <div class="services-text-left">
+        <h2 class="services-text-title">{title}</h2>
+        <p class="services-text-description-main">
+          Especialistas en asesoramiento legal integral para empresas y particulares. 
+          Ofrecemos soluciones personalizadas en las áreas de derecho fiscal, laboral, 
+          mercantil y sucesiones, adaptadas a las necesidades específicas de cada cliente.
+        </p>
+      </div>
+      
+      <div class="services-text-right">
+        {services.map((service, index) => (
+          <div class="services-text-item" style={`--delay: ${index * 0.1}s;`}>
+            <div class="services-text-item-header">
+              <span class="services-text-number">{service.number}</span>
+              <h3 class="services-text-service">{service.name}</h3>
+            </div>
+            <p class="services-text-description">{service.description}</p>
+            <div class="services-text-item-cta">
+              <a href={`/${lang}/servicios`} class="services-text-link">
+                VERMÁS
+              </a>
+            </div>
+            {index < services.length - 1 && <hr class="services-text-separator" />}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-text {
+    padding: var(--space-8) 0;
+    background-color: #ffffff;
+    position: relative;
+  }
+
+  .services-text-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+
+  .services-text-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .services-text-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: sticky;
+    top: 140px;
+    height: fit-content;
+  }
+
+  .services-text-title {
+    font-size: 48px;
+    font-weight: 400;
+    color: var(--color-text);
+    margin: 0;
+    text-align: left;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+
+  .services-text-description-main {
+    font-size: 18px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .services-text-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .services-text-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: var(--delay, 0s);
+    padding: var(--space-6) 0;
+  }
+
+  .services-text-item-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .services-text-number {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 8px;
+    border-radius: 0px;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .services-text-service {
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--color-text);
+    margin: 0;
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+  }
+
+  .services-text-description {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .services-text-separator {
+    border: none;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: var(--space-6) 0 0 0;
+  }
+
+  .services-text-item-cta {
+    margin-top: var(--space-4);
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .services-text-link {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+  }
+
+  .services-text-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--color-text);
+    transition: width 0.3s ease;
+  }
+
+  .services-text-link:hover::after {
+    width: 100%;
+  }
+
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .services-text-title {
+      font-size: 40px;
+    }
+    
+    .services-text-layout {
+      gap: var(--space-6);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-text {
+      padding: var(--space-6) 0;
+    }
+    
+    .services-text-title {
+      font-size: 36px;
+    }
+    
+    .services-text-layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    
+    .services-text-left {
+      gap: var(--space-4);
+    }
+    
+    .services-text-service {
+      font-size: 20px;
+    }
+    
+    .services-text-description {
+      font-size: 15px;
+    }
+    
+    .services-text-description-main {
+      font-size: 16px;
+    }
+    
+    .services-text-left {
+      position: static;
+    }
+    
+    .services-text-item-cta {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .services-text-title {
+      font-size: 32px;
+    }
+    
+    .services-text-service {
+      font-size: 18px;
+    }
+    
+    .services-text-description {
+      font-size: 14px;
+    }
+    
+    .services-text-description-main {
+      font-size: 15px;
+    }
+  }
+</style>

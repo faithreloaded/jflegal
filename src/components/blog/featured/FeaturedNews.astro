@@ -1,0 +1,147 @@
+---
+import { getCollection } from 'astro:content';
+import { type Locale, loadT } from '../../../i18n';
+import ButtonLink from '../../buttons/link/ButtonLink.astro';
+
+interface Props {
+  lang: Locale;
+  title?: string;
+}
+
+const { lang, title } = Astro.props as Props;
+const t = await loadT(lang, ['featured']);
+
+// Fallback translations para featured si el sistema no funciona
+const featuredFallback = {
+  es: {
+    title: "Noticias destacadas",
+    buttonText: "VERMÁS",
+    tags: {
+      blog: "Blog",
+      article: "Artículo"
+    },
+    cta: "Leer más",
+    noPosts: "No hay posts disponibles"
+  },
+  en: {
+    title: "Featured news",
+    buttonText: "SEE MORE",
+    tags: {
+      blog: "Blog",
+      article: "Article"
+    },
+    cta: "Read more",
+    noPosts: "No posts available"
+  },
+  ca: {
+    title: "Notícies destacades",
+    buttonText: "VEURE MÉS",
+    tags: {
+      blog: "Blog",
+      article: "Article"
+    },
+    cta: "Llegir més",
+    noPosts: "No hi ha articles disponibles"
+  }
+};
+
+// Función helper para obtener traducciones de featured con fallback
+function getFeaturedTranslation(key: string) {
+  const translation = t(`featured.${key}`);
+  if (translation === `featured.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value: any = featuredFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+const heading = title ?? getFeaturedTranslation('title');
+const buttonText = getFeaturedTranslation('buttonText');
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((p) => p.id.startsWith(`${lang}/`))
+  .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date));
+
+const list = posts.length >= 3
+  ? posts.slice(0, 3)
+  : (posts.length > 0 ? Array.from({ length: 3 }, () => posts[0]) : []);
+---
+
+{list.length > 0 ? (
+  <section class="featured-section">
+    <div class="featured">
+      <header class="featured-header">
+        <h2 class="featured-title">{heading}</h2>
+        <ButtonLink href={`/${lang}/blog`}>{buttonText}</ButtonLink>
+      </header>
+      <div class="featured-grid">
+        {list.map((post, idx) => (
+          <a class="blog-card" href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}`}>
+            <img class="blog-card-bg" src={post.data.image || "/images/images/placeholder/placeholder.jpg"} alt={post.data.title} />
+            <div class="blog-card-overlay-bottom">
+              <div class="blog-card-row">
+                <h4 class="blog-card-heading">{post.data.title}</h4>
+                <div class="blog-date-pill">{new Date(post.data.date).toLocaleDateString(lang)}</div>
+              </div>
+              <p class="blog-card-description">{post.data.excerpt}</p>
+              <div class="blog-card-tags">
+                <span class="blog-tag">{getFeaturedTranslation('tags.blog')}</span>
+                <span class="blog-tag">{getFeaturedTranslation('tags.article')}</span>
+              </div>
+              <button class="blog-card-cta">{getFeaturedTranslation('cta')}</button>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+) : (
+  <section class="featured-section">
+    <div class="featured">
+      <h3 class="featured-title">{heading}</h3>
+      <div class="no-posts">{getFeaturedTranslation('noPosts')}</div>
+    </div>
+  </section>
+)}
+
+<style>
+  .featured { max-width: 1200px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+  
+  .featured-section {
+    background-color: var(--color-background-alt);
+    padding: var(--space-8) 0;
+  }
+  .featured-header { display: flex; justify-content: space-between; align-items: end; margin-bottom: var(--space-5); }
+  .featured-title { font-size: 40px; font-weight: 400; margin: 0; color: var(--color-black); }
+  .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
+  .blog-card { position: relative; border-radius: 0px; overflow: hidden; background: #0b0b0c; aspect-ratio: 4 / 5; width: 100%; text-decoration: none; color: inherit; transition: all 0.3s ease; display: block; }
+  .blog-card-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; transition: transform 0.3s ease; }
+  .blog-card:hover .blog-card-bg { transform: scale(1.05); }
+  .blog-card-overlay-bottom { position: absolute; bottom: -60px; left: 0; right: 0; background: rgba(10,10,11,0.30); border-top: 1px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 16px; display: flex; flex-direction: column; min-height: 34%; text-align: left; transition: bottom 0.4s ease; }
+  .blog-card:hover .blog-card-overlay-bottom { bottom: 0; }
+  .blog-card-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .blog-card-heading { margin: 0 0 12px 0; color: white; font-size: 20px; font-weight: 300; }
+  .blog-date-pill { color: white; background: rgba(0,0,0,0.35); padding: 6px 10px; border-radius: 0px; font-size: 12px; }
+  .blog-card-description { margin: 0 0 12px 0; color: rgba(240,240,240,0.85); font-size: 14px; line-height: 1.35; }
+  .blog-card-tags { display: flex; gap: 10px; margin-bottom: 12px; }
+  .blog-tag { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.14); border-radius: 0px; padding: 0 10px; font-size: 12px; display: inline-flex; align-items: center; height: 28px; }
+  .blog-card-cta { width: 100%; background: white; color: black; font-weight: 400; font-size: 14px; border: none; border-radius: 0px; padding: 12px 16px; cursor: pointer; margin-top: auto; transition: filter 0.2s ease; }
+  .blog-card-cta:hover { filter: brightness(0.95); }
+
+  @media (max-width: 1024px) { 
+    .featured-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .featured-header { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  }
+  @media (max-width: 768px) { 
+    .featured-grid { grid-template-columns: 1fr; gap: 16px; }
+    .featured-title { font-size: 32px; }
+  }
+</style>
+
+

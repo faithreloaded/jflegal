@@ -1,12 +1,41 @@
 {
-  "description": "A clean, professional component library designed for developers who value speed, quality, and modern design principles.",
-  "linksTitle": "Links",
-  "legalTitle": "Legal",
-  "privacy": "Privacy Policy",
-  "legal": "Legal Notice",
-  "contactTitle": "Contact",
-  "credit1": "© {year} Starter UI. All rights reserved.",
-  "credit2": "Web design by "
+  "description": "Law firm specialized in tax, labor, commercial and inheritance law. We offer comprehensive legal advice with over 15 years of experience.",
+  "navigation": {
+    "title": "Navigation",
+    "links": {
+      "home": "Home",
+      "despacho": "About Us",
+      "blog": "Blog",
+      "servicios": "Services",
+      "contacto": "Contact"
+    }
+  },
+  "services": {
+    "title": "Services",
+    "links": {
+      "fiscal": "Tax and Accounting",
+      "laboral": "Labor Law",
+      "mercantil": "Commercial and Corporate",
+      "sucesiones": "Inheritance"
+    }
+  },
+  "legal": {
+    "title": "Legal",
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms and Conditions",
+      "legal": "Legal Notice"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "email": "info@jflegal.com",
+    "phone": "+34 000 000 000",
+    "location": "Barcelona, Spain"
+  },
+  "credits": {
+    "copyright": "© {year} JF Legal. All rights reserved.",
+    "design": "Web design by ",
+    "designUrl": "https://bcnwebstudio.net"
+  }
 }
-
-

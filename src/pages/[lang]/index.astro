@@ -7,13 +7,19 @@ import FooterGrid from '../../components/footer/footer-grid/Footer.astro';
 import { LOCALES, type Locale, loadT } from '../../i18n';
 /* quitado HomeHero */
 import FAQListCenter from '../../components/faq/list-center/FAQ.astro';
+import FeaturedNews from '../../components/blog/featured/FeaturedNews.astro';
+import FeaturesSplitRight from '../../components/features/split-right/FeaturesSplitRight.astro';
+import FeaturesSplitLeft from '../../components/features/split-left/FeaturesSplitLeft.astro';
+import HeroOverlay from '../../components/hero/overlay/HeroOverlay.astro';
+import AboutSplit from '../../components/about/split-layout/AboutSplit.astro';
+import ServicesText from '../../components/services/text-layout/ServicesText.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
 }
 
 const { lang } = Astro.params as { lang: Locale };
-const t = await loadT(lang, ['header','footer','home']);
+const t = await loadT(lang, ['header','footer','home','featured']);
 ---
 
 <BaseLayout 
@@ -22,20 +28,39 @@ const t = await loadT(lang, ['header','footer','home']);
 >
   <HeaderMega lang={lang} />
   
-  <main class="main">
-    <FAQListCenter
-      pill={t('homeFaq.pill')}
-      title={t('homeFaq.title')}
-      items={[
-        { question: t('homeFaq.q1.question'), answer: t('homeFaq.q1.answer') },
-        { question: t('homeFaq.q2.question'), answer: t('homeFaq.q2.answer') },
-        { question: t('homeFaq.q3.question'), answer: t('homeFaq.q3.answer') },
-        { question: t('homeFaq.q4.question'), answer: t('homeFaq.q4.answer') }
-      ]}
-    />
-  </main>
+      <main class="main">
+        <!-- Hero Section -->
+        <HeroOverlay lang={lang} />
+        
+        <!-- About Section -->
+        <AboutSplit lang={lang} />
+        
+        <!-- Features Section 1 -->
+        <FeaturesSplitLeft lang={lang} />
+        
+        <!-- Features Section 2 -->
+        <FeaturesSplitRight lang={lang} />
+        
+        <!-- Services Text Section -->
+        <ServicesText lang={lang} />
+        
+        <!-- Featured News -->
+        <FeaturedNews lang={lang} />
+
+        <!-- FAQ Section -->
+        <FAQListCenter
+          pill={t('homeFaq.pill')}
+          title={t('homeFaq.title')}
+          items={[
+            { question: t('homeFaq.q1.question'), answer: t('homeFaq.q1.answer') },
+            { question: t('homeFaq.q2.question'), answer: t('homeFaq.q2.answer') },
+            { question: t('homeFaq.q3.question'), answer: t('homeFaq.q3.answer') },
+            { question: t('homeFaq.q4.question'), answer: t('homeFaq.q4.answer') }
+          ]}
+        />
+      </main>
   
   
-  <FooterGrid />
+  <FooterGrid lang={lang} />
 </BaseLayout>
 

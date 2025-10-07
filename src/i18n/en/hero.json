@@ -1,0 +1,19 @@
+{
+  "title": "Legal advice for companies and families",
+  "description": "Specialists in inheritance and commercial law. We also assist you with tax/accounting and labor matters.",
+  "buttonText": "Contact",
+  "formTitle": "Legal consultation",
+  "formServicePlaceholder": "Select a service",
+  "formNamePlaceholder": "Name",
+  "formEmailPlaceholder": "Email",
+  "formPhonePlaceholder": "Phone",
+  "formMessagePlaceholder": "Briefly describe your consultation",
+  "formSubmitButton": "Send consultation",
+  "formSuccessMessage": "Thank you for sending your message! We will respond as soon as possible, within a maximum of 24 hours.",
+  "services": {
+    "fiscal": "Tax and Accounting",
+    "laboral": "Labor Law",
+    "mercantil": "Commercial and Corporate",
+    "sucesiones": "Inheritance"
+  }
+}

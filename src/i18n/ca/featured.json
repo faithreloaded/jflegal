@@ -1,0 +1,10 @@
+{
+  "title": "Notícies destacades",
+  "buttonText": "VEURE MÉS",
+  "tags": {
+    "blog": "Blog",
+    "article": "Article"
+  },
+  "cta": "Llegir més",
+  "noPosts": "No hi ha articles disponibles"
+}

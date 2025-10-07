@@ -1,0 +1,37 @@
+{
+  "title": "Contacto",
+  "description": "Ponte en contacto con nosotros para una consulta legal",
+  "content": {
+    "title": "¿Necesitas asesoramiento legal?",
+    "subtitle": "Estamos aquí para ayudarte",
+    "description": "En JF Legal ofrecemos asesoramiento especializado en derecho fiscal, laboral, mercantil y sucesiones. Nuestro equipo de abogados con más de 15 años de experiencia está preparado para resolver tus consultas legales de manera eficiente y profesional.",
+        "info": {
+          "title": "Información de contacto",
+          "email": "info@jflegalconsulting.com",
+          "phone": "931701480",
+          "location": "Calle Córsega 239, Principal 2, Barcelona",
+          "hours": "Lunes a Viernes: 9:00 - 18:00"
+        }
+  },
+  "form": {
+    "title": "Envíanos un mensaje",
+    "fields": {
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "service": "Servicio de interés",
+      "message": "Mensaje",
+      "messagePlaceholder": "Cuéntanos brevemente tu consulta legal..."
+    },
+    "services": {
+      "fiscal": "Fiscal y Contable",
+      "laboral": "Laboral",
+      "mercantil": "Mercantil y Societario",
+      "sucesiones": "Sucesiones",
+      "general": "Consulta general"
+    },
+    "submit": "Enviar mensaje",
+    "success": "¡Mensaje enviado correctamente! Te contactaremos pronto.",
+    "error": "Error al enviar el mensaje. Por favor, inténtalo de nuevo."
+  }
+}

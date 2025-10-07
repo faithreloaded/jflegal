@@ -94,3 +94,16 @@ export async function loadT(lang: Locale, bundles?: string[]) {
   return t as (path: string, vars?: Record<string, string | number>) => string | any;
 }
 
+// Función de conveniencia para compatibilidad
+export function getTranslations(lang: Locale) {
+  const manifest = buildManifest(lang);
+  const merged = deepMerge(...Object.values(manifest));
+  const t = (path: string, vars?: Record<string, string | number>) => {
+    let val = getByPath(merged, path);
+    if (val === undefined) return path;
+    if (typeof val === 'string') return interpolate(val, vars);
+    return val;
+  };
+  return t as (path: string, vars?: Record<string, string | number>) => string | any;
+}
+

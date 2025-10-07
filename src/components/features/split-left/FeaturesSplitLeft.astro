@@ -1,5 +1,53 @@
 ---
 import './FeaturesSplitLeft.css';
+import { type Locale, loadT } from '../../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = await loadT(lang, ['features']);
+
+// Fallback translations para features si el sistema no funciona
+const featuresFallback = {
+  es: {
+    sucesiones: {
+      title: "Sucesiones: planificación y tramitación integral",
+      description: "Te acompañamos en herencias, testamentos y pactos sucesorios. Optimizamos la carga fiscal y prevenimos conflictos familiares. Gestión completa: desde documentación y liquidación del Impuesto de Sucesiones hasta inscripción registral."
+    }
+  },
+  en: {
+    sucesiones: {
+      title: "Inheritance: comprehensive planning and processing",
+      description: "We accompany you in inheritances, wills and succession agreements. We optimize the tax burden and prevent family conflicts. Complete management: from documentation and Inheritance Tax settlement to registry registration."
+    }
+  },
+  ca: {
+    sucesiones: {
+      title: "Successions: planificació i tramitació integral",
+      description: "T'acompanyem en herències, testaments i pactes successoris. Optimitzem la càrrega fiscal i prevenim conflictes familiars. Gestió completa: des de documentació i liquidació de l'Impost de Successions fins a inscripció registral."
+    }
+  }
+};
+
+// Función helper para obtener traducciones de features con fallback
+function getFeaturesTranslation(key: string) {
+  const translation = t(`features.${key}`);
+  if (translation === `features.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value = featuresFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+const title = getFeaturesTranslation('sucesiones.title');
+const description = getFeaturesTranslation('sucesiones.description');
 ---
 
 <section class="features-split-reverse-section">
@@ -12,9 +60,9 @@ import './FeaturesSplitLeft.css';
 
       <!-- Right Column - Content -->
       <div class="features-split-reverse-content features-split-reverse-animate">
-        <h2 class="features-split-reverse-title features-split-reverse-animate">Modern solutions for your business</h2>
+        <h2 class="features-split-reverse-title features-split-reverse-animate">{title}</h2>
         <p class="features-split-reverse-description features-split-reverse-animate">
-          Discover innovative approaches that transform your workflow and drive exceptional results for your organization. Our comprehensive solutions are designed to streamline processes, enhance productivity, and deliver measurable value across all business functions.
+          {description}
         </p>
       </div>
     </div>

@@ -1,7 +1,7 @@
 /* Features Split Component */
 .features-split-section {
   padding: 120px 0;
-  background: var(--color-background);
+  background: #ffffff;
 }
 
 /* Animation base styles */
@@ -39,7 +39,7 @@
 
 .features-split-title {
   font-size: 48px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-black);
   margin: 0;
   font-family: var(--font-sans);
@@ -93,7 +93,7 @@
 
 .features-split-subtitle {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-black);
   margin: 0;
   font-family: var(--font-sans);
@@ -112,7 +112,7 @@
   position: relative;
   height: 100%;
   min-height: 600px;
-  border-radius: var(--radius-lg);
+  border-radius: 0px;
   overflow: hidden;
 }
 

@@ -1,0 +1,21 @@
+{
+  "sucesiones": {
+    "title": "Sucesiones: planificación y tramitación integral",
+    "description": "Te acompañamos en herencias, testamentos y pactos sucesorios. Optimizamos la carga fiscal y prevenimos conflictos familiares. Gestión completa: desde documentación y liquidación del Impuesto de Sucesiones hasta inscripción registral."
+  },
+  "mercantil": {
+    "title": "Mercantil y societario: seguridad en tus decisiones",
+    "subtitle": "Constitución de sociedades, pactos entre socios y contratación mercantil con rigor jurídico.",
+    "sections": {
+      "constitucion": {
+        "title": "Constitución y reorganización de sociedades",
+        "description": "Asesoramiento integral para elegir forma jurídica, constitución, reformas estatutarias, fusiones y adquisiciones, y estructuras holding."
+      },
+      "contratacion": {
+        "title": "Contratación mercantil",
+        "description": "Redacción y revisión de contratos de distribución, suministro, franquicia y arrendamientos con protección real de intereses."
+      }
+    },
+    "additional": "También te ayudamos en disoluciones, concursos y reestructuraciones societarias."
+  }
+}

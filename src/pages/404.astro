@@ -3,18 +3,197 @@ import '../styles/main.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderMega from '../components/header/header-mega/Header.astro';
 import FooterGrid from '../components/footer/footer-grid/Footer.astro';
-import Error404 from '../components/errors/Error404.astro';
-import Error404Modern from '../components/errors/Error404Modern.astro';
+import ButtonLink from '../components/buttons/link/ButtonLink.astro';
 ---
 
-<BaseLayout title="404 | Page not found" description="The page you're looking for doesn't exist">
-  <HeaderMega />
+<BaseLayout title="404 | Página no encontrada" description="La página que buscas no existe" lang="es">
+  <HeaderMega lang="es" />
   <main class="main">
     <div class="container">
-      <Error404Modern />
+      <section class="error404modern-section">
+        <div class="container">
+          <div class="e4m-wrap">
+            <div class="e4m-grid">
+              <div class="e4m-left">
+                <span class="section-pill fade-item">Página de Error</span>
+                <h2 class="e4m-code fade-item">404</h2>
+                <h3 class="e4m-title fade-item">Esta página no se pudo encontrar</h3>
+                <p class="e4m-desc fade-item">La URL puede estar mal escrita o la página ya no existe.</p>
+                <div class="e4m-actions fade-item">
+                  <ButtonLink href="/">Volver al Inicio</ButtonLink>
+                  <ButtonLink href="/servicios">Explorar Servicios</ButtonLink>
+                </div>
+              </div>
+              <div class="e4m-hero fade-item"></div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
-  <FooterGrid />
+  <FooterGrid lang="es" />
 </BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const items = document.querySelectorAll('.fade-item');
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach((entry, idx)=>{
+        if(entry.isIntersecting){
+          entry.target.style.transitionDelay = `${idx*120}ms`;
+          entry.target.classList.add('animate');
+        }
+      })
+    }, { threshold: .2, rootMargin: '0px 0px -80px 0px' });
+    items.forEach(el=>obs.observe(el));
+  })
+</script>
+
+<style>
+  .error404modern-section{ 
+    padding:120px 0; 
+    background: var(--color-background); 
+  }
+  
+  .container{ 
+    max-width:1200px; 
+    margin:0 auto; 
+    padding:0 24px; 
+  }
+  
+  .e4m-wrap{ 
+    border:1px solid rgba(0,0,0,0.06); 
+    border-radius: 0px; 
+    overflow:hidden; 
+    background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.04)); 
+    position:relative; 
+  }
+  
+  .e4m-grid{ 
+    display:grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-areas: 'illustration content'; 
+    align-items:stretch; 
+    gap:48px; 
+    padding:56px; 
+  }
+  
+  .e4m-left{ 
+    display:flex; 
+    flex-direction:column; 
+    gap:12px; 
+    grid-area: content; 
+    height: 100%; 
+  }
+  
+  .section-pill{ 
+    display:inline-block; 
+    padding:6px 14px; 
+    background: rgba(0,0,0,0.05); 
+    color: rgba(0,0,0,0.7); 
+    border-radius: 0px; 
+    font-weight:500; 
+    font-size:14px; 
+    width: fit-content; 
+    justify-content: flex-start; 
+  }
+  
+  .e4m-code{ 
+    font-size: clamp(56px, 8vw, 96px); 
+    font-weight:500; 
+    letter-spacing:-0.04em; 
+    margin:0; 
+    color: var(--color-black); 
+  }
+  
+  .e4m-title{ 
+    font-size:32px; 
+    font-weight:500; 
+    margin:0; 
+    color: var(--color-black); 
+  }
+  
+  .e4m-desc{ 
+    font-size:16px; 
+    color: rgba(0,0,0,0.65); 
+    margin:0 0 16px 0; 
+  }
+  
+  .e4m-actions{ 
+    display:flex; 
+    gap:12px; 
+    flex-wrap:wrap; 
+  }
+  
+  .e4m-hero{ 
+    grid-area: illustration; 
+    border-radius: 0px; 
+    border:1px solid rgba(0,0,0,0.08); 
+    background: url('/images/images/placeholder/placeholder.jpg') center/cover no-repeat; 
+    height: 100%; 
+    min-height: 360px; 
+    position:relative; 
+    overflow:hidden; 
+  }
+  
+  .e4m-hero::after{ 
+    content:""; 
+    position:absolute; 
+    inset:0; 
+    background: linear-gradient(180deg, rgba(255,255,255,0) 40%, rgba(0,0,0,0.08)); 
+  }
+
+  .fade-item{ 
+    opacity:0; 
+    transform: translateY(16px); 
+    transition: all .6s ease; 
+  }
+  
+  .fade-item.animate{ 
+    opacity:1; 
+    transform: translateY(0); 
+  }
+
+  @media(max-width: 1024px){ 
+    .e4m-grid{ 
+      grid-template-columns: 1fr; 
+      grid-template-areas: 'illustration' 'content'; 
+      padding:32px; 
+      gap:28px; 
+    } 
+    .e4m-left{ 
+      height:auto; 
+    } 
+    .e4m-hero{ 
+      height: 260px; 
+      min-height: 260px; 
+    } 
+  }
+  
+  @media(max-width: 768px){ 
+    .error404modern-section{ 
+      padding:80px 0; 
+    } 
+    .e4m-title{ 
+      font-size:28px;
+    } 
+  }
+
+  /* Mantener botones lado a lado en móvil con tamaño adaptativo */
+  @media (max-width: 600px) {
+    .e4m-actions { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 8px; 
+    }
+  }
+
+  /* En pantallas muy pequeñas, apilar los botones */
+  @media (max-width: 360px) {
+    .e4m-actions { 
+      grid-template-columns: 1fr; 
+    }
+  }
+</style>
 
 

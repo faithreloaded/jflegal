@@ -1,0 +1,496 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderMega from '../../components/header/header-mega/Header.astro';
+import FooterGrid from '../../components/footer/footer-grid/Footer.astro';
+import PageHero from '../../components/hero/page-hero/PageHero.astro';
+import ButtonPrimary from '../../components/buttons/primary/ButtonPrimary.astro';
+import { LOCALES, type Locale, loadT } from '../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['contact']);
+
+// Fallback translations para contacto si el sistema no funciona
+const contactFallback = {
+  es: {
+    title: "Contacto",
+    description: "Ponte en contacto con nosotros para una consulta legal",
+    content: {
+      title: "¿Necesitas asesoramiento legal?",
+      subtitle: "Estamos aquí para ayudarte",
+      description: "En JF Legal ofrecemos asesoramiento especializado en derecho fiscal, laboral, mercantil y sucesiones. Nuestro equipo de abogados con más de 15 años de experiencia está preparado para resolver tus consultas legales de manera eficiente y profesional.",
+      info: {
+        title: "Información de contacto",
+        email: "info@jflegalconsulting.com",
+        phone: "931701480",
+        location: "Calle Córsega 239, Principal 2, Barcelona",
+        hours: "Lunes a Viernes: 9:00 - 18:00"
+      }
+    },
+    form: {
+      title: "Envíanos un mensaje",
+      fields: {
+        name: "Nombre completo",
+        email: "Correo electrónico",
+        phone: "Teléfono",
+        service: "Servicio de interés",
+        message: "Mensaje",
+        messagePlaceholder: "Cuéntanos brevemente tu consulta legal..."
+      },
+      services: {
+        fiscal: "Fiscal y Contable",
+        laboral: "Laboral",
+        mercantil: "Mercantil y Societario",
+        sucesiones: "Sucesiones",
+        general: "Consulta general"
+      },
+      submit: "Enviar mensaje",
+      success: "¡Mensaje enviado correctamente! Te contactaremos pronto.",
+      error: "Error al enviar el mensaje. Por favor, inténtalo de nuevo."
+    }
+  },
+  en: {
+    title: "Contact",
+    description: "Get in touch with us for a legal consultation",
+    content: {
+      title: "Need legal advice?",
+      subtitle: "We're here to help you",
+      description: "At JF Legal we offer specialized advice in tax, labor, commercial and inheritance law. Our team of lawyers with over 15 years of experience is ready to resolve your legal queries efficiently and professionally.",
+      info: {
+        title: "Contact information",
+        email: "info@jflegalconsulting.com",
+        phone: "931701480",
+        location: "Calle Córsega 239, Principal 2, Barcelona",
+        hours: "Monday to Friday: 9:00 - 18:00"
+      }
+    },
+    form: {
+      title: "Send us a message",
+      fields: {
+        name: "Full name",
+        email: "Email address",
+        phone: "Phone number",
+        service: "Service of interest",
+        message: "Message",
+        messagePlaceholder: "Tell us briefly about your legal query..."
+      },
+      services: {
+        fiscal: "Tax and Accounting",
+        laboral: "Labor Law",
+        mercantil: "Commercial and Corporate",
+        sucesiones: "Inheritance",
+        general: "General consultation"
+      },
+      submit: "Send message",
+      success: "Message sent successfully! We'll contact you soon.",
+      error: "Error sending message. Please try again."
+    }
+  },
+  ca: {
+    title: "Contacte",
+    description: "Posa't en contacte amb nosaltres per a una consulta legal",
+    content: {
+      title: "Necessites assessorament legal?",
+      subtitle: "Estem aquí per ajudar-te",
+      description: "A JF Legal oferim assessorament especialitzat en dret fiscal, laboral, mercantil i successions. El nostre equip d'advocats amb més de 15 anys d'experiència està preparat per resoldre les teves consultes legals de manera eficient i professional.",
+      info: {
+        title: "Informació de contacte",
+        email: "info@jflegalconsulting.com",
+        phone: "931701480",
+        location: "Carrer Córsega 239, Principal 2, Barcelona",
+        hours: "Dilluns a Divendres: 9:00 - 18:00"
+      }
+    },
+    form: {
+      title: "Envia'ns un missatge",
+      fields: {
+        name: "Nom complet",
+        email: "Correu electrònic",
+        phone: "Telèfon",
+        service: "Servei d'interès",
+        message: "Missatge",
+        messagePlaceholder: "Explica'ns breument la teva consulta legal..."
+      },
+      services: {
+        fiscal: "Fiscal i Comptable",
+        laboral: "Laboral",
+        mercantil: "Mercantil i Societari",
+        sucesiones: "Successions",
+        general: "Consulta general"
+      },
+      submit: "Enviar missatge",
+      success: "Missatge enviat correctament! Et contactarem aviat.",
+      error: "Error en enviar el missatge. Si us plau, torna-ho a intentar."
+    }
+  }
+};
+
+// Función helper para obtener traducciones de contacto con fallback
+function getContactTranslation(key: string) {
+  const translation = t(`contact.${key}`);
+  if (translation === `contact.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value: any = contactFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+---
+
+<BaseLayout title={`${getContactTranslation('title')} | JF Legal`} description={getContactTranslation('description')} lang={lang}>
+  <HeaderMega lang={lang} />
+  
+  <!-- Hero de la página de contacto -->
+  <PageHero 
+    title=""
+    subtitle=""
+    description=""
+    ctaTitle={getContactTranslation('title')}
+    ctaDescription={getContactTranslation('content.subtitle')}
+    ctaButtonText=""
+    ctaButtonHref=""
+    showForm={false}
+    lang={lang}
+  />
+  
+  <main class="main">
+    <div class="container">
+      <section id="contact-form" class="contact-section">
+        <div class="contact-grid">
+          <!-- Columna izquierda: Información -->
+          <div class="contact-info">
+            <h2 class="contact-main-title">{getContactTranslation('content.title')}</h2>
+            
+            <div class="contact-description">
+              <p>{getContactTranslation('content.description')}</p>
+            </div>
+            
+            <div class="contact-details-simple">
+              <p><strong>Email:</strong> {getContactTranslation('content.info.email')}</p>
+              <p><strong>Teléfono:</strong> {getContactTranslation('content.info.phone')}</p>
+              <p><strong>Ubicación:</strong> {getContactTranslation('content.info.location')}</p>
+              <p><strong>Horario:</strong> {getContactTranslation('content.info.hours')}</p>
+            </div>
+          </div>
+          
+          <!-- Columna derecha: Formulario elegante -->
+          <div class="contact-form-container">
+            <div class="contact-form">
+              <h2 class="form-title">{getContactTranslation('form.title')}</h2>
+              
+              <form id="contactForm" class="form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <input type="text" name="name" class="form-input" placeholder={getContactTranslation('form.fields.name')} required>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" name="email" class="form-input" placeholder={getContactTranslation('form.fields.email')} required>
+                  </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <input type="tel" name="phone" class="form-input" placeholder={getContactTranslation('form.fields.phone')}>
+                  </div>
+                  <div class="form-group">
+                    <select name="service" class="form-select" required>
+                      <option value="">{getContactTranslation('form.fields.service')}</option>
+                      <option value="fiscal">{getContactTranslation('form.services.fiscal')}</option>
+                      <option value="laboral">{getContactTranslation('form.services.laboral')}</option>
+                      <option value="mercantil">{getContactTranslation('form.services.mercantil')}</option>
+                      <option value="sucesiones">{getContactTranslation('form.services.sucesiones')}</option>
+                      <option value="general">{getContactTranslation('form.services.general')}</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <textarea name="message" class="form-textarea" rows="4" placeholder={getContactTranslation('form.fields.messagePlaceholder')} required></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit">
+                  {getContactTranslation('form.submit')}
+                </button>
+              </form>
+              
+              <div id="formMessage" class="form-message" style="display: none;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <FooterGrid lang={lang} />
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Formulario principal
+    const form = document.getElementById('contactForm') as HTMLFormElement;
+    const messageDiv = document.getElementById('formMessage') as HTMLDivElement;
+    
+    console.log('Formulario:', form);
+    console.log('MessageDiv:', messageDiv);
+    
+    if (form) {
+      console.log('Formulario encontrado:', form);
+      form.addEventListener('submit', async (e) => {
+        console.log('Formulario enviado!');
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        console.log('Datos del formulario:', data);
+        
+        // Simular envío (aquí conectarías con tu backend)
+        try {
+          // Simular delay de red
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          // Mostrar mensaje de éxito elegante
+          messageDiv.innerHTML = `
+            <div style="text-align: center; padding: var(--space-4);">
+              <div style="font-size: 16px; color: #16a34a; margin-bottom: var(--space-2);">
+                ✓ Mensaje enviado correctamente
+              </div>
+              <div style="font-size: 14px; color: var(--color-text-secondary);">
+                Gracias por contactarnos. Te responderemos pronto.
+              </div>
+            </div>
+          `;
+          messageDiv.className = 'form-message success';
+          messageDiv.style.display = 'block';
+          
+          // Limpiar formulario
+          form.reset();
+          
+          // Scroll suave al mensaje
+          messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+          // Ocultar mensaje después de 8 segundos
+          setTimeout(() => {
+            messageDiv.style.display = 'none';
+          }, 8000);
+          
+        } catch (error) {
+          // Mostrar mensaje de error
+          messageDiv.innerHTML = `
+            <div style="text-align: center; padding: var(--space-4);">
+              <div style="font-size: 16px; color: #dc2626; margin-bottom: var(--space-2);">
+                ✗ Error al enviar el mensaje
+              </div>
+              <div style="font-size: 14px; color: var(--color-text-secondary);">
+                Por favor, inténtalo de nuevo o contacta por teléfono.
+              </div>
+            </div>
+          `;
+          messageDiv.className = 'form-message error';
+          messageDiv.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  .contact-section {
+    padding: var(--space-8) 0;
+    min-height: 60vh;
+  }
+  
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+  
+  .contact-info {
+    padding-right: var(--space-6);
+  }
+  
+  .contact-main-title {
+    font-size: 32px;
+    font-weight: 400;
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-black);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.1s forwards;
+  }
+  
+  .contact-description {
+    margin-bottom: var(--space-4);
+  }
+  
+  .contact-description p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.2s forwards;
+  }
+  
+  .contact-details-simple {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.3s forwards;
+  }
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .contact-details-simple p {
+    font-size: 14px;
+    color: var(--color-text);
+    margin: 0;
+  }
+  
+  .contact-details-simple strong {
+    color: var(--color-black);
+  }
+  
+  .contact-form-container {
+    background: transparent;
+    padding: 0;
+    border: none;
+    height: fit-content;
+  }
+  
+  .form-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0 0 var(--space-6) 0;
+    color: var(--color-black);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.4s forwards;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out 0.5s forwards;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 0 0 var(--space-2) 0;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0px;
+    font-size: 14px;
+    font-family: inherit;
+    background: transparent;
+    color: var(--color-text);
+    transition: border-color 0.2s ease;
+  }
+  
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-bottom-color: var(--color-primary);
+  }
+  
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .form-submit {
+    margin-top: var(--space-4);
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: var(--space-3);
+    border-radius: 0px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .form-submit:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+  
+  .form-message {
+    margin-top: var(--space-4);
+    padding: var(--space-3);
+    border-radius: 0px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .form-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  
+  .form-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    
+    .contact-info {
+      padding-right: 0;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .contact-section {
+      padding: var(--space-6) 0;
+    }
+  }
+</style>

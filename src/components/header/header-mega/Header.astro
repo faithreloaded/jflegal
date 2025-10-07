@@ -7,7 +7,159 @@ import { getCollection } from 'astro:content';
 interface Props { lang?: Locale }
 const { lang: langProp } = Astro.props as Props;
 const lang: Locale = langProp ?? getLangFromUrl(Astro.url);
-const t = await loadT(lang, ['header']);
+const t = await loadT(lang, ['header', 'megamenu']);
+
+// Fallback translations para header si el sistema no funciona
+const headerFallback = {
+  es: {
+    nav: {
+      home: "Inicio",
+      despacho: "Despacho",
+      servicios: "Servicios",
+      blog: "Blog",
+      contacto: "Contacto"
+    },
+    actions: {
+      talk: "¿Hablamos?"
+    }
+  },
+  en: {
+    nav: {
+      home: "Home",
+      despacho: "Firm",
+      servicios: "Services",
+      blog: "Blog",
+      contacto: "Contact"
+    },
+    actions: {
+      talk: "Let's talk"
+    }
+  },
+  ca: {
+    nav: {
+      home: "Inici",
+      despacho: "Despatx",
+      servicios: "Serveis",
+      blog: "Blog",
+      contacto: "Contacte"
+    },
+    actions: {
+      talk: "Parlem?"
+    }
+  }
+};
+
+// Función helper para obtener traducciones de header con fallback
+function getHeaderTranslation(key: string) {
+  const translation = t(`header.${key}`);
+  if (translation === `header.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value: any = headerFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+// Fallback translations para megamenu si el sistema no funciona
+const megamenuFallback = {
+  es: {
+    title: "Servicios",
+    services: {
+      fiscal: {
+        title: "Fiscal y Contable",
+        description: "Asesoramiento fiscal integral, contabilidad empresarial y optimización tributaria para empresas y particulares."
+      },
+      laboral: {
+        title: "Laboral",
+        description: "Derecho laboral, contratos, despidos, negociación colectiva y asesoramiento en recursos humanos."
+      },
+      mercantil: {
+        title: "Mercantil y Societario",
+        description: "Constitución de empresas, fusiones, adquisiciones, contratos mercantiles y derecho corporativo."
+      },
+      sucesiones: {
+        title: "Sucesiones",
+        description: "Planificación sucesoria, testamentos, herencias, liquidación de impuestos y gestión patrimonial."
+      }
+    },
+    legal: {
+      privacy: "Política de Privacidad",
+      terms: "Términos y Condiciones",
+      legal: "Aviso Legal"
+    }
+  },
+  en: {
+    title: "Services",
+    services: {
+      fiscal: {
+        title: "Tax and Accounting",
+        description: "Comprehensive tax advice, business accounting and tax optimization for companies and individuals."
+      },
+      laboral: {
+        title: "Labor Law",
+        description: "Labor law, contracts, dismissals, collective bargaining and human resources consulting."
+      },
+      mercantil: {
+        title: "Commercial and Corporate",
+        description: "Company formation, mergers, acquisitions, commercial contracts and corporate law."
+      },
+      sucesiones: {
+        title: "Inheritance",
+        description: "Succession planning, wills, inheritances, tax settlement and wealth management."
+      }
+    },
+    legal: {
+      privacy: "Privacy Policy",
+      terms: "Terms and Conditions",
+      legal: "Legal Notice"
+    }
+  },
+  ca: {
+    title: "Serveis",
+    services: {
+      fiscal: {
+        title: "Fiscal i Comptable",
+        description: "Assessorament fiscal integral, comptabilitat empresarial i optimització tributària per a empreses i particulars."
+      },
+      laboral: {
+        title: "Laboral",
+        description: "Dret laboral, contractes, acomiadaments, negociació col·lectiva i assessorament en recursos humans."
+      },
+      mercantil: {
+        title: "Mercantil i Societari",
+        description: "Constitució d'empreses, fusions, adquisicions, contractes mercantils i dret corporatiu."
+      },
+      sucesiones: {
+        title: "Successions",
+        description: "Planificació successòria, testaments, herències, liquidació d'impostos i gestió patrimonial."
+      }
+    },
+    legal: {
+      privacy: "Política de Privacitat",
+      terms: "Termes i Condicions",
+      legal: "Avís Legal"
+    }
+  }
+};
+
+// Función helper para obtener traducciones del megamenu con fallback
+function getMegamenuTranslation(key: string) {
+  const translation = t(`megamenu.${key}`);
+  if (translation === `megamenu.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value = megamenuFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
 
 // Obtener posts para manejar traducciones del blog
 const allPosts = await getCollection('blog');
@@ -59,9 +211,6 @@ const prefix = `/${lang}`;
         <div class="nav-item-mega">
           <a href={`${prefix}/`} class="nav-link-mega">{t('nav.home')}</a>
         </div>
-        <div class="nav-item-mega">
-          <a href={`${prefix}/despacho`} class="nav-link-mega">{t('nav.despacho')}</a>
-        </div>
         <div class="nav-item-mega dropdown-mega">
           <a href={`${prefix}/servicios`} class="nav-link-mega">
             {t('nav.servicios')}
@@ -69,57 +218,65 @@ const prefix = `/${lang}`;
           </a>
           <div class="mega-menu">
             <div class="mega-menu-header">
-              <h3 class="mega-menu-title">{t('nav.servicios')}</h3>
+              <h3 class="mega-menu-title">{getMegamenuTranslation('title')}</h3>
             </div>
             <div class="mega-menu-content">
               <a href={`${prefix}/fiscal-contable`} class="mega-menu-item">
                 <div class="mega-menu-image">
-                  <img src="/images/megamenu/fiscal.webp" alt="Fiscal y Contable" />
+                  <img src="/images/megamenu/fiscal.webp" alt={getMegamenuTranslation('services.fiscal.title')} />
                 </div>
                 <div class="mega-menu-text">
-                  <h4>{t('nav.fiscalContable')}</h4>
-                  <p>Impuestos, contabilidad y cumplimiento fiscal.</p>
+                  <h4>{getMegamenuTranslation('services.fiscal.title')}</h4>
+                  <p>{getMegamenuTranslation('services.fiscal.description')}</p>
                 </div>
               </a>
               <a href={`${prefix}/laboral`} class="mega-menu-item">
                 <div class="mega-menu-image">
-                  <img src="/images/megamenu/laboral.webp" alt="Laboral" />
+                  <img src="/images/megamenu/laboral.webp" alt={getMegamenuTranslation('services.laboral.title')} />
                 </div>
                 <div class="mega-menu-text">
-                  <h4>{t('nav.laboral')}</h4>
-                  <p>Contratos laborales y recursos humanos.</p>
+                  <h4>{getMegamenuTranslation('services.laboral.title')}</h4>
+                  <p>{getMegamenuTranslation('services.laboral.description')}</p>
                 </div>
               </a>
               <a href={`${prefix}/mercantil-societario`} class="mega-menu-item">
                 <div class="mega-menu-image">
-                  <img src="/images/megamenu/mercantil.webp" alt="Mercantil y Societario" />
+                  <img src="/images/megamenu/mercantil.webp" alt={getMegamenuTranslation('services.mercantil.title')} />
                 </div>
                 <div class="mega-menu-text">
-                  <h4>{t('nav.mercantilSocietario')}</h4>
-                  <p>Constitución de sociedades y contratación.</p>
+                  <h4>{getMegamenuTranslation('services.mercantil.title')}</h4>
+                  <p>{getMegamenuTranslation('services.mercantil.description')}</p>
                 </div>
               </a>
               <a href={`${prefix}/sucesiones`} class="mega-menu-item">
                 <div class="mega-menu-image">
-                  <img src="/images/megamenu/sucesiones.webp" alt="Sucesiones" />
+                  <img src="/images/megamenu/sucesiones.webp" alt={getMegamenuTranslation('services.sucesiones.title')} />
                 </div>
                 <div class="mega-menu-text">
-                  <h4>{t('nav.sucesiones')}</h4>
-                  <p>Testamentos, herencias y planificación.</p>
+                  <h4>{getMegamenuTranslation('services.sucesiones.title')}</h4>
+                  <p>{getMegamenuTranslation('services.sucesiones.description')}</p>
                 </div>
               </a>
             </div>
             <div class="mega-menu-separator"></div>
             <div class="mega-menu-footer">
-              <a href={`${prefix}/politica-privacidad`}>Política de Privacidad</a>
-              <a href={`${prefix}/terminos-condiciones`}>Términos y Condiciones</a>
-              <a href={`${prefix}/aviso-legal`}>Aviso Legal</a>
+              <a href={`${prefix}/politica-privacidad`}>{getMegamenuTranslation('legal.privacy')}</a>
+              <a href={`${prefix}/terminos-condiciones`}>{getMegamenuTranslation('legal.terms')}</a>
+              <a href={`${prefix}/aviso-legal`}>{getMegamenuTranslation('legal.legal')}</a>
             </div>
           </div>
         </div>
         
         <div class="nav-item-mega">
+          <a href={`${prefix}/despacho`} class="nav-link-mega">{t('nav.despacho')}</a>
+        </div>
+        
+        <div class="nav-item-mega">
           <a href={`${prefix}/blog`} class="nav-link-mega">Blog</a>
+        </div>
+        
+        <div class="nav-item-mega">
+          <a href={`${prefix}/contacto`} class="nav-link-mega">{getHeaderTranslation('nav.contacto')}</a>
         </div>
       </nav>
       
@@ -146,7 +303,7 @@ const prefix = `/${lang}`;
         </div>
         <div class="buy-desktop">
           <ButtonPrimaryDark href={`${prefix}/contacto`}>
-            {t('actions.talk')}
+            {getHeaderTranslation('actions.talk')}
           </ButtonPrimaryDark>
         </div>
         
@@ -171,7 +328,6 @@ const prefix = `/${lang}`;
       </div>
       <div class="mobile-nav-links">
         <a href={`${prefix}/`} class="mobile-nav-link">{t('nav.home')}</a>
-        <a href={`${prefix}/despacho`} class="mobile-nav-link">{t('nav.despacho')}</a>
         <div class="mobile-nav-item" id="mobile-item-servicios">
           <div class="mobile-nav-link mobile-nav-toggle">
             <span>{t('nav.servicios')}</span>
@@ -184,11 +340,13 @@ const prefix = `/${lang}`;
             <a href={`${prefix}/sucesiones`} class="mobile-submenu-link">{t('nav.sucesiones')}</a>
           </div>
         </div>
+        <a href={`${prefix}/despacho`} class="mobile-nav-link">{t('nav.despacho')}</a>
         <a href={`${prefix}/blog`} class="mobile-nav-link">Blog</a>
+        <a href={`${prefix}/contacto`} class="mobile-nav-link">{getHeaderTranslation('nav.contacto')}</a>
       </div>
       <div class="mobile-nav-footer">
         <ButtonPrimaryDark href={`${prefix}/contacto`}>
-          {t('actions.talk')}
+          {getHeaderTranslation('actions.talk')}
         </ButtonPrimaryDark>
       </div>
     </nav>
@@ -296,4 +454,46 @@ const prefix = `/${lang}`;
       item.classList.toggle('open');
     });
   })();
+
+  // Header scroll effect - transparente en home y páginas con PageHero
+  const header = document.querySelector('.header-mega');
+  if (header) {
+    let lastScrollY = window.scrollY;
+    
+    // Verificar si estamos en la página home o en una página con PageHero
+    const isHomePage = window.location.pathname === '/' || 
+                      window.location.pathname.match(/^\/(es|en|ca)\/?$/);
+    
+    const hasPageHero = document.querySelector('.page-hero') !== null;
+    const shouldBeTransparent = isHomePage || hasPageHero;
+    
+    // Añadir clase para identificar si debe ser transparente o no
+    if (shouldBeTransparent) {
+      header.classList.add('home-page');
+    } else {
+      header.classList.remove('home-page');
+    }
+    
+    function updateHeader() {
+      const currentScrollY = window.scrollY;
+      
+      if (shouldBeTransparent) {
+        // En páginas con hero: transparente al principio, azul al hacer scroll
+        if (currentScrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+      // En otras páginas no necesitamos hacer nada, ya tienen el CSS correcto
+      
+      lastScrollY = currentScrollY;
+    }
+    
+    // Solo añadir el listener de scroll en páginas con hero
+    if (shouldBeTransparent) {
+      window.addEventListener('scroll', updateHeader, { passive: true });
+    }
+    updateHeader(); // Initial call
+  }
 </script>

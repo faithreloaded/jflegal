@@ -1,0 +1,10 @@
+{
+  "title": "Featured news",
+  "buttonText": "SEE MORE",
+  "tags": {
+    "blog": "Blog",
+    "article": "Article"
+  },
+  "cta": "Read more",
+  "noPosts": "No posts available"
+}

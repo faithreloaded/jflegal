@@ -1,33 +1,37 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getLangFromUrl } from '../../i18n/utils';
-import { getTranslations } from '../../i18n';
-import { LOCALES } from '../../i18n';
+import HeaderMega from '../../components/header/header-mega/Header.astro';
+import FooterGrid from '../../components/footer/footer-grid/Footer.astro';
+import { LOCALES, type Locale, getTranslations } from '../../i18n';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
   return LOCALES.map((lang) => ({
     params: { lang },
   }));
 }
 
-const lang = getLangFromUrl(Astro.url);
+const { lang } = Astro.params as { lang: Locale };
 const t = getTranslations(lang);
 ---
 
 <BaseLayout
-  title={`${t('legal.legal.title')} | JF Legal`}
+  title={`${t('legal.title')} | JF Legal`}
   description="Aviso legal de JF Legal Consulting. Información legal sobre nuestro despacho y servicios."
 >
+  <HeaderMega lang={lang} />
+  
   <main class="legal-page">
     <div class="legal-container">
-      <h1 class="legal-title">{t('legal.legal.title')}</h1>
+      <h1 class="legal-title">{t('legal.title')}</h1>
       <div class="legal-content">
-        {t('legal.legal.content').split('\n\n').map(paragraph => (
+        {t('legal.content').split('\n\n').map(paragraph => (
           <p class="legal-paragraph">{paragraph}</p>
         ))}
       </div>
     </div>
   </main>
+  
+  <FooterGrid lang={lang} />
 </BaseLayout>
 
 <style>

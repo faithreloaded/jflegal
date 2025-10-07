@@ -1,0 +1,437 @@
+---
+import ButtonPrimaryDark from '../../buttons/primary-dark/ButtonPrimaryDark.astro';
+import type { Locale } from '../../../i18n';
+import { loadT } from '../../../i18n';
+
+interface Props {
+  lang: Locale;
+  imageSrc?: string;
+  height?: number;
+}
+
+const { 
+  lang,
+  imageSrc = "/images/hero.webp",
+  height = 100
+} = Astro.props;
+
+const t = await loadT(lang);
+const prefix = `/${lang}`;
+
+// Fallback translations si el sistema no funciona
+const fallbackTranslations = {
+  es: {
+    title: "Asesoría legal para empresas y familias",
+    description: "Especialistas en sucesiones y mercantil. También te acompañamos en fiscal/contable y laboral.",
+    buttonText: "Contactar",
+    formTitle: "Consulta legal",
+    formServicePlaceholder: "Selecciona un servicio",
+    formNamePlaceholder: "Nombre",
+    formEmailPlaceholder: "Email",
+    formPhonePlaceholder: "Teléfono",
+    formMessagePlaceholder: "Describe brevemente tu consulta",
+    formSubmitButton: "Enviar consulta",
+    formSuccessMessage: "¡Gracias por enviar tu mensaje! Te responderemos lo antes posible, en un plazo máximo de 24 horas.",
+    services: {
+      fiscal: "Fiscal y Contable",
+      laboral: "Laboral",
+      mercantil: "Mercantil y Societario",
+      sucesiones: "Sucesiones"
+    }
+  },
+  en: {
+    title: "Legal advice for companies and families",
+    description: "Specialists in inheritance and commercial law. We also assist you with tax/accounting and labor matters.",
+    buttonText: "Contact",
+    formTitle: "Legal consultation",
+    formServicePlaceholder: "Select a service",
+    formNamePlaceholder: "Name",
+    formEmailPlaceholder: "Email",
+    formPhonePlaceholder: "Phone",
+    formMessagePlaceholder: "Briefly describe your consultation",
+    formSubmitButton: "Send consultation",
+    formSuccessMessage: "Thank you for sending your message! We will respond as soon as possible, within a maximum of 24 hours.",
+    services: {
+      fiscal: "Tax and Accounting",
+      laboral: "Labor Law",
+      mercantil: "Commercial and Corporate",
+      sucesiones: "Inheritance"
+    }
+  },
+  ca: {
+    title: "Assessorament legal per a empreses i famílies",
+    description: "Especialistes en successions i mercantil. També t'acompanyem en fiscal/comptable i laboral.",
+    buttonText: "Contactar",
+    formTitle: "Consulta legal",
+    formServicePlaceholder: "Selecciona un servei",
+    formNamePlaceholder: "Nom",
+    formEmailPlaceholder: "Email",
+    formPhonePlaceholder: "Telèfon",
+    formMessagePlaceholder: "Descriu breument la teva consulta",
+    formSubmitButton: "Enviar consulta",
+    formSuccessMessage: "Gràcies per enviar el teu missatge! Et respondrem el més aviat possible, en un termini màxim de 24 hores.",
+    services: {
+      fiscal: "Fiscal i Comptable",
+      laboral: "Laboral",
+      mercantil: "Mercantil i Societari",
+      sucesiones: "Successions"
+    }
+  }
+};
+
+// Función helper para obtener traducciones con fallback
+function getTranslation(key: string) {
+  const translation = t(`hero.${key}`);
+  if (translation === `hero.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let fallback = fallbackTranslations[lang];
+    for (const k of keys) {
+      fallback = fallback?.[k];
+    }
+    return fallback || key;
+  }
+  return translation;
+}
+---
+
+<section class="hero-overlay" style={`height: ${height}vh; background-image: url('${imageSrc}');`}>
+  <div class="hero-overlay-dark"></div>
+  <div class="hero-overlay-content">
+    <div class="container">
+      <div class="hero-layout">
+        <div class="hero-text-container">
+          <div class="hero-text">
+            <h1 class="hero-title">{getTranslation('title')}</h1>
+            <p class="hero-description">{getTranslation('description')}</p>
+            <div class="hero-cta">
+              <ButtonPrimaryDark href={`${prefix}/contacto`} width="fit-content">{getTranslation('buttonText')}</ButtonPrimaryDark>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-form-container">
+          <div class="hero-quote-form">
+            <h3 class="quote-title">{getTranslation('formTitle')}</h3>
+            <form class="quote-form" id="hero-form">
+              <div class="form-group">
+                <select class="form-select" required>
+                  <option value="">{getTranslation('formServicePlaceholder')}</option>
+                  <option value="fiscal">{getTranslation('services.fiscal')}</option>
+                  <option value="laboral">{getTranslation('services.laboral')}</option>
+                  <option value="mercantil">{getTranslation('services.mercantil')}</option>
+                  <option value="sucesiones">{getTranslation('services.sucesiones')}</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <input type="text" class="form-input" placeholder={getTranslation('formNamePlaceholder')} required>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-input" placeholder={getTranslation('formEmailPlaceholder')} required>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="tel" class="form-input" placeholder={getTranslation('formPhonePlaceholder')}>
+              </div>
+              <div class="form-group">
+                <textarea class="form-textarea" placeholder={getTranslation('formMessagePlaceholder')} rows="3"></textarea>
+              </div>
+              <button type="submit" class="quote-submit">{getTranslation('formSubmitButton')}</button>
+            </form>
+            <div class="form-success" id="form-success" style="display: none;">
+              <p>{getTranslation('formSuccessMessage')}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-overlay {
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 60px; /* compensar header fijo */
+  }
+
+  .hero-overlay-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+
+  .hero-overlay-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: calc(100vh - 60px);
+  }
+
+  .hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    height: calc(100vh - 60px);
+    align-items: stretch;
+  }
+
+  .hero-text-container {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 60px;
+  }
+
+  .hero-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 0;
+  }
+
+  .hero-text {
+    max-width: 600px;
+    color: white;
+  }
+
+  .hero-title {
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: white;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+    margin: 0 0 24px 0;
+  }
+
+  .hero-cta {
+    margin-top: 8px;
+  }
+
+  /* Formulario de consulta */
+  .hero-quote-form {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0px;
+    padding: 32px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .quote-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0 0 24px 0;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  .quote-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .form-select,
+  .form-input,
+  .form-textarea {
+    padding: 14px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0px;
+    font-size: 14px;
+    font-family: var(--font-family);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-select::placeholder,
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .form-select:focus,
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .quote-submit {
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #ffffff;
+    padding: 16px 24px;
+    border-radius: 0px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .quote-submit:hover {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .form-success {
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 0px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .form-success p {
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-layout {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .hero-text-container {
+      align-items: center;
+      padding-bottom: 0;
+    }
+    
+    .hero-form-container {
+      align-items: center;
+      padding-top: 0;
+      justify-content: center;
+    }
+    
+    .hero-quote-form {
+      max-width: 580px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-overlay {
+      height: 100vh;
+    }
+    
+    .hero-layout {
+      gap: 20px;
+    }
+    
+    .hero-text-container {
+      padding-bottom: 20px;
+    }
+    
+    .hero-form-container {
+      padding-top: 0;
+      justify-content: center;
+    }
+    
+    .hero-title {
+      font-size: 42px;
+      font-weight: 300;
+    }
+    
+    .hero-description {
+      font-size: 16px;
+    }
+
+    .hero-quote-form {
+      max-width: 100%;
+      padding: 20px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-overlay {
+      height: 100vh;
+    }
+    
+    .hero-title {
+      font-size: 32px;
+      font-weight: 300;
+    }
+    
+    .hero-description {
+      font-size: 15px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('hero-form');
+    const successMessage = document.getElementById('form-success');
+    
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Ocultar el formulario
+        form.style.display = 'none';
+        
+        // Mostrar mensaje de éxito
+        successMessage.style.display = 'block';
+      });
+    }
+  });
+</script>
