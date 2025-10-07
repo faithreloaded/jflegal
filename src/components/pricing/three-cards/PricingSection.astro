@@ -1,0 +1,171 @@
+---
+import './PricingSection.css';
+import ButtonPrimary from '../../buttons/primary/ButtonPrimary.astro';
+import ButtonSecondary from '../../buttons/secondary/ButtonSecondary.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  showHeader?: boolean;
+  plans?: Array<{
+    name: string;
+    price: string;
+    period: string;
+    features: string[];
+    buttonText: string;
+    buttonHref: string;
+    popular?: boolean;
+  }>;
+}
+
+const { 
+  title = "Choose Your Plan",
+  description = "Select the perfect plan for your needs",
+  showHeader = true,
+  plans = [
+    {
+      name: "Basic",
+      price: "29",
+      period: "/month",
+      features: ["Up to 5 projects", "Basic support", "Standard templates"],
+      buttonText: "Get Started",
+      buttonHref: "#",
+      popular: false
+    },
+    {
+      name: "Pro",
+      price: "99",
+      period: "/month", 
+      features: ["Unlimited projects", "Priority support", "Premium templates", "Advanced analytics"],
+      buttonText: "Get Started",
+      buttonHref: "#",
+      popular: true
+    },
+    {
+      name: "Enterprise",
+      price: "299",
+      period: "/month",
+      features: ["Everything in Pro", "24/7 dedicated support", "Custom integrations", "White-label options"],
+      buttonText: "Contact Sales",
+      buttonHref: "#",
+      popular: false
+    }
+  ]
+} = Astro.props;
+---
+
+<script>
+  // Pricing Section Component
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animation observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    // Observe the pricing section
+    const pricingSection = document.querySelector('.pricing-section');
+    if (pricingSection) {
+      observer.observe(pricingSection);
+    }
+
+    // Toggle functionality
+    const toggle = document.querySelector('.pricing-toggle');
+    const monthlyPrices = document.querySelectorAll('.pricing-monthly');
+    const annuallyPrices = document.querySelectorAll('.pricing-annually');
+    const toggleSlider = document.querySelector('.pricing-toggle-slider');
+
+    if (toggle && monthlyPrices.length && annuallyPrices.length && toggleSlider) {
+      toggle.addEventListener('click', () => {
+        const isMonthly = toggle.classList.contains('pricing-toggle-monthly');
+        
+        if (isMonthly) {
+          // Switch to annually
+          toggle.classList.remove('pricing-toggle-monthly');
+          toggle.classList.add('pricing-toggle-annually');
+          toggleSlider.style.transform = 'translateX(100%)';
+          
+          // Show annually prices, hide monthly
+          monthlyPrices.forEach(price => price.style.display = 'none');
+          annuallyPrices.forEach(price => price.style.display = 'block');
+        } else {
+          // Switch to monthly
+          toggle.classList.remove('pricing-toggle-annually');
+          toggle.classList.add('pricing-toggle-monthly');
+          toggleSlider.style.transform = 'translateX(0)';
+          
+          // Show monthly prices, hide annually
+          monthlyPrices.forEach(price => price.style.display = 'block');
+          annuallyPrices.forEach(price => price.style.display = 'none');
+        }
+      });
+    }
+  });
+</script>
+
+<section class="pricing-section">
+  <div class="container">
+    <!-- Header -->
+    {showHeader && (
+      <div class="pricing-header">
+        <span class="section-pill">Pricing</span>
+        <h2 class="pricing-title">{title}</h2>
+        <p class="pricing-description">
+          {description}
+        </p>
+      </div>
+    )}
+
+    <!-- Toggle -->
+    <div class="pricing-toggle-container">
+      <div class="pricing-toggle pricing-toggle-monthly">
+        <span class="pricing-toggle-option">Monthly</span>
+        <span class="pricing-toggle-option">Annually</span>
+        <div class="pricing-toggle-slider"></div>
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-cards">
+      {plans.map((plan) => (
+        <div class={`pricing-card ${plan.popular ? 'pricing-card-featured' : ''}`}>
+          {plan.popular && <div class="pricing-card-badge">Most Popular</div>}
+          <div class="pricing-card-content">
+            <h3 class="pricing-card-title">{plan.name}</h3>
+            <div class="pricing-card-price">
+              <span class="pricing-monthly">${plan.price}<span class="pricing-period">{plan.period}</span></span>
+              <span class="pricing-annually" style="display: none;">${Math.round(parseInt(plan.price) * 0.8)}<span class="pricing-period">{plan.period}</span></span>
+            </div>
+            {plan.popular ? (
+              <ButtonPrimary href={plan.buttonHref}>
+                {plan.buttonText}
+              </ButtonPrimary>
+            ) : (
+              <ButtonSecondary href={plan.buttonHref}>
+                {plan.buttonText}
+              </ButtonSecondary>
+            )}
+          </div>
+          <div class="pricing-card-features">
+            {plan.features.map((feature) => (
+              <div class="pricing-feature">
+                <svg class="pricing-check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M13.5 4.5L6 12L2.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

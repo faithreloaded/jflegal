@@ -1,0 +1,191 @@
+{
+  "header": {
+    "nav": { "home": "Inicio", "components": "Componentes", "globalStyles": "Estilos Globales", "docs": "Docs" },
+    "actions": { "buy": "Comprar plantilla" },
+    "lang": { "es": "ES", "en": "EN", "sep": "/" }
+  },
+  "docs": {
+    "title": "Documentación",
+    "description": "Guía completa para empezar con la plantilla Starter UI",
+    "sidebarTitle": "Contenidos"
+  },
+  "globalStyles": {
+    "headTitle": "Estilos Globales | Starter UI",
+    "headDescription": "Estilos globales, design tokens y variables CSS para un diseño consistente en toda la plantilla",
+    "pageTitle": "Estilos globales",
+    "pageDescription": "Design system, variables CSS y estilos globales que garantizan consistencia en todos los componentes",
+    "colorPalette": {
+      "title": "Paleta de colores",
+      "description": "Colores principales utilizados en toda la plantilla",
+      "primary": "Primario",
+      "secondary": "Secundario",
+      "background": "Fondo",
+      "backgroundAlt": "Fondo alternativo",
+      "accent": "Acento",
+      "container": "Contenedor",
+      "hover": "Hover",
+      "previewBackground": "Fondo de preview",
+      "text": "Texto",
+      "textSecondary": "Texto secundario",
+      "textMuted": "Texto atenuado",
+      "textAccent": "Texto acentuado"
+    },
+    "typography": {
+      "title": "Tipografía",
+      "description": "Sistema tipográfico completo usando Inter con fallbacks, incluyendo todos los niveles de encabezado, cuerpo de texto y variaciones de peso",
+      "h1": "Encabezado 1 - Título principal",
+      "h2": "Encabezado 2 - Título de sección",
+      "h3": "Encabezado 3 - Subsección",
+      "h4": "Encabezado 4 - Título de tarjeta",
+      "h5": "Encabezado 5 - Título pequeño",
+      "h6": "Encabezado 6 - Etiqueta",
+      "bodyText": "Texto de cuerpo - Párrafo regular utilizado en toda la plantilla por legibilidad y consistencia.",
+      "smallText": "Texto pequeño - Usado para captions, etiquetas e información secundaria.",
+      "mediumWeight": "Peso medio - Para énfasis e información importante.",
+      "semiBold": "Seminegrita - Para énfasis fuerte y llamadas a la acción.",
+      "bold": "Negrita - Para máximo énfasis y encabezados importantes.",
+      "captionText": "Texto de pie - Para textos muy pequeños como notas y metadatos.",
+      "interFont": "Familia Inter - Tipografía moderna y muy legible pensada para interfaces.",
+      "fontSans": "Sans - Pila de sistema con Inter como primaria y fallbacks para compatibilidad."
+    },
+    "spacingSystem": {
+      "title": "Sistema de espaciado",
+      "description": "Variables de espacio consistentes usadas en los componentes",
+      "space1Usage": "Padding interno, gaps pequeños",
+      "space2Usage": "Márgenes pequeños, padding de botones",
+      "space3Usage": "Espaciado entre elementos",
+      "space4Usage": "Padding de contenedores",
+      "space5Usage": "Espaciado entre secciones",
+      "space6Usage": "Márgenes grandes",
+      "space7Usage": "Espaciado en secciones hero",
+      "space8Usage": "Espaciado máximo entre páginas"
+    },
+    "borderRadius": {
+      "title": "Border radius",
+      "description": "Valores consistentes de border radius para esquinas redondeadas en todos los componentes",
+      "extraSmall": "Extra pequeño",
+      "small": "Pequeño",
+      "medium": "Mediano",
+      "large": "Grande",
+      "extraLarge": "Extra grande",
+      "2xLarge": "2X grande",
+      "3xLarge": "3X grande",
+      "full": "Completo"
+    },
+    "cssVariables": {
+      "title": "Variables CSS",
+      "description": "Todas las propiedades personalizadas disponibles",
+      "colorsSemantic": "Colores (Semánticos)",
+      "colorsLegacy": "Colores (Legado)",
+      "typographyFontSizes": "Tipografía - Tamaños de fuente",
+      "typographyFontWeights": "Tipografía - Pesos de fuente",
+      "typographyLineHeights": "Tipografía - Alturas de línea",
+      "typographyFontFamily": "Tipografía - Familia",
+      "spacing": "Espaciado",
+      "layout": "Layout",
+      "shadows": "Sombras (Box Shadows)"
+    }
+  },
+  "homeHero": {
+    "pill": "Nuevo",
+    "title": "Programa menos, construye más rápido.",
+    "description": "Un kit de componentes limpio para desarrolladores que valoran la velocidad y el buen gusto.",
+    "ctaPrimary": "Empezar",
+    "ctaSecondary": "Ver componentes",
+    "card": {
+      "title": "Componentes premium",
+      "price": "199€",
+      "description": "Acceso a nuestra librería completa de componentes limpios y responsivos con actualizaciones de por vida",
+      "tag1": "Componentes",
+      "tag2": "De por vida",
+      "cta": "Empezar"
+    }
+  },
+  "homeFaq": {
+    "pill": "FAQ",
+    "title": "Preguntas frecuentes",
+    "q1": {
+      "question": "¿Qué servicios ofrece JF Legal Consulting?",
+      "answer": "Ofrecemos servicios especializados en cuatro áreas principales: Fiscal y Contable (gestión de impuestos, declaraciones, inspecciones), Laboral (nóminas, despidos, convenios), Mercantil y Societario (constitución de sociedades, fusiones, contratos) y Sucesiones (testamentos, herencias, planificación patrimonial)."
+    },
+    "q2": {
+      "question": "¿Cuánto tiempo tengo para liquidar el Impuesto de Sucesiones?",
+      "answer": "El Impuesto de Sucesiones debe liquidarse y presentarse en los 6 meses posteriores a la fecha de defunción del causante, aunque se puede solicitar una prórroga de 6 meses más. Es importante no exceder estos plazos para evitar sanciones o intereses de demora."
+    },
+    "q3": {
+      "question": "¿Qué es la Ley Beckham y quién puede acogerse?",
+      "answer": "La Ley Beckham permite a trabajadores extranjeros que se trasladan a España por motivos laborales acceder a una tributación más beneficiosa (24% hasta 600.000€, 47% a partir de ahí). Requiere haber sido residente fiscal fuera de España los últimos 5 años, tener contrato laboral en España y residir más de 183 días al año."
+    },
+    "q4": {
+      "question": "¿Cuándo debo constituir una sociedad en lugar de ser autónomo?",
+      "answer": "La decisión depende de varios factores: si tu negocio tiene previsión de crecimiento, necesitas socios, buscas protección patrimonial o requieres mayor flexibilidad financiera, una sociedad puede ser más conveniente. Te asesoramos para elegir la forma jurídica que mejor se adapte a tu perfil y objetivos empresariales."
+    },
+    "q5": {
+      "question": "¿Qué plazo tengo para reclamar la legítima en Cataluña?",
+      "answer": "En Cataluña, el plazo para reclamar la legítima es de 10 años desde la fecha de defunción del causante o desde que el heredero descubra que ha sido desheredado. Pasado este plazo, la reclamación queda prescrita y no se podrá exigir judicialmente la parte correspondiente de la herencia."
+    }
+  },
+  "home": {
+    "video1": {
+      "title": "Crea una landing en minutos.",
+      "description": "Mira cómo Starter UI te permite montar una landing limpia en menos de 5 minutos. Sin relleno, solo componentes listos para producción."
+    },
+    "video2": {
+      "title": "Cambia un token, cámbialo todo.",
+      "description": "Actualiza tus colores de marca una vez y verás cómo todo el diseño se adapta al instante. Starter UI está construido con tokens globales simples."
+    },
+    "video3": {
+      "title": "De la idea al componente enviado.",
+      "description": "Starter UI te da componentes limpios y reutilizables en los que puedes confiar. Enfócate en tu app, no en reinventar botones o layouts."
+    },
+    "pricing": {
+      "title": "Paga una vez, úsalo para siempre.",
+      "description": "Licencia simple para desarrolladores.",
+      "planName": "Starter UI",
+      "price": "199",
+      "currency": "€",
+      "buttonText": "Comprar ahora en Gumroad",
+      "features": [
+        "Componentes limpios y responsive",
+        "Design tokens globales",
+        "CSS fácil de personalizar",
+        "Actualizaciones de por vida incluidas"
+      ]
+    }
+  },
+  "footer": {
+    "description": "Una librería de componentes limpia y profesional diseñada para desarrolladores que valoran la velocidad, calidad y principios de diseño moderno.",
+    "linksTitle": "Enlaces",
+    "legalTitle": "Legal",
+    "privacy": "Política de privacidad",
+    "legal": "Aviso legal",
+    "contactTitle": "Contacto",
+    "credit1": "© {year} Starter UI. Todos los derechos reservados.",
+    "credit2": "Diseño web por "
+  },
+  "componentsDashboard": {
+    "title": "Componentes",
+    "groups": {
+      "elements": "Elementos",
+      "sections": "Secciones"
+    }
+  },
+  "sections": {
+    "heroes": { "label": "Hero" },
+    "headers": { "label": "Headers" },
+    "footers": { "label": "Footers" },
+    "buttons": { "label": "Botones" },
+    "badges": { "label": "Badges" },
+    "pills": { "label": "Pills" },
+    "cards": { "label": "Tarjetas" },
+    "features": { "label": "Features" },
+    "ctas": { "label": "CTA" },
+    "pricing": { "label": "Precios" },
+    "faqs": { "label": "FAQ" },
+    "testimonials": { "label": "Testimonios" },
+    "services": { "label": "Servicios" },
+    "logo-clouds": { "label": "Nubes de logos" },
+    "gallery": { "label": "Galería" },
+    "errors": { "label": "Errores" }
+  }
+}

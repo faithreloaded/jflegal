@@ -1,0 +1,51 @@
+---
+import './LogosCarousel.css';
+
+const logos = [
+  '/images/images/logos-carousel/logo1.svg',
+  '/images/images/logos-carousel/logo2.svg',
+  '/images/images/logos-carousel/logo3.svg',
+  '/images/images/logos-carousel/logo4.svg',
+  '/images/images/logos-carousel/logo5.svg'
+];
+---
+
+<section class="logos-carousel-section">
+  <div class="container">
+    <div class="logos-carousel">
+      <div class="logos-track">
+        {logos.map((logo) => (
+          <div class="logo-item">
+            <img src={logo} alt="Logo" class="logo-img" loading="lazy" />
+          </div>
+        ))}
+        {logos.map((logo) => (
+          <div class="logo-item">
+            <img src={logo} alt="Logo" class="logo-img" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Scroll animation para el carrusel de logos
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    const logosCarousel = document.querySelector('.logos-carousel');
+    if (logosCarousel) {
+      observer.observe(logosCarousel);
+    }
+  </script>
+</section>

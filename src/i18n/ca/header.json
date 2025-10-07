@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "home": "Inici",
+    "despacho": "Despatx",
+    "servicios": "Serveis",
+    "fiscalContable": "Fiscal i Comptable",
+    "laboral": "Laboral",
+    "mercantilSocietario": "Mercantil i Societari",
+    "sucesiones": "Successions"
+  },
+  "actions": {
+    "talk": "Parlem?"
+  },
+  "lang": {
+    "es": "ES",
+    "en": "EN",
+    "ca": "CA",
+    "sep": "/"
+  }
+}
+
+

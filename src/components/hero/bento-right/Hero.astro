@@ -1,0 +1,34 @@
+---
+import './Hero.css';
+import ButtonPrimary from '../../buttons/primary/ButtonPrimary.astro';
+import PillSoft from '../../pills/soft/PillSoft.astro';
+---
+
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <PillSoft variant="primary" size="md">Lorem ipsum</PillSoft>
+        <h1 class="hero-title">Lorem ipsum dolor sit amet consectetur</h1>
+        <p class="hero-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div class="hero-cta-container">
+          <ButtonPrimary href="#" width="fit-content">See open jobs</ButtonPrimary>
+        </div>
+      </div>
+      
+      <div class="hero-images">
+        <div class="hero-image-grid">
+          <div class="hero-image-large">
+            <img src="/images/images/placeholder/placeholder.jpg" alt="Team member" class="hero-img" loading="lazy" />
+          </div>
+          <div class="hero-image-small">
+            <img src="/images/images/placeholder/placeholder.jpg" alt="Team member" class="hero-img" loading="lazy" />
+          </div>
+          <div class="hero-image-small">
+            <img src="/images/images/placeholder/placeholder.jpg" alt="Team member" class="hero-img" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

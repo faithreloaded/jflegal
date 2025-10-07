@@ -1,0 +1,138 @@
+---
+import './Testimonials.css';
+---
+
+<script>
+  // Testimonials Masonry Component (copiado de Simple)
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animation observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    // Observe the testimonials section
+    const testimonialsSection = document.querySelector('.masonry-testimonials-section');
+    if (testimonialsSection) {
+      observer.observe(testimonialsSection);
+    }
+  });
+</script>
+
+<section class="masonry-testimonials-section">
+  <div class="container">
+    <div class="masonry-testimonials-header">
+      <span class="section-pill">Testimonials</span>
+      <h2 class="masonry-section-title">What our clients say</h2>
+    </div>
+    
+    <div class="masonry-testimonials-grid">
+      <!-- Columna 1 -->
+      <div class="masonry-testimonials-column">
+        <div class="masonry-testimonial-card">
+          <div class="masonry-testimonial-header">
+            <div class="masonry-testimonial-avatar">
+              <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+            </div>
+            <div class="masonry-testimonial-info">
+              <h3 class="masonry-testimonial-name">James Thompson</h3>
+              <p class="masonry-testimonial-role">CEO · Tech Startup</p>
+            </div>
+          </div>
+          <div class="masonry-testimonial-content">
+            <p class="masonry-testimonial-text"><span class="highlight">Amazing work</span>. Our engagement grew 300% in just 3 months. The team perfectly understands our audience and creates content that truly connects.</p>
+          </div>
+        </div>
+
+        <div class="masonry-testimonial-card">
+          <div class="masonry-testimonial-header">
+            <div class="masonry-testimonial-avatar">
+              <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+            </div>
+            <div class="masonry-testimonial-info">
+              <h3 class="masonry-testimonial-name">Sarah Williams</h3>
+              <p class="masonry-testimonial-role">E-commerce Manager</p>
+            </div>
+          </div>
+          <div class="masonry-testimonial-content">
+            <p class="masonry-testimonial-text">We've been working together for over a year and the <span class="highlight">results speak for themselves</span>. Our online sales have increased 150% thanks to their content strategy.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna 2 -->
+      <div class="masonry-testimonials-column">
+        <div class="masonry-testimonial-card">
+          <div class="masonry-testimonial-header">
+            <div class="masonry-testimonial-avatar">
+              <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+            </div>
+            <div class="masonry-testimonial-info">
+              <h3 class="masonry-testimonial-name">Emily Johnson</h3>
+              <p class="masonry-testimonial-role">Founder · Beauty Brand</p>
+            </div>
+          </div>
+          <div class="masonry-testimonial-content">
+            <p class="masonry-testimonial-text"><span class="highlight">Exceptional professionals</span>. They completely transformed our digital presence. Now we have a real and engaged community. The ROI has been impressive.</p>
+          </div>
+        </div>
+
+        <div class="masonry-testimonial-card">
+          <div class="masonry-testimonial-header">
+            <div class="masonry-testimonial-avatar">
+              <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+            </div>
+            <div class="masonry-testimonial-info">
+              <h3 class="masonry-testimonial-name">Michael Davis</h3>
+              <p class="masonry-testimonial-role">Restaurant Owner</p>
+            </div>
+          </div>
+          <div class="masonry-testimonial-content">
+            <p class="masonry-testimonial-text"><span class="highlight">Perfect</span> for our restaurant. Reservations have increased 80%.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna 3 -->
+      <div class="masonry-testimonials-column">
+        <div class="masonry-testimonial-card">
+          <div class="masonry-testimonial-header">
+            <div class="masonry-testimonial-avatar">
+              <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+            </div>
+            <div class="masonry-testimonial-info">
+              <h3 class="masonry-testimonial-name">David Kim</h3>
+              <p class="masonry-testimonial-role">Marketing Director</p>
+            </div>
+          </div>
+          <div class="masonry-testimonial-content">
+            <p class="masonry-testimonial-text"><span class="highlight">Excellent</span> work with our marketing team. They've managed to optimize our campaigns impressively, significantly improving our ROI and social media reach.</p>
+          </div>
+        </div>
+
+        <div class="masonry-testimonial-card">
+          <div class="masonry-testimonial-header">
+            <div class="masonry-testimonial-avatar">
+              <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+            </div>
+            <div class="masonry-testimonial-info">
+              <h3 class="masonry-testimonial-name">Sophia Chen</h3>
+              <p class="masonry-testimonial-role">Fashion Designer</p>
+            </div>
+          </div>
+          <div class="masonry-testimonial-content">
+            <p class="masonry-testimonial-text"><span class="highlight">Incredible transformation</span> of our brand. The team not only understands the fashion world, but knows how to connect with our audience authentically. Our reach multiplied by 5.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

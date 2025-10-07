@@ -1,0 +1,22 @@
+/* ===== MAIN CONTENT STYLES ===== */
+
+/* Configuración global de fuente */
+html, body {
+  font-family: var(--font-sans);
+  font-weight: var(--font-regular);
+  font-style: var(--font-normal);
+}
+
+.main {
+  flex: 1;
+  background-color: var(--color-white);
+  padding: var(--space-20) 0;
+}
+
+
+
+@media (max-width: 768px) {
+  .main {
+    padding: var(--space-16) 0;
+  }
+}

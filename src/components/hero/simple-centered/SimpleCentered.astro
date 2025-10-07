@@ -1,0 +1,39 @@
+---
+import './SimpleCentered.css';
+import ButtonPrimary from '../../buttons/primary/ButtonPrimary.astro';
+import ButtonLink from '../../buttons/link/ButtonLink.astro';
+import ButtonLinkBlue from '../../buttons/link-blue/ButtonLinkBlue.astro';
+import PillSoft from '../../pills/soft/PillSoft.astro';
+---
+
+<section class="simple-centered-hero">
+  <div class="simple-centered-container">
+    <div class="simple-centered-content">
+      <!-- Banner de anuncio -->
+      <PillSoft variant="primary" size="md">
+        Lorem ipsum dolor. 
+        <ButtonLinkBlue href="#"> Read more</ButtonLinkBlue>
+      </PillSoft>
+      
+      <!-- Título principal -->
+      <h1 class="simple-centered-title">
+        Lorem ipsum dolor sit amet consectetur
+      </h1>
+      
+      <!-- Descripción -->
+      <p class="simple-centered-description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+      </p>
+      
+      <!-- Botones de acción -->
+      <div class="simple-centered-actions">
+        <ButtonPrimary href="#">
+          Get started
+        </ButtonPrimary>
+        <ButtonLink href="#">
+          Learn more
+        </ButtonLink>
+      </div>
+    </div>
+  </div>
+</section>

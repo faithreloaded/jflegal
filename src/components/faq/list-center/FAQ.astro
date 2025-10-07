@@ -1,0 +1,108 @@
+---
+import './FAQ.css';
+
+interface FAQItem { question: string; answer: string }
+interface Props { pill?: string; title?: string; items?: FAQItem[] }
+const { pill = 'FAQ', title = 'Frequently Asked Questions', items = [] } = Astro.props as Props;
+const list: FAQItem[] = items.length ? items : [
+  { question: 'How long does it take to see results?', answer: 'Initial results typically appear within 2-4 weeks. However, sustained and significant growth is usually seen after 2-3 months of consistent work and optimization.' },
+  { question: 'Do you work with businesses of all sizes?', answer: 'Yes, we work with businesses of all sizes, from startups to established enterprises. We adapt our strategy based on your specific budget and business objectives.' },
+  { question: 'What platforms do you specialize in?', answer: 'We specialize in Instagram, TikTok, LinkedIn, and YouTube. We create platform-optimized content that leverages the unique features and audience behaviors of each platform.' },
+  { question: 'How do you measure campaign success?', answer: 'We track key metrics including engagement rate, reach, conversions, and follower growth. We provide detailed monthly reports with actionable insights and strategic recommendations.' }
+];
+---
+
+<script>
+  // Animaciones de scroll para FAQ
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
+    });
+  }, observerOptions);
+
+  // Observar elementos de FAQ
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqSection = document.querySelector('.faq-section');
+    const faqHeader = document.querySelector('.faq-header');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    const faqAnswers = document.querySelectorAll('.faq-answer');
+
+    if (faqSection) observer.observe(faqSection);
+    if (faqHeader) observer.observe(faqHeader);
+    
+    faqItems.forEach((item, index) => {
+      observer.observe(item);
+    });
+    
+    faqQuestions.forEach((question, index) => {
+      observer.observe(question);
+    });
+    
+    faqAnswers.forEach((answer, index) => {
+      observer.observe(answer);
+    });
+  });
+
+  // Toggle FAQ items
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        if (!faqItem) return;
+        
+        const faqAnswer = faqItem.querySelector('.faq-answer');
+        const isOpen = faqItem.classList.contains('open');
+        
+        // Close all other FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+          item.classList.remove('open');
+        });
+        
+        // Toggle current item
+        if (!isOpen) {
+          faqItem.classList.add('open');
+        }
+      });
+    });
+  });
+</script>
+
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-header">
+      <span class="section-pill">{pill}</span>
+      <h2 class="section-title">{title}</h2>
+    </div>
+    
+    <div class="faq-content">
+      
+      <div class="faq-list">
+        {list.map((it) => (
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>{it.question}</span>
+              <div class="faq-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="faq-answer">
+              <p>{it.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1321 868" width="1321" height="868">
+	<style>
+		.s0 { fill: none;stroke: #ceaa58;stroke-miterlimit:10;stroke-width: 30 } 
+		.s1 { fill: #ceaa58 } 
+	</style>
+	<filter id="f0">
+		<feFlood flood-color="#000000" flood-opacity="1" />
+		<feBlend mode="normal" in2="SourceGraphic"/>
+		<feComposite in2="SourceAlpha" operator="in" />
+	</filter>
+	<g id="COMPLETO" filter="url(#f0)">
+		<path id="&lt;Path&gt;" class="s0" d="m437.02 425.7l-97.29 0.53v-248.66 512.86c0 89.68-72.7 162.38-162.38 162.38-89.68 0-162.38-72.7-162.38-162.38"/>
+		<path id="&lt;Path&gt;" class="s0" d="m212.69 690.43v-512.86c0-89.68 72.7-162.38 162.38-162.38 89.68 0 162.38 72.7 162.38 162.38"/>
+		<path id="LEGAL CONSULTING
+" class="s1" aria-label="LEGAL CONSULTING"  d="m678.3 543v-150.9h20.4v133.7h73.5v17.2zm116 0v-150.9h95.5v17.2h-75v44.6h71.8v17.2h-71.8v54.7h76.8v17.2zm232.9-21.5v-40.6h-33.4v-16.8h53.6v64.8q-11.8 8.4-26.1 12.8-14.2 4.2-30.4 4.2-35.4 0-55.4-20.6-19.9-20.7-19.9-57.6 0-37 19.9-57.6 20-20.8 55.4-20.8 14.8 0 28 3.7 13.4 3.6 24.6 10.7v21.7q-11.3-9.6-24.1-14.4-12.7-4.9-26.8-4.9-27.7 0-41.6 15.5-13.9 15.5-13.9 46.1 0 30.5 13.9 46 13.9 15.4 41.6 15.4 10.9 0 19.3-1.8 8.5-1.9 15.3-5.8zm136.3-34.2l-27.8-75.1-27.7 75.1zm-96.9 55.7l57.6-150.9h23.2l57.5 150.9h-21.2l-13.8-38.7h-68l-13.8 38.7zm159.7 0v-150.9h20.4v133.7h73.5v17.2z"/>
+	</g>
+</svg>

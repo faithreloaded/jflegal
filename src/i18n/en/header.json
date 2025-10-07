@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "home": "Home",
+    "despacho": "Firm",
+    "servicios": "Services",
+    "fiscalContable": "Tax & Accounting",
+    "laboral": "Labor",
+    "mercantilSocietario": "Corporate & Commercial",
+    "sucesiones": "Successions"
+  },
+  "actions": {
+    "talk": "Let's talk"
+  },
+  "lang": {
+    "es": "ES",
+    "en": "EN",
+    "ca": "CA",
+    "sep": "/"
+  }
+}
+
+

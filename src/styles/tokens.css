@@ -1,0 +1,294 @@
+/* ===== TOKENS BÁSICOS ===== */
+
+:root {
+  /* Colores básicos (mantener para compatibilidad) */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-cream: #fdfcf9;
+  --color-gray: #666666;
+  --color-light-gray: #cccccc;
+  
+  /* Colores semánticos (nuevo sistema) */
+  --color-primary: #142533;        /* Azul petróleo corporativo */
+  --color-secondary: #CDAA57;      /* Dorado elegante */
+  --color-background: #FDFCF9;     /* Fondo principal - crema sutil */
+  --color-background-alt: #F1F3F4; /* Fondo alternativo */
+  --color-accent: #CDAA57;         /* Detalle/acento dorado */
+         --color-container: #FFFFFF;      /* Fondo de cards */
+         --color-hover: #1E384C;          /* Hover (más oscuro del azul) */
+         --color-text: #222222;           /* Texto principal */
+         --color-text-secondary: #444444; /* Texto secundarios */
+         --color-text-muted: #777777;     /* Notas */
+         --color-text-accent: #CDAA57;    /* Texto con énfasis */
+         --color-border: rgba(0, 0, 0, 0.1); /* Bordes */
+         --color-border-light: rgba(0, 0, 0, 0.05); /* Bordes sutiles */
+         --color-hover-subtle: rgba(0, 0, 0, 0.02); /* Hover sutil para acordeones y menús */
+         --color-link: #142533;              /* Enlaces usan primario */
+         --color-link-hover: #1E384C;        /* Hover enlaces */
+  
+  /* Colores de preview */
+  --color-preview-bg: #EAEAEA;
+  
+  /* Tipografía */
+  --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  
+  /* Font Sizes */
+  --font-size-xs: 12px;      /* Captions, footnotes */
+  --font-size-sm: 14px;      /* Small text, labels */
+  --font-size-base: 16px;    /* Body text */
+  --font-size-lg: 18px;      /* Large body text */
+  --font-size-xl: 20px;      /* H5 headings */
+  --font-size-2xl: 24px;     /* H3 headings */
+  --font-size-3xl: 32px;     /* H2 headings */
+  --font-size-4xl: 36px;     /* Large headings */
+  --font-size-5xl: 48px;     /* H1 headings */
+  --font-size-6xl: 64px;     /* Hero titles */
+  --font-size-section-title: 70px; /* Section titles */
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.8;
+  
+  /* Pesos de fuente (Inter 100–900) */
+  --font-weight-thin: 100;
+  --font-weight-extra-light: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --font-weight-black: 900;
+
+  /* Border Radius - 8px Grid System */
+  --radius-xs: 2px;    /* Elementos muy pequeños */
+  --radius-sm: 4px;    /* Elementos pequeños */
+  --radius-md: 6px;    /* Elementos medianos */
+  --radius-lg: 8px;    /* Elementos grandes */
+  --radius-xl: 12px;   /* Elementos extra grandes */
+  --radius-2xl: 16px;  /* Elementos muy grandes */
+  --radius-3xl: 24px;  /* Elementos enormes */
+  --radius-full: 9999px; /* Círculos perfectos */
+
+  /* Weights (nuevas variables) */
+  --font-thin: 100;
+  --font-extralight: 200;
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+
+  /* Styles */
+  --font-normal: normal;
+  --font-italic: italic;
+  
+  /* Espaciados */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 80px;
+  --space-8: 96px;
+  
+  /* Layout */
+  --max-width: 1140px;
+  
+  /* Breakpoints */
+  --bp-xs: 360px;
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+  
+  /* Radios de borde */
+  --radius-lg: 8px;
+  
+  /* Sombras (box-shadows) */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 2px 6px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 20px rgba(0,0,0,0.12);
+  --shadow-xl: 0 16px 40px rgba(0,0,0,0.16);
+  --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.08);
+  
+    /* Transiciones */
+    --transition-xfast: 120ms ease;
+    --transition-fast: 160ms ease;
+    --transition-base: 200ms ease;
+    --transition-slow: 250ms ease;
+    --transition-xslow: 320ms ease;
+    /* Compatibilidad: token base */
+    --transition: var(--transition-base);
+  }
+
+
+/* ===== CLASES GLOBALES ===== */
+
+/* Section Pill Global */
+.section-pill {
+  display: inline-block !important;
+  background: rgba(0,0,0,0.08);
+  color: rgba(0,0,0,0.8);
+  padding: 8px 14px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+}
+
+.section-pill:hover {
+  background: rgba(0,0,0,0.12);
+  color: rgba(0,0,0,0.9);
+  cursor: default;
+}
+
+/* Pill Outline */
+.pill-outline {
+  display: inline-block !important;
+  background: transparent;
+  color: rgba(0,0,0,0.8);
+  padding: 8px 14px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+}
+
+.pill-outline:hover {
+  background: rgba(0,0,0,0.02);
+  border-color: rgba(0,0,0,0.15);
+  color: rgba(0,0,0,0.9);
+  cursor: default;
+}
+
+/* Pill Outline con animación para hero sections */
+.pill-outline-hero {
+  display: inline-block !important;
+  background: transparent;
+  color: rgba(255,255,255,0.9);
+  padding: 8px 14px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pillFadeInUp 0.6s ease 0.1s forwards;
+}
+
+.pill-outline-hero:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,1);
+}
+
+@keyframes pillFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pill original con animación para hero sections */
+.pill-outline-hero-original {
+  display: inline-block;
+  background: rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.8);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  align-self: flex-start;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pillFadeInUp 0.6s ease 0.1s forwards;
+}
+
+/* Pill Outline Dark */
+.pill-outline-dark {
+  display: inline-block !important;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+}
+
+.pill-outline-dark:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 1);
+  cursor: default;
+}
+
+/* Section Title Global */
+.section-title {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--color-black);
+  margin: 0;
+  margin-bottom: var(--space-3);
+}
+
+/* Responsive para section-title */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 32px;
+    line-height: 38px;
+    margin-bottom: var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 28px;
+    line-height: 34px;
+    margin-bottom: var(--space-2);
+  }
+}
+
+/* ===== GLOBAL BUTTON CLASSES ===== */

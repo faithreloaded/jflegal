@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "despacho": "Despacho",
+    "servicios": "Servicios",
+    "fiscalContable": "Fiscal y Contable",
+    "laboral": "Laboral",
+    "mercantilSocietario": "Mercantil y Societario",
+    "sucesiones": "Sucesiones"
+  },
+  "actions": {
+    "talk": "¿Hablamos?"
+  },
+  "lang": {
+    "es": "ES",
+    "en": "EN",
+    "ca": "CA",
+    "sep": "/"
+  }
+}
+
+

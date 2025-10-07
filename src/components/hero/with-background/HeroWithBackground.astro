@@ -1,0 +1,43 @@
+---
+import './HeroWithBackground.css';
+import ButtonPrimaryDark from '../../buttons/primary-dark/ButtonPrimaryDark.astro';
+import ButtonLinkDark from '../../buttons/link-dark/ButtonLinkDark.astro';
+import PillOutline from '../../pills/outline/PillOutline.astro';
+---
+
+<section class="hero-with-background">
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-bg-image">
+    <img src="/images/images/placeholder/placeholder.jpg" alt="Background" class="hero-bg-img" loading="lazy" />
+  </div>
+  
+  <div class="hero-with-bg-container">
+    <div class="hero-with-bg-content">
+      <!-- Banner de anuncio -->
+      <PillOutline size="md">
+        Lorem ipsum dolor. 
+        <ButtonLinkDark href="#"> Read more</ButtonLinkDark>
+      </PillOutline>
+      
+      <!-- Título principal -->
+      <h1 class="hero-with-bg-title">
+        Lorem ipsum dolor sit amet consectetur
+      </h1>
+      
+      <!-- Descripción -->
+      <p class="hero-with-bg-description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+      </p>
+      
+      <!-- Botones de acción -->
+      <div class="hero-with-bg-actions">
+        <ButtonPrimaryDark href="#">
+          Get started
+        </ButtonPrimaryDark>
+        <ButtonLinkDark href="#">
+          Learn more
+        </ButtonLinkDark>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+import { getTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = getTranslations(lang);
+---
+
+<BaseLayout
+  title={`${t('legal.privacy.title')} | JF Legal`}
+  description="Política de privacidad de JF Legal Consulting. Información sobre cómo protegemos y utilizamos sus datos personales."
+>
+  <main class="legal-page">
+    <div class="legal-container">
+      <h1 class="legal-title">{t('legal.privacy.title')}</h1>
+      <div class="legal-content">
+        {t('legal.privacy.content').split('\n\n').map(paragraph => (
+          <p class="legal-paragraph">{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    background-color: var(--color-background);
+  }
+
+  .legal-container {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .legal-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+    line-height: 1.3;
+  }
+
+  .legal-content {
+    text-align: left;
+  }
+
+  .legal-paragraph {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .legal-paragraph:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .legal-page {
+      padding: var(--space-4);
+    }
+    
+    .legal-title {
+      font-size: 20px;
+      margin-bottom: var(--space-4);
+    }
+    
+    .legal-paragraph {
+      font-size: 13px;
+    }
+  }
+</style>

@@ -1,0 +1,176 @@
+---
+import './TestimonialCarousel.css';
+import ButtonLink from '../../buttons/link/ButtonLink.astro';
+---
+
+<script>
+  // Inicialización mínima: activa marquee en filas marcadas y revela sección
+  const boot = () => {
+    const section = document.querySelector('.testimonials-section');
+    if (section) {
+      section.classList.add('animate');
+    }
+    const header = document.querySelector('.testimonials-header-carousel');
+    if (header) {
+      header.classList.add('animate');
+    }
+    document.querySelectorAll('.carousel').forEach((el) => {
+      const track = (el as HTMLElement).querySelector('.carousel-track');
+      if (!track) return;
+      const rtl = ((el as HTMLElement).dataset.direction || 'ltr').toLowerCase() === 'rtl';
+      track.classList.toggle('dir-rtl', rtl);
+
+      // Fila con marquee
+      if ((el as HTMLElement).dataset.marquee === 'on') {
+        // Duración por defecto si no viene especificada
+        const speed = Number((el as HTMLElement).dataset.speed || 40);
+        const dur = speed > 0 ? Math.max(12, Math.round(120 / speed) * 6) : 30;
+        (track as HTMLElement).style.setProperty('--dur', dur + 's');
+        // Duplicar exactamente una vez
+        if (!(track as any).dataset.cloned) {
+          (track as any).dataset.cloned = '1';
+          const kids = [...track.children].map(n => n.cloneNode(true));
+          track.append(...kids);
+        }
+        (el as HTMLElement).classList.add('marquee');
+        (el as HTMLElement).classList.add('animate');
+      } else {
+        (el as HTMLElement).classList.add('animate');
+      }
+    });
+  };
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+</script>
+
+<section class="testimonials-section">
+  <div class="container">
+        <div class="testimonials-header-carousel">
+          <span class="section-pill">Rated 5 stars by 1000+ clients</span>
+          <h2 class="section-title-carousel">Meet our happy clients</h2>
+          <p class="section-subtitle-carousel">Join a global network of thought leaders, product developers, and innovators who trust our platform.</p>
+          <ButtonLink href="/testimonials">View all testimonials</ButtonLink>
+        </div>
+    
+    <!-- Primera fila: derecha a izquierda (marquee) -->
+    <div class="carousel" data-speed="40" data-direction="ltr" data-marquee="on">
+      <div class="carousel-track">
+        <div class="card">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+              </div>
+              <div class="testimonial-info">
+                <h3 class="testimonial-name">Mark Thompson</h3>
+                <p class="testimonial-role">COO</p>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">Managing our day-to-day tasks has never been easier. The interface is intuitive and saves us a lot of time.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+              </div>
+              <div class="testimonial-info">
+                <h3 class="testimonial-name">Emily Carter</h3>
+                <p class="testimonial-role">Product Manager</p>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">The tools provided have significantly improved our team's workflow and collaboration. Highly recommend it!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+              </div>
+              <div class="testimonial-info">
+                <h3 class="testimonial-name">Sophia Turner</h3>
+                <p class="testimonial-role">Design Director</p>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">From a design perspective, the flexibility and ease of use are outstanding. This has become an indispensable tool for our team.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segunda fila: marquee inverso -->
+    <div class="carousel dir-rtl" data-speed="40" data-direction="rtl" data-marquee="on">
+      <div class="carousel-track dir-rtl">
+        <div class="card">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+              </div>
+              <div class="testimonial-info">
+                <h3 class="testimonial-name">James Wilson</h3>
+                <p class="testimonial-role">CEO</p>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">Outstanding service and results. Our productivity has increased dramatically since implementing their solutions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+              </div>
+              <div class="testimonial-info">
+                <h3 class="testimonial-name">Sarah Martinez</h3>
+                <p class="testimonial-role">Marketing Director</p>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">The team's expertise and attention to detail is remarkable. They've transformed our digital presence completely.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img src="/images/images/placeholder/placeholder.jpg" alt="Client" />
+              </div>
+              <div class="testimonial-info">
+                <h3 class="testimonial-name">David Brown</h3>
+                <p class="testimonial-role">CTO</p>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">Exceptional technical implementation and seamless integration. Highly professional and reliable team.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

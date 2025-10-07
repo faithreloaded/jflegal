@@ -1,0 +1,96 @@
+{
+  "homeHero": {
+    "pill": "JF Legal Consulting",
+    "title": "Despatx d'advocats especialitzat",
+    "description": "Oferim assessorament legal integral en les àrees de fiscal, laboral, mercantil i successions. Amb més de 10 anys d'experiència, garantim solucions jurídiques eficients i personalitzades per a empreses i particulars.",
+    "cta": "Consulteu-nos",
+    "secondaryCta": "Els nostres serveis"
+  },
+  "homeFeatures": {
+    "title": "Per què triar JF Legal Consulting?",
+    "description": "El nostre equip d'experts jurídics ofereix solucions adaptades a les necessitats específiques de cada client, amb un enfocament professional i de proximitat.",
+    "features": [
+      {
+        "icon": "shield",
+        "title": "Experiència contrastada",
+        "description": "Més de 10 anys assessorant clients en matèria jurídica amb resultats exitosos."
+      },
+      {
+        "icon": "users",
+        "title": "Atenció personalitzada",
+        "description": "Cada cas és únic. Ofereix un tractament personalitzat i adaptat a les necessitats específiques."
+      },
+      {
+        "icon": "clock",
+        "title": "Resposta ràpida",
+        "description": "Compromís amb la celeritat en la resolució dels assumptes jurídics dels nostres clients."
+      }
+    ]
+  },
+  "homePricing": {
+    "title": "Serveis especialitzats",
+    "description": "Oferim assessorament integral en les principals àrees del dret empresarial i civil.",
+    "plans": [
+      {
+        "name": "Fiscal i Contable",
+        "price": "Des de 150€",
+        "description": "Gestió d'impostos, declaracions i assessorament fiscal",
+        "features": [
+          "Declaració de la renda",
+          "Gestió d'IVA i Impost de Societats",
+          "Planificació fiscal",
+          "Defensa en inspeccions"
+        ],
+        "buttonText": "Consulteu-nos"
+      },
+      {
+        "name": "Mercantil i Societari",
+        "price": "Des de 200€",
+        "description": "Constitució de societats i operacions corporatives",
+        "features": [
+          "Constitució de societats",
+          "Fusions i adquisicions",
+          "Contractació mercantil",
+          "Reestructuracions"
+        ],
+        "buttonText": "Consulteu-nos"
+      },
+      {
+        "name": "Successions",
+        "price": "Des de 180€",
+        "description": "Planificació successòria i tramitació d'herències",
+        "features": [
+          "Redacció de testaments",
+          "Tramitació d'herències",
+          "Liquidació d'impostos",
+          "Reclamació de legítima"
+        ],
+        "buttonText": "Consulteu-nos"
+      }
+    ]
+  },
+  "homeFaq": {
+    "pill": "FAQ",
+    "title": "Preguntes freqüents",
+    "q1": {
+      "question": "Quins serveis ofereix JF Legal Consulting?",
+      "answer": "Oferim serveis especialitzats en quatre àrees principals: Fiscal i Comptable (gestió d'impostos, declaracions, inspeccions), Laboral (nòmines, acomiadaments, convenis), Mercantil i Societari (constitució de societats, fusions, contractes) i Successions (testaments, herències, planificació patrimonial)."
+    },
+    "q2": {
+      "question": "Quant temps tinc per liquidar l'Impost de Successions?",
+      "answer": "L'Impost de Successions s'ha de liquidar i presentar en els 6 mesos posteriors a la data de defunció del causant, tot i que es pot sol·licitar una pròrroga de 6 mesos més. És important no excedir aquests terminis per evitar sancions o interessos de demora."
+    },
+    "q3": {
+      "question": "Què és la Llei Beckham i qui s'hi pot acollir?",
+      "answer": "La Llei Beckham permet als treballadors estrangers que es traslladen a Espanya per motius laborals accedir a una tributació més beneficiosa (24% fins als 600.000€, 47% a partir d'aquí). Requereix haver estat resident fiscal fora d'Espanya els últims 5 anys, tenir contracte laboral a Espanya i residir més de 183 dies a l'any."
+    },
+    "q4": {
+      "question": "Quan he de constituir una societat en lloc de ser autònom?",
+      "answer": "La decisió depèn de diversos factors: si el teu negoci té previsió de creixement, necessites socis, busques protecció patrimonial o requereixes major flexibilitat financera, una societat pot ser més convenient. T'assessorem per triar la forma jurídica que millor s'adapti al teu perfil i objectius empresarials."
+    },
+    "q5": {
+      "question": "Quin termini tinc per reclamar la llegítima a Catalunya?",
+      "answer": "A Catalunya, el termini per reclamar la llegítima és de 10 anys des de la data de defunció del causant o des que l'hereu descobreixi que ha estat desheretat. Passat aquest termini, la reclamació queda prescrita i no es podrà exigir judicialment la part corresponent de l'herència."
+    }
+  }
+}

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ComponentsLayout from '../../../layouts/ComponentsLayout.astro';
+import HeroesView from '../../heroes/index.astro';
+import { LOCALES, type Locale, loadT } from '../../../i18n';
+
+export function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['header','footer','components']);
+const key = 'heroes';
+---
+
+<BaseLayout title={`${t('componentsDashboard.title')} | Starter UI`} description={t('componentsDashboard.description')} lang={lang}>
+  <ComponentsLayout active={key} lang={lang}>
+    <HeroesView />
+  </ComponentsLayout>
+</BaseLayout>

@@ -1,0 +1,14 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 798 1254" width="798" height="1254">
+	<style>
+		.s0 { fill: none;stroke: #ceaa58;stroke-miterlimit:10;stroke-width: 40 } 
+	</style>
+	<filter id="f0">
+		<feFlood flood-color="#000000" flood-opacity="1" />
+		<feBlend mode="normal" in2="SourceGraphic"/>
+		<feComposite in2="SourceAlpha" operator="in" />
+	</filter>
+	<g id="ISOTIPO" filter="url(#f0)">
+		<path id="&lt;Path&gt;" class="s0" d="m632.3 614.98l-140.97 0.76v-360.3 743.12c0 129.94-105.34 235.28-235.28 235.28-129.94 0-235.28-105.34-235.28-235.28"/>
+		<path id="&lt;Path&gt;" class="s0" d="m307.26 998.56v-743.12c0-129.94 105.33-235.28 235.28-235.28 129.94 0 235.28 105.34 235.28 235.28"/>
+	</g>
+</svg>

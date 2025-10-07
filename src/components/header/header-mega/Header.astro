@@ -1,0 +1,299 @@
+---
+import './Header.css';
+import ButtonPrimaryDark from '../../buttons/primary-dark/ButtonPrimaryDark.astro';
+import { loadT, getLangFromUrl, type Locale } from '../../../i18n';
+import { getCollection } from 'astro:content';
+
+interface Props { lang?: Locale }
+const { lang: langProp } = Astro.props as Props;
+const lang: Locale = langProp ?? getLangFromUrl(Astro.url);
+const t = await loadT(lang, ['header']);
+
+// Obtener posts para manejar traducciones del blog
+const allPosts = await getCollection('blog');
+
+// Función para manejar las rutas del blog
+function getBlogTranslationUrl(currentLang: Locale, targetLang: Locale, currentPath: string): string {
+  // Si estamos en una ruta de blog individual (/es/blog/slug o /en/blog/slug)
+  const blogMatch = currentPath.match(/^\/(es|en|ca)\/blog\/(.+)$/);
+  if (blogMatch) {
+    const [, currentBlogLang, slug] = blogMatch;
+    
+    // Buscar el post actual para obtener sus traducciones
+    const currentPost = allPosts.find(p => p.id === `${currentBlogLang}/${slug}.mdx`);
+    
+    if (currentPost && currentPost.data.translations && currentPost.data.translations[targetLang]) {
+      // Si existe traducción, ir al post traducido
+      return `/${targetLang}/blog/${currentPost.data.translations[targetLang]}`;
+    } else {
+      // Si no hay traducción, ir al blog del idioma objetivo
+      return `/${targetLang}/blog`;
+    }
+  }
+  
+  // Si estamos en la página de blog (/es/blog o /en/blog)
+  if (currentPath.match(/^\/(es|en|ca)\/blog\/?$/)) {
+    return `/${targetLang}/blog`;
+  }
+  
+  // Para cualquier otra ruta, cambiar solo el prefijo
+  return currentPath.replace(/^\/(es|en|ca)/, `/${targetLang}`);
+}
+
+const toES = getBlogTranslationUrl(lang, 'es', Astro.url.pathname);
+const toEN = getBlogTranslationUrl(lang, 'en', Astro.url.pathname);
+const toCA = getBlogTranslationUrl(lang, 'ca', Astro.url.pathname);
+const prefix = `/${lang}`;
+---
+
+<header class="header-mega" data-lang={lang}>
+  <div class="container">
+    <div class="header-mega-content">
+      <div class="logo">
+        <a href={`${prefix}/`}>
+          <img src="/images/logo.svg" alt="Logo" class="logo-img" />
+        </a>
+      </div>
+      
+      <nav class="nav-mega desktop-nav">
+        <div class="nav-item-mega">
+          <a href={`${prefix}/`} class="nav-link-mega">{t('nav.home')}</a>
+        </div>
+        <div class="nav-item-mega">
+          <a href={`${prefix}/despacho`} class="nav-link-mega">{t('nav.despacho')}</a>
+        </div>
+        <div class="nav-item-mega dropdown-mega">
+          <a href={`${prefix}/servicios`} class="nav-link-mega">
+            {t('nav.servicios')}
+            <svg class="dropdown-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+          <div class="mega-menu">
+            <div class="mega-menu-header">
+              <h3 class="mega-menu-title">{t('nav.servicios')}</h3>
+            </div>
+            <div class="mega-menu-content">
+              <a href={`${prefix}/fiscal-contable`} class="mega-menu-item">
+                <div class="mega-menu-image">
+                  <img src="/images/megamenu/fiscal.webp" alt="Fiscal y Contable" />
+                </div>
+                <div class="mega-menu-text">
+                  <h4>{t('nav.fiscalContable')}</h4>
+                  <p>Impuestos, contabilidad y cumplimiento fiscal.</p>
+                </div>
+              </a>
+              <a href={`${prefix}/laboral`} class="mega-menu-item">
+                <div class="mega-menu-image">
+                  <img src="/images/megamenu/laboral.webp" alt="Laboral" />
+                </div>
+                <div class="mega-menu-text">
+                  <h4>{t('nav.laboral')}</h4>
+                  <p>Contratos laborales y recursos humanos.</p>
+                </div>
+              </a>
+              <a href={`${prefix}/mercantil-societario`} class="mega-menu-item">
+                <div class="mega-menu-image">
+                  <img src="/images/megamenu/mercantil.webp" alt="Mercantil y Societario" />
+                </div>
+                <div class="mega-menu-text">
+                  <h4>{t('nav.mercantilSocietario')}</h4>
+                  <p>Constitución de sociedades y contratación.</p>
+                </div>
+              </a>
+              <a href={`${prefix}/sucesiones`} class="mega-menu-item">
+                <div class="mega-menu-image">
+                  <img src="/images/megamenu/sucesiones.webp" alt="Sucesiones" />
+                </div>
+                <div class="mega-menu-text">
+                  <h4>{t('nav.sucesiones')}</h4>
+                  <p>Testamentos, herencias y planificación.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-separator"></div>
+            <div class="mega-menu-footer">
+              <a href={`${prefix}/politica-privacidad`}>Política de Privacidad</a>
+              <a href={`${prefix}/terminos-condiciones`}>Términos y Condiciones</a>
+              <a href={`${prefix}/aviso-legal`}>Aviso Legal</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="nav-item-mega">
+          <a href={`${prefix}/blog`} class="nav-link-mega">Blog</a>
+        </div>
+      </nav>
+      
+      <div class="header-mega-actions">
+        <div class="lang-dropdown" aria-label="Language selector" data-current={lang} id="lang-dropdown">
+          <button class="lang-button" id="lang-button" aria-haspopup="true" aria-expanded="false">
+            <svg class="lang-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M3 12h18"></path>
+              <path d="M12 3a15 15 0 0 1 0 18"></path>
+              <path d="M12 21a15 15 0 0 1 0-18"></path>
+            </svg>
+            {lang.toUpperCase()}
+          </button>
+          <div class="lang-menu" id="lang-menu" role="menu">
+            {lang !== 'es' && (<a class="lang-item" role="menuitem" data-lang="es" href={toES}>🇪🇸 ES</a>)}
+            {lang !== 'ca' && (
+              <a class="lang-item" role="menuitem" data-lang="ca" href={toCA}>
+                <img src="/images/catflag.svg" alt="CA" style="width:13px;height:13px;vertical-align:-2px;margin-right:6px;"/>CA
+              </a>
+            )}
+            {lang !== 'en' && (<a class="lang-item" role="menuitem" data-lang="en" href={toEN}>🇬🇧 EN</a>)}
+          </div>
+        </div>
+        <div class="buy-desktop">
+          <ButtonPrimaryDark href={`${prefix}/contacto`}>
+            {t('actions.talk')}
+          </ButtonPrimaryDark>
+        </div>
+        
+        <button class="menu-toggle mobile-nav" id="menu-toggle-mega">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="mobile-overlay" id="mobile-overlay-mega"></div>
+    <nav class="mobile-nav-menu" id="mobile-nav-mega">
+      <div class="mobile-nav-header">
+        <img src="/images/logo.svg" alt="Logo" class="mobile-logo" />
+        <button class="mobile-close-btn" id="mobile-close-mega">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-nav-links">
+        <a href={`${prefix}/`} class="mobile-nav-link">{t('nav.home')}</a>
+        <a href={`${prefix}/despacho`} class="mobile-nav-link">{t('nav.despacho')}</a>
+        <div class="mobile-nav-item" id="mobile-item-servicios">
+          <div class="mobile-nav-link mobile-nav-toggle">
+            <span>{t('nav.servicios')}</span>
+            <svg class="mobile-dropdown-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="mobile-submenu">
+            <a href={`${prefix}/fiscal-contable`} class="mobile-submenu-link">{t('nav.fiscalContable')}</a>
+            <a href={`${prefix}/laboral`} class="mobile-submenu-link">{t('nav.laboral')}</a>
+            <a href={`${prefix}/mercantil-societario`} class="mobile-submenu-link">{t('nav.mercantilSocietario')}</a>
+            <a href={`${prefix}/sucesiones`} class="mobile-submenu-link">{t('nav.sucesiones')}</a>
+          </div>
+        </div>
+        <a href={`${prefix}/blog`} class="mobile-nav-link">Blog</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <ButtonPrimaryDark href={`${prefix}/contacto`}>
+          {t('actions.talk')}
+        </ButtonPrimaryDark>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle-mega');
+  const mobileNav = document.getElementById('mobile-nav-mega');
+  const mobileOverlay = document.getElementById('mobile-overlay-mega');
+  const mobileClose = document.getElementById('mobile-close-mega');
+
+  function closeMenu() {
+    if (mobileNav) mobileNav.classList.remove('active');
+    if (mobileOverlay) mobileOverlay.classList.remove('active');
+    document.body.classList.remove('menu-open');
+    if (menuToggle) menuToggle.classList.remove('active');
+  }
+
+  function openMenu() {
+    if (mobileNav) mobileNav.classList.add('active');
+    if (mobileOverlay) mobileOverlay.classList.add('active');
+    document.body.classList.add('menu-open');
+    if (menuToggle) menuToggle.classList.add('active');
+  }
+
+  if (menuToggle && mobileNav && mobileOverlay && mobileClose) {
+    mobileNav.classList.add('no-transition');
+    mobileOverlay.classList.add('no-transition');
+    closeMenu();
+    requestAnimationFrame(() => {
+      mobileNav.classList.remove('no-transition');
+      mobileOverlay.classList.remove('no-transition');
+    });
+    menuToggle.addEventListener('click', () => {
+      if (mobileNav.classList.contains('active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    mobileClose.addEventListener('click', closeMenu);
+    mobileOverlay.addEventListener('click', closeMenu);
+
+    const mobileLinks = mobileNav.querySelectorAll('.mobile-nav-link:not(.mobile-nav-toggle)');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+    
+    const mobileSubmenuLinks = mobileNav.querySelectorAll('.mobile-submenu-link');
+    mobileSubmenuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+    window.addEventListener('pageshow', closeMenu);
+    window.addEventListener('load', closeMenu);
+    window.addEventListener('beforeunload', closeMenu);
+  }
+
+  // Dropdown de idioma simple
+  (function(){
+    const dropdown = document.getElementById('lang-dropdown');
+    const button = document.getElementById('lang-button');
+    const menu = document.getElementById('lang-menu');
+    if (!dropdown || !button || !menu) return;
+    function closeAll(){
+      if (dropdown) dropdown.classList.remove('open');
+      if (button) button.setAttribute('aria-expanded', 'false');
+    }
+    button && button.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const isOpen = dropdown.classList.toggle('open');
+      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    document.addEventListener('click', (e)=>{
+      if (!dropdown.contains(e.target as Node)) closeAll();
+    });
+    dropdown && dropdown.addEventListener('mouseenter', ()=>{
+      dropdown.classList.add('open');
+      button.setAttribute('aria-expanded', 'true');
+    });
+    dropdown && dropdown.addEventListener('mouseleave', ()=>{
+      closeAll();
+    });
+
+    // Guardar preferencia antes de navegar
+    const items = menu.querySelectorAll('.lang-item');
+    items.forEach(function(el){
+      el.addEventListener('click', function(this: HTMLAnchorElement){
+        try {
+          const targetLang = this.getAttribute('data-lang') || '';
+          if (targetLang) localStorage.setItem('preferredLang', targetLang);
+        } catch(e) {}
+      });
+    });
+  })();
+
+  // Toggle submenú móvil de Servicios
+  (function(){
+    const item = document.getElementById('mobile-item-servicios');
+    if (!item) return;
+    const toggle = item.querySelector('.mobile-nav-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', function(){
+      item.classList.toggle('open');
+    });
+  })();
+</script>

@@ -1,0 +1,71 @@
+{
+  "homeHero": {
+    "pill": "New",
+    "title": "Code less, build faster.",
+    "description": "A clean component kit for developers who value speed and good taste.",
+    "ctaPrimary": "Get Started",
+    "ctaSecondary": "View Components",
+    "card": {
+      "title": "Premium Components",
+      "price": "€199",
+      "description": "Access to our complete library of clean and responsive components with lifetime updates",
+      "tag1": "Components",
+      "tag2": "Lifetime",
+      "cta": "Get Started"
+    }
+  },
+  "home": {
+    "video1": {
+      "title": "Create a landing in minutes.",
+      "description": "See how Starter UI lets you set up a clean landing in less than 5 minutes. No filler, just production-ready components."
+    },
+    "video2": {
+      "title": "Change a token, change everything.",
+      "description": "Update your brand colors once and see how the entire design adapts instantly. Starter UI is built with simple global tokens."
+    },
+    "video3": {
+      "title": "From idea to shipped component.",
+      "description": "Starter UI gives you clean, reusable components you can trust. Focus on your app, not reinventing buttons or layouts."
+    },
+    "pricing": {
+      "title": "Pay once, use forever.",
+      "description": "Simple license for developers.",
+      "planName": "Starter UI",
+      "price": "199",
+      "currency": "€",
+      "features": [
+        "Clean and responsive components",
+        "Global design tokens",
+        "Easy to customize CSS",
+        "Lifetime updates included"
+      ],
+      "buttonText": "Buy now on Gumroad"
+    }
+  },
+  "homeFaq": {
+    "pill": "FAQ",
+    "title": "Frequently Asked Questions",
+    "q1": {
+      "question": "What services does JF Legal Consulting offer?",
+      "answer": "We offer specialized services in four main areas: Tax and Accounting (tax management, declarations, inspections), Labor (payroll, dismissals, collective agreements), Commercial and Corporate (company formation, mergers, contracts) and Successions (wills, inheritances, estate planning)."
+    },
+    "q2": {
+      "question": "How long do I have to settle the Inheritance Tax?",
+      "answer": "The Inheritance Tax must be settled and filed within 6 months after the date of death of the deceased, although a 6-month extension can be requested. It is important not to exceed these deadlines to avoid penalties or late payment interest."
+    },
+    "q3": {
+      "question": "What is the Beckham Law and who can apply for it?",
+      "answer": "The Beckham Law allows foreign workers who move to Spain for work reasons to access more beneficial taxation (24% up to €600,000, 47% from there). It requires having been a tax resident outside Spain for the last 5 years, having an employment contract in Spain and residing more than 183 days a year."
+    },
+    "q4": {
+      "question": "When should I incorporate a company instead of being self-employed?",
+      "answer": "The decision depends on several factors: if your business has growth prospects, you need partners, you seek asset protection or require greater financial flexibility, a company may be more convenient. We advise you to choose the legal form that best suits your profile and business objectives."
+    },
+    "q5": {
+      "question": "What is the deadline to claim the legitimate share in Catalonia?",
+      "answer": "In Catalonia, the deadline to claim the legitimate share is 10 years from the date of death of the deceased or from when the heir discovers they have been disinherited. After this period, the claim becomes time-barred and cannot be judicially enforced."
+    }
+  }
+}
+
+

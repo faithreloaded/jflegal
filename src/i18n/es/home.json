@@ -1,0 +1,71 @@
+{
+  "homeHero": {
+    "pill": "Nuevo",
+    "title": "Programa menos, construye más rápido.",
+    "description": "Un kit de componentes limpio para desarrolladores que valoran la velocidad y el buen gusto.",
+    "ctaPrimary": "Empezar",
+    "ctaSecondary": "Ver componentes",
+    "card": {
+      "title": "Componentes premium",
+      "price": "199€",
+      "description": "Acceso a nuestra librería completa de componentes limpios y responsivos con actualizaciones de por vida",
+      "tag1": "Componentes",
+      "tag2": "De por vida",
+      "cta": "Empezar"
+    }
+  },
+  "home": {
+    "video1": {
+      "title": "Crea una landing en minutos.",
+      "description": "Mira cómo Starter UI te permite montar una landing limpia en menos de 5 minutos. Sin relleno, solo componentes listos para producción."
+    },
+    "video2": {
+      "title": "Cambia un token, cámbialo todo.",
+      "description": "Actualiza tus colores de marca una vez y verás cómo todo el diseño se adapta al instante. Starter UI está construido con tokens globales simples."
+    },
+    "video3": {
+      "title": "De la idea al componente enviado.",
+      "description": "Starter UI te da componentes limpios y reutilizables en los que puedes confiar. Enfócate en tu app, no en reinventar botones o layouts."
+    },
+    "pricing": {
+      "title": "Paga una vez, úsalo para siempre.",
+      "description": "Licencia simple para desarrolladores.",
+      "planName": "Starter UI",
+      "price": "199",
+      "currency": "€",
+      "features": [
+        "Componentes limpios y responsive",
+        "Design tokens globales",
+        "CSS fácil de personalizar",
+        "Actualizaciones de por vida incluidas"
+      ],
+      "buttonText": "Comprar ahora en Gumroad"
+    }
+  },
+  "homeFaq": {
+    "pill": "FAQ",
+    "title": "Preguntas frecuentes",
+    "q1": {
+      "question": "¿Qué servicios ofrece JF Legal Consulting?",
+      "answer": "Ofrecemos servicios especializados en cuatro áreas principales: Fiscal y Contable (gestión de impuestos, declaraciones, inspecciones), Laboral (nóminas, despidos, convenios), Mercantil y Societario (constitución de sociedades, fusiones, contratos) y Sucesiones (testamentos, herencias, planificación patrimonial)."
+    },
+    "q2": {
+      "question": "¿Cuánto tiempo tengo para liquidar el Impuesto de Sucesiones?",
+      "answer": "El Impuesto de Sucesiones debe liquidarse y presentarse en los 6 meses posteriores a la fecha de defunción del causante, aunque se puede solicitar una prórroga de 6 meses más. Es importante no exceder estos plazos para evitar sanciones o intereses de demora."
+    },
+    "q3": {
+      "question": "¿Qué es la Ley Beckham y quién puede acogerse?",
+      "answer": "La Ley Beckham permite a trabajadores extranjeros que se trasladan a España por motivos laborales acceder a una tributación más beneficiosa (24% hasta 600.000€, 47% a partir de ahí). Requiere haber sido residente fiscal fuera de España los últimos 5 años, tener contrato laboral en España y residir más de 183 días al año."
+    },
+    "q4": {
+      "question": "¿Cuándo debo constituir una sociedad en lugar de ser autónomo?",
+      "answer": "La decisión depende de varios factores: si tu negocio tiene previsión de crecimiento, necesitas socios, buscas protección patrimonial o requieres mayor flexibilidad financiera, una sociedad puede ser más conveniente. Te asesoramos para elegir la forma jurídica que mejor se adapte a tu perfil y objetivos empresariales."
+    },
+    "q5": {
+      "question": "¿Qué plazo tengo para reclamar la legítima en Cataluña?",
+      "answer": "En Cataluña, el plazo para reclamar la legítima es de 10 años desde la fecha de defunción del causante o desde que el heredero descubra que ha sido desheredado. Pasado este plazo, la reclamación queda prescrita y no se podrá exigir judicialmente la parte correspondiente de la herencia."
+    }
+  }
+}
+
+

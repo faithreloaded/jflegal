@@ -1,0 +1,286 @@
+/* ===== TESTIMONIALS MASONRY SECTION STYLES ===== */
+
+.masonry-testimonials-section {
+  background: transparent;
+  padding: 80px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.masonry-testimonials-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Animaciones escalonadas */
+.masonry-testimonials-section .section-pill {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.masonry-testimonials-section .masonry-section-title {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+  transition-delay: 0.1s;
+}
+
+.masonry-testimonials-section .masonry-testimonial-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+/* Cuando la sección se anima, animar los elementos escalonadamente */
+.masonry-testimonials-section.animate .section-pill {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.masonry-testimonials-section.animate .masonry-section-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.masonry-testimonials-section.animate .masonry-testimonial-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delays escalonados para las cards */
+.masonry-testimonials-section.animate .masonry-testimonials-column:nth-child(1) .masonry-testimonial-card:nth-child(1) {
+  transition-delay: 0.2s;
+}
+
+.masonry-testimonials-section.animate .masonry-testimonials-column:nth-child(2) .masonry-testimonial-card:nth-child(1) {
+  transition-delay: 0.3s;
+}
+
+.masonry-testimonials-section.animate .masonry-testimonials-column:nth-child(3) .masonry-testimonial-card:nth-child(1) {
+  transition-delay: 0.4s;
+}
+
+.masonry-testimonials-section.animate .masonry-testimonials-column:nth-child(1) .masonry-testimonial-card:nth-child(2) {
+  transition-delay: 0.5s;
+}
+
+.masonry-testimonials-section.animate .masonry-testimonials-column:nth-child(2) .masonry-testimonial-card:nth-child(2) {
+  transition-delay: 0.6s;
+}
+
+.masonry-testimonials-section.animate .masonry-testimonials-column:nth-child(3) .masonry-testimonial-card:nth-child(2) {
+  transition-delay: 0.7s;
+}
+
+.masonry-testimonials-header .masonry-section-title {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--color-black);
+  margin: 0;
+}
+
+
+
+.masonry-testimonials-grid {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.masonry-testimonials-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.masonry-testimonial-card {
+  background: var(--color-container);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.masonry-testimonial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
+}
+
+
+.masonry-testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.masonry-testimonial-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.masonry-testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.masonry-testimonial-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.masonry-testimonial-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.masonry-testimonial-role {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.masonry-testimonial-content {
+  /* Sin estilos adicionales */
+}
+
+.masonry-testimonial-text {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  color: rgba(0,0,0,0.8);
+  margin: 0;
+  text-align: left;
+}
+
+.highlight {
+  background: rgba(255, 235, 59, 0.25);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .masonry-testimonials-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 901px) {
+  .masonry-testimonials-grid {
+    gap: 18px;
+  }
+  
+  .masonry-testimonials-column {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 900px) {
+  .masonry-testimonials-grid {
+    gap: 20px;
+  }
+  
+  .masonry-testimonials-column {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonry-testimonials-section {
+    padding: 60px 0;
+  }
+  
+  .masonry-testimonials-header {
+    margin-bottom: 48px;
+  }
+  
+  .masonry-section-title {
+    font-size: 28px;
+    line-height: 32px;
+  }
+  
+  .masonry-testimonials-grid {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .masonry-testimonial-card {
+    padding: 20px;
+  }
+  
+  .masonry-testimonial-avatar {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .masonry-testimonial-name {
+    font-size: 15px;
+  }
+  
+  .masonry-testimonial-role {
+    font-size: 12px;
+  }
+  
+  .masonry-testimonial-text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-testimonials-section {
+    padding: 48px 0;
+  }
+  
+  .masonry-testimonials-header {
+    margin-bottom: 40px;
+  }
+  
+  .masonry-section-title {
+    font-size: 26px;
+    line-height: 30px;
+  }
+  
+  .masonry-testimonial-card {
+    padding: 18px;
+  }
+  
+  .masonry-testimonial-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .masonry-testimonial-name {
+    font-size: 14px;
+  }
+  
+  .masonry-testimonial-role {
+    font-size: 11px;
+  }
+  
+  .masonry-testimonial-text {
+    font-size: 13px;
+    line-height: 18px;
+  }
+}
+
