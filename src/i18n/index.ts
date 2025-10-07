@@ -22,8 +22,10 @@ function extractName(path: string) {
 function buildManifest(locale: Locale) {
   const files = dictImports[locale];
   const manifest: Record<string, any> = {};
-  for (const [path, mod] of Object.entries(files)) {
-    manifest[extractName(path)] = (mod as any).default;
+  if (files) {
+    for (const [path, mod] of Object.entries(files)) {
+      manifest[extractName(path)] = (mod as any).default;
+    }
   }
   return manifest;
 }
@@ -33,7 +35,7 @@ const cache = new Map<string, any>();
 function deepMerge<T extends object>(...objects: T[]): T {
   const result: any = {};
   for (const obj of objects) {
-    if (!obj) continue;
+    if (!obj || typeof obj !== 'object') continue;
     for (const [k, v] of Object.entries(obj)) {
       if (v && typeof v === 'object' && !Array.isArray(v)) {
         result[k] = deepMerge(result[k] || {}, v as any);
@@ -59,7 +61,8 @@ export async function loadT(lang: Locale, bundles?: string[]) {
   if (!bundles) {
     // Combinar todos los bundles disponibles del idioma activo (compatibilidad con uso antiguo)
     const manifest = buildManifest(lang);
-    const merged = deepMerge(...Object.values(manifest));
+    const manifestValues = Object.values(manifest).filter(v => v && typeof v === 'object');
+    const merged = deepMerge(...manifestValues);
     const t = (path: string, vars?: Record<string, string | number>) => {
       let val = getByPath(merged, path);
       if (val === undefined) return path;
@@ -72,10 +75,10 @@ export async function loadT(lang: Locale, bundles?: string[]) {
   const active = buildManifest(lang);
   const fallback = buildManifest(DEFAULT_LANG);
 
-  const activeMerged = deepMerge(...bundles.map((b) => active[b] || {}));
-  const activeCommon = active['common'] || {};
-  const fallbackMerged = deepMerge(...bundles.map((b) => fallback[b] || {}));
-  const fallbackCommon = fallback['common'] || {};
+  const activeMerged = deepMerge(...bundles.map((b) => (active && active[b]) || {}));
+  const activeCommon = (active && active['common']) || {};
+  const fallbackMerged = deepMerge(...bundles.map((b) => (fallback && fallback[b]) || {}));
+  const fallbackCommon = (fallback && fallback['common']) || {};
 
   const key = `${lang}::${bundles.join(',')}`;
   if (cache.has(key)) return cache.get(key);
