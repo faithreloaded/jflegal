@@ -1,22 +1,16 @@
 {
   "nav": {
     "home": "Home",
-    "despacho": "Firm",
-    "servicios": "Services",
-    "blog": "Blog",
-    "contacto": "Contact",
-    "fiscalContable": "Tax & Accounting",
-    "laboral": "Labor",
-    "mercantilSocietario": "Corporate & Commercial",
-    "sucesiones": "Successions"
+    "components": "Components",
+    "globalStyles": "Global Styles",
+    "docs": "Docs"
   },
   "actions": {
-    "talk": "Let's talk"
+    "buy": "Buy template"
   },
   "lang": {
     "es": "ES",
     "en": "EN",
-    "ca": "CA",
     "sep": "/"
   }
 }

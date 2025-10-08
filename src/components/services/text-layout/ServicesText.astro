@@ -17,22 +17,26 @@ const services = [
   {
     name: t('services.fiscal.title'),
     description: t('services.fiscal.description'),
-    number: t('services.fiscal.number')
+    number: t('services.fiscal.number'),
+    slug: 'fiscal'
   },
   {
     name: t('services.laboral.title'),
     description: t('services.laboral.description'),
-    number: t('services.laboral.number')
+    number: t('services.laboral.number'),
+    slug: 'laboral'
   },
   {
     name: t('services.mercantil.title'),
     description: t('services.mercantil.description'),
-    number: t('services.mercantil.number')
+    number: t('services.mercantil.number'),
+    slug: 'mercantil-societario'
   },
   {
     name: t('services.sucesiones.title'),
     description: t('services.sucesiones.description'),
-    number: t('services.sucesiones.number')
+    number: t('services.sucesiones.number'),
+    slug: 'sucesiones'
   }
 ];
 ---
@@ -94,7 +98,7 @@ const services = [
             </div>
             <p class="services-text-description">{service.description}</p>
             <div class="services-text-item-cta">
-              <a href={`/${lang}/servicios`} class="services-text-link">
+              <a href={`/${lang}/servicios/${service.slug}`} class="services-text-link">
                 VER MÁS
               </a>
             </div>

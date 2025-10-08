@@ -19,3 +19,4 @@ export function getPathWithoutLang(pathname: string): string {
   }
   return pathname;
 }
+

@@ -14,25 +14,11 @@ const isHomePage = Astro.url.pathname === '/' ||
                   Astro.url.pathname.match(/^\/(es|en|ca)\/?$/);
 const hasPageHero = Astro.url.pathname.includes('/contacto') || 
                    Astro.url.pathname.includes('/servicios/');
-const is404Page = Astro.url.pathname === '/404' || 
-                  Astro.url.pathname.includes('/404') ||
-                  Astro.url.pathname === '/es/404' ||
-                  Astro.url.pathname === '/en/404' ||
-                  Astro.url.pathname === '/ca/404';
+const is404Page = Astro.url.pathname === '/404' || Astro.url.pathname.endsWith('/404');
 const shouldBeTransparent = (isHomePage || hasPageHero) && !is404Page;
 
 // Clases CSS para el header
 const headerClasses = shouldBeTransparent ? 'home-page' : 'no-hero';
-
-// Debug para 404
-if (Astro.url.pathname.includes('404') || Astro.url.pathname === '/404') {
-  console.log('404 Page detected:', {
-    pathname: Astro.url.pathname,
-    is404Page,
-    shouldBeTransparent,
-    headerClasses
-  });
-}
 
 // Fallback translations para header si el sistema no funciona
 const headerFallback = {
