@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderMega from '../../components/header/header-mega/Header.astro';
 import FooterGrid from '../../components/footer/footer-grid/Footer.astro';
-import { LOCALES, type Locale, getTranslations } from '../../i18n';
+import { LOCALES, type Locale, loadT } from '../../i18n';
 
 export async function getStaticPaths() {
   return LOCALES.map((lang) => ({
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params as { lang: Locale };
-const t = getTranslations(lang);
+const t = await loadT(lang, ['legal']);
 ---
 
 <BaseLayout
