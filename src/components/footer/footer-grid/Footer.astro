@@ -8,15 +8,6 @@ interface Props {
 
 const { lang } = Astro.props as Props;
 
-// Cargar traducciones del footer usando el sistema JSON
-let t: any;
-try {
-  t = await loadT(lang, ['footer']);
-} catch (error) {
-  console.error('Error loading footer translations:', error);
-  t = (key: string) => key; // Fallback function
-}
-
 // Fallback básico por si falla el sistema
 const footerFallback = {
   es: {
@@ -143,6 +134,23 @@ const footerFallback = {
     }
   }
 };
+
+// Cargar traducciones del footer usando el sistema JSON
+let t: any;
+try {
+  t = await loadT(lang, ['footer']);
+} catch (error) {
+  console.error('Error loading footer translations:', error);
+  // Fallback más robusto
+  t = (key: string) => {
+    const keys = key.split('.');
+    let value = footerFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  };
+}
 
 // Función helper para obtener traducciones de footer con fallback
 function getFooterTranslation(key: string) {
