@@ -21,6 +21,10 @@ function extractName(path: string) {
 
 function buildManifest(locale: Locale) {
   const files = dictImports[locale];
+  if (!files) {
+    console.warn(`No translation files found for locale: ${locale}`);
+    return {};
+  }
   const manifest: Record<string, any> = {};
   for (const [path, mod] of Object.entries(files)) {
     manifest[extractName(path)] = (mod as any).default;
@@ -71,6 +75,11 @@ export async function loadT(lang: Locale, bundles?: string[]) {
 
   const active = buildManifest(lang);
   const fallback = buildManifest(DEFAULT_LANG);
+
+  // Verificar que tenemos traducciones disponibles
+  if (!active || Object.keys(active).length === 0) {
+    console.warn(`No translations available for locale: ${lang}, using fallback`);
+  }
 
   const activeMerged = deepMerge(...bundles.map((b) => active[b] || {}));
   const activeCommon = active['common'] || {};
