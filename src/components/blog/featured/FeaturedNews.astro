@@ -15,7 +15,7 @@ const t = await loadT(lang, ['featured']);
 const featuredFallback = {
   es: {
     title: "Noticias destacadas",
-    buttonText: "VERMÁS",
+    buttonText: "VER MÁS",
     tags: {
       blog: "Blog",
       article: "Artículo"
@@ -73,16 +73,52 @@ const list = posts.length >= 3
   : (posts.length > 0 ? Array.from({ length: 3 }, () => posts[0]) : []);
 ---
 
+<script>
+  // Animaciones fade in up escalonadas para Featured News
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Añadir delay escalonado
+          if (entry.target.classList.contains('featured-header')) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, 100);
+          } else if (entry.target.classList.contains('blog-card')) {
+            // Para las cards, usar delays más largos y escalonados
+            const delay = entry.target.style.getPropertyValue('--delay') || '0s';
+            const delayMs = parseFloat(delay) * 2000 + 400; // Convertir a ms y añadir 400ms base (más lento)
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, delayMs);
+          } else {
+            entry.target.classList.add('animate');
+          }
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observar elementos con animación de Featured News
+    const featuredAnimatedElements = document.querySelectorAll('.featured-animate');
+    featuredAnimatedElements.forEach(el => {
+      observer.observe(el);
+    });
+  });
+</script>
+
 {list.length > 0 ? (
   <section class="featured-section">
     <div class="featured">
-      <header class="featured-header">
+      <header class="featured-header featured-animate">
         <h2 class="featured-title">{heading}</h2>
         <ButtonLink href={`/${lang}/blog`}>{buttonText}</ButtonLink>
       </header>
       <div class="featured-grid">
         {list.map((post, idx) => (
-          <a class="blog-card" href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}`}>
+          <a class="blog-card featured-animate" href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}`} style={`--delay: ${idx * 0.1}s;`}>
             <img class="blog-card-bg" src={post.data.image || "/images/images/placeholder/placeholder.jpg"} alt={post.data.title} />
             <div class="blog-card-overlay-bottom">
               <div class="blog-card-row">
@@ -117,10 +153,22 @@ const list = posts.length >= 3
     background-color: var(--color-background-alt);
     padding: var(--space-8) 0;
   }
+
+  /* Animaciones fade in up */
+  .featured-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .featured-animate.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
   .featured-header { display: flex; justify-content: space-between; align-items: end; margin-bottom: var(--space-5); }
   .featured-title { font-size: 40px; font-weight: 400; margin: 0; color: var(--color-black); }
   .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
-  .blog-card { position: relative; border-radius: 0px; overflow: hidden; background: #0b0b0c; aspect-ratio: 4 / 5; width: 100%; text-decoration: none; color: inherit; transition: all 0.3s ease; display: block; }
+  .blog-card { position: relative; border-radius: 0px; overflow: hidden; background: #0b0b0c; aspect-ratio: 4 / 5; width: 100%; text-decoration: none; color: inherit; display: block; }
   .blog-card-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; transition: transform 0.3s ease; }
   .blog-card:hover .blog-card-bg { transform: scale(1.05); }
   .blog-card-overlay-bottom { position: absolute; bottom: -60px; left: 0; right: 0; background: rgba(10,10,11,0.30); border-top: 1px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 16px; display: flex; flex-direction: column; min-height: 34%; text-align: left; transition: bottom 0.4s ease; }
@@ -137,10 +185,18 @@ const list = posts.length >= 3
   @media (max-width: 1024px) { 
     .featured-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .featured-header { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+    
+    .blog-card-overlay-bottom {
+      bottom: 0 !important;
+    }
   }
   @media (max-width: 768px) { 
     .featured-grid { grid-template-columns: 1fr; gap: 16px; }
     .featured-title { font-size: 32px; }
+    
+    .blog-card-overlay-bottom {
+      bottom: 0 !important;
+    }
   }
 </style>
 

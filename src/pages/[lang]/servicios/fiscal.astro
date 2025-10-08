@@ -1,0 +1,78 @@
+---
+import '../../../styles/main.css';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import HeaderMega from '../../../components/header/header-mega/Header.astro';
+import FooterGrid from '../../../components/footer/footer-grid/Footer.astro';
+import PageBanner from '../../../components/hero/page-banner/PageBanner.astro';
+import { LOCALES, type Locale, loadT } from '../../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['header', 'footer', 'services']);
+
+// Fallback translations para servicios si el sistema no funciona
+const servicesFallback = {
+  es: {
+    fiscal: {
+      title: "Fiscal y Contable",
+      subtitle: "Asesoramiento integral en materia fiscal y contable para empresas y particulares",
+      description: "Asesoramiento integral en materia fiscal y contable para empresas y particulares"
+    }
+  },
+  en: {
+    fiscal: {
+      title: "Tax and Accounting",
+      subtitle: "Comprehensive tax and accounting advice for companies and individuals",
+      description: "Comprehensive tax and accounting advice for companies and individuals"
+    }
+  },
+  ca: {
+    fiscal: {
+      title: "Fiscal i Comptable",
+      subtitle: "Assessorament integral en matèria fiscal i comptable per a empreses i particulars",
+      description: "Assessorament integral en matèria fiscal i comptable per a empreses i particulars"
+    }
+  }
+};
+
+// Función helper para obtener traducciones de servicios con fallback
+function getServicesTranslation(key: string) {
+  const translation = t(`services.${key}`);
+  if (translation === `services.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let fallbackValue = servicesFallback[lang];
+    for (const k of keys) {
+      fallbackValue = fallbackValue?.[k];
+    }
+    return fallbackValue || key;
+  }
+  return translation;
+}
+
+const title = getServicesTranslation('fiscal.title');
+const subtitle = getServicesTranslation('fiscal.subtitle');
+const description = getServicesTranslation('fiscal.description');
+---
+
+<BaseLayout 
+  title={`${title} | JF Legal`} 
+  description={subtitle}
+>
+  <HeaderMega lang={lang} />
+  
+  <main class="main">
+    <!-- Page Hero -->
+    <PageBanner 
+      title={title} 
+      subtitle={subtitle}
+      backgroundImage="/images/fiscalycontable.webp"
+    />
+  </main>
+  
+  <FooterGrid lang={lang} />
+</BaseLayout>
+

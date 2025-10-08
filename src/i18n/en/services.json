@@ -1,27 +1,27 @@
 {
-  "title": "Our services",
+  "title": "Practice Areas",
   "description": "Specialists in comprehensive legal advice for companies and individuals. We offer personalized solutions in the areas of tax, labor, commercial and inheritance law, adapted to the specific needs of each client.",
+  "buttonText": "SEE MORE",
   "services": {
     "fiscal": {
       "number": "01",
       "title": "Tax and Accounting",
-      "description": "Comprehensive tax advice, business accounting and tax optimization for companies and individuals."
+      "description": "Comprehensive tax and accounting advice for companies and individuals"
     },
     "laboral": {
       "number": "02",
       "title": "Labor Law",
-      "description": "Labor law, contracts, dismissals, collective bargaining and human resources consulting."
+      "description": "Specialized legal advice in labor law"
     },
     "mercantil": {
       "number": "03",
-      "title": "Commercial and Corporate",
-      "description": "Company formation, mergers, acquisitions, commercial contracts and corporate law."
+      "title": "Corporate and Commercial",
+      "description": "Company formation and commercial law management"
     },
     "sucesiones": {
       "number": "04",
-      "title": "Inheritance",
-      "description": "Succession planning, wills, inheritances, tax settlement and wealth management."
+      "title": "Successions",
+      "description": "Inheritance and will planning and processing"
     }
-  },
-  "buttonText": "SEE MORE"
+  }
 }

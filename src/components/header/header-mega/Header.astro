@@ -9,6 +9,16 @@ const { lang: langProp } = Astro.props as Props;
 const lang: Locale = langProp ?? getLangFromUrl(Astro.url);
 const t = await loadT(lang, ['header', 'megamenu']);
 
+// Detectar si la página tiene hero/banner desde el servidor
+const isHomePage = Astro.url.pathname === '/' || 
+                  Astro.url.pathname.match(/^\/(es|en|ca)\/?$/);
+const hasPageHero = Astro.url.pathname.includes('/contacto') || 
+                   Astro.url.pathname.includes('/servicios/');
+const shouldBeTransparent = isHomePage || hasPageHero;
+
+// Clases CSS para el header
+const headerClasses = shouldBeTransparent ? 'home-page' : 'no-hero';
+
 // Fallback translations para header si el sistema no funciona
 const headerFallback = {
   es: {
@@ -198,7 +208,7 @@ const toCA = getBlogTranslationUrl(lang, 'ca', Astro.url.pathname);
 const prefix = `/${lang}`;
 ---
 
-<header class="header-mega" data-lang={lang}>
+<header class={`header-mega ${headerClasses}`} data-lang={lang}>
   <div class="container">
     <div class="header-mega-content">
       <div class="logo">
@@ -221,7 +231,7 @@ const prefix = `/${lang}`;
               <h3 class="mega-menu-title">{getMegamenuTranslation('title')}</h3>
             </div>
             <div class="mega-menu-content">
-              <a href={`${prefix}/fiscal-contable`} class="mega-menu-item">
+              <a href={`${prefix}/servicios/fiscal`} class="mega-menu-item">
                 <div class="mega-menu-image">
                   <img src="/images/megamenu/fiscal.webp" alt={getMegamenuTranslation('services.fiscal.title')} />
                 </div>
@@ -230,7 +240,7 @@ const prefix = `/${lang}`;
                   <p>{getMegamenuTranslation('services.fiscal.description')}</p>
                 </div>
               </a>
-              <a href={`${prefix}/laboral`} class="mega-menu-item">
+              <a href={`${prefix}/servicios/laboral`} class="mega-menu-item">
                 <div class="mega-menu-image">
                   <img src="/images/megamenu/laboral.webp" alt={getMegamenuTranslation('services.laboral.title')} />
                 </div>
@@ -239,7 +249,7 @@ const prefix = `/${lang}`;
                   <p>{getMegamenuTranslation('services.laboral.description')}</p>
                 </div>
               </a>
-              <a href={`${prefix}/mercantil-societario`} class="mega-menu-item">
+              <a href={`${prefix}/servicios/mercantil-societario`} class="mega-menu-item">
                 <div class="mega-menu-image">
                   <img src="/images/megamenu/mercantil.webp" alt={getMegamenuTranslation('services.mercantil.title')} />
                 </div>
@@ -248,7 +258,7 @@ const prefix = `/${lang}`;
                   <p>{getMegamenuTranslation('services.mercantil.description')}</p>
                 </div>
               </a>
-              <a href={`${prefix}/sucesiones`} class="mega-menu-item">
+              <a href={`${prefix}/servicios/sucesiones`} class="mega-menu-item">
                 <div class="mega-menu-image">
                   <img src="/images/megamenu/sucesiones.webp" alt={getMegamenuTranslation('services.sucesiones.title')} />
                 </div>
@@ -334,10 +344,10 @@ const prefix = `/${lang}`;
             <svg class="mobile-dropdown-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6"/></svg>
           </div>
           <div class="mobile-submenu">
-            <a href={`${prefix}/fiscal-contable`} class="mobile-submenu-link">{t('nav.fiscalContable')}</a>
-            <a href={`${prefix}/laboral`} class="mobile-submenu-link">{t('nav.laboral')}</a>
-            <a href={`${prefix}/mercantil-societario`} class="mobile-submenu-link">{t('nav.mercantilSocietario')}</a>
-            <a href={`${prefix}/sucesiones`} class="mobile-submenu-link">{t('nav.sucesiones')}</a>
+            <a href={`${prefix}/servicios/fiscal`} class="mobile-submenu-link">{t('nav.fiscalContable')}</a>
+            <a href={`${prefix}/servicios/laboral`} class="mobile-submenu-link">{t('nav.laboral')}</a>
+            <a href={`${prefix}/servicios/mercantil-societario`} class="mobile-submenu-link">{t('nav.mercantilSocietario')}</a>
+            <a href={`${prefix}/servicios/sucesiones`} class="mobile-submenu-link">{t('nav.sucesiones')}</a>
           </div>
         </div>
         <a href={`${prefix}/despacho`} class="mobile-nav-link">{t('nav.despacho')}</a>
@@ -455,45 +465,19 @@ const prefix = `/${lang}`;
     });
   })();
 
-  // Header scroll effect - transparente en home y páginas con PageHero
+  // Header scroll effect - solo para páginas con hero
   const header = document.querySelector('.header-mega');
-  if (header) {
-    let lastScrollY = window.scrollY;
-    
-    // Verificar si estamos en la página home o en una página con PageHero
-    const isHomePage = window.location.pathname === '/' || 
-                      window.location.pathname.match(/^\/(es|en|ca)\/?$/);
-    
-    const hasPageHero = document.querySelector('.page-hero') !== null;
-    const shouldBeTransparent = isHomePage || hasPageHero;
-    
-    // Añadir clase para identificar si debe ser transparente o no
-    if (shouldBeTransparent) {
-      header.classList.add('home-page');
-    } else {
-      header.classList.remove('home-page');
-    }
-    
+  if (header && header.classList.contains('home-page')) {
     function updateHeader() {
-      const currentScrollY = window.scrollY;
-      
-      if (shouldBeTransparent) {
-        // En páginas con hero: transparente al principio, azul al hacer scroll
-        if (currentScrollY > 50) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
+      // En páginas con hero: transparente al principio, azul al hacer scroll
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
       }
-      // En otras páginas no necesitamos hacer nada, ya tienen el CSS correcto
-      
-      lastScrollY = currentScrollY;
     }
     
-    // Solo añadir el listener de scroll en páginas con hero
-    if (shouldBeTransparent) {
-      window.addEventListener('scroll', updateHeader, { passive: true });
-    }
+    window.addEventListener('scroll', updateHeader, { passive: true });
     updateHeader(); // Initial call
   }
 </script>

@@ -13,6 +13,7 @@ import FeaturesSplitLeft from '../../components/features/split-left/FeaturesSpli
 import HeroOverlay from '../../components/hero/overlay/HeroOverlay.astro';
 import AboutSplit from '../../components/about/split-layout/AboutSplit.astro';
 import ServicesText from '../../components/services/text-layout/ServicesText.astro';
+import ContactSimple from '../../components/contact/simple/ContactSimple.astro';
 
 export async function getStaticPaths() {
   return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
@@ -23,8 +24,8 @@ const t = await loadT(lang, ['header','footer','home','featured']);
 ---
 
 <BaseLayout 
-  title={`${lang === 'es' ? 'Inicio' : lang === 'ca' ? 'Inici' : 'Home'} | JF Legal`} 
-  description="Despacho de abogados especializado en fiscal, laboral, mercantil y sucesiones. Asesoramiento legal integral para empresas y particulares."
+  title={`${lang === 'es' ? 'JF Legal | Asesoría jurídica integral para empresas y familias' : lang === 'ca' ? 'JF Legal | Assessorament jurídic integral per a empreses i famílies' : 'JF Legal | Comprehensive legal advice for companies and families'}`} 
+  description={`${lang === 'es' ? 'Despacho de abogados especializado en derecho fiscal, laboral, mercantil y sucesiones. Ofrecemos asesoramiento jurídico integral con cercanía, claridad y confianza para empresas y familias.' : lang === 'ca' ? 'Despatx d\'advocats especialitzat en dret fiscal, laboral, mercantil i successions. Oferim assessorament jurídic integral amb proximitat, claredat i confiança per a empreses i famílies.' : 'Law firm specialized in tax, labor, commercial and inheritance law. We offer comprehensive legal advice with closeness, clarity and trust for companies and families.'}`}
 >
   <HeaderMega lang={lang} />
   
@@ -46,6 +47,9 @@ const t = await loadT(lang, ['header','footer','home','featured']);
         
         <!-- Featured News -->
         <FeaturedNews lang={lang} />
+
+        <!-- Contact Section -->
+        <ContactSimple lang={lang} />
 
         <!-- FAQ Section -->
         <FAQListCenter

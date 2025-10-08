@@ -1,21 +1,21 @@
 {
   "sucesiones": {
-    "title": "Successions: planificació i tramitació integral",
-    "description": "T'acompanyem en herències, testaments i pactes successoris. Optimitzem la càrrega fiscal i prevenim conflictes familiars. Gestió completa: des de documentació i liquidació de l'Impost de Successions fins a inscripció registral."
+    "title": "La nostra forma d'entendre el dret",
+    "description": "Creiem que el dret no és només normativa, sinó també confiança, equilibri i humanitat.\nAcompanyem a empreses i famílies en decisions importants, oferint seguretat jurídica i calma en moments clau."
   },
   "mercantil": {
-    "title": "Mercantil i societari: seguretat en les teves decisions",
-    "subtitle": "Constitució de societats, pactes entre socis i contractació mercantil amb rigor jurídic.",
+    "title": "Com t'ajudem",
+    "subtitle": "A JF Legal acompanyem tant a empreses com a famílies en els moments clau de la seva activitat o patrimoni.",
     "sections": {
       "constitucion": {
-        "title": "Constitució i reorganització de societats",
-        "description": "Assessorament integral per triar forma jurídica, constitució, reformes estatutàries, fusions i adquisicions, i estructures holding."
+        "title": "Assessorem a emprenedors que inicien el seu projecte, a societats que necessiten reorganitzar-se o resoldre conflictes entre socis, i a famílies que busquen planificar la seva herència amb seguretat jurídica i eficiència fiscal.",
+        "description": ""
       },
       "contratacion": {
-        "title": "Contractació mercantil",
-        "description": "Redacció i revisió de contractes de distribució, subministrament, franquícia i arrendaments amb protecció real d'interessos."
+        "title": "També prestem suport continu en matèria comptable, fiscal i laboral, garantint el compliment normatiu i ajudant a optimitzar recursos.",
+        "description": ""
       }
     },
-    "additional": "També t'ajudem en dissolucions, concursos i reestructuracions societàries."
+    "additional": "La nostra forma de treballar es basa en la proximitat, la comunicació constant i l'anàlisi rigorós de cada detall, per oferir solucions pràctiques i personalitzades que evitin riscos i generin tranquil·litat."
   }
 }

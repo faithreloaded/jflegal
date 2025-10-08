@@ -15,134 +15,27 @@ const {
   height = 80
 } = Astro.props;
 
-const t = await loadT(lang);
+const t = await loadT(lang, ['hero']);
 const prefix = `/${lang}`;
-
-// Fallback translations si el sistema no funciona
-const fallbackTranslations = {
-  es: {
-    title: "Asesoría legal para empresas y familias",
-    description: "Especialistas en sucesiones y mercantil. También te acompañamos en fiscal/contable y laboral.",
-    buttonText: "Contactar",
-    formTitle: "Consulta legal",
-    formServicePlaceholder: "Selecciona un servicio",
-    formNamePlaceholder: "Nombre",
-    formEmailPlaceholder: "Email",
-    formPhonePlaceholder: "Teléfono",
-    formMessagePlaceholder: "Describe brevemente tu consulta",
-    formSubmitButton: "Enviar consulta",
-    formSuccessMessage: "¡Gracias por enviar tu mensaje! Te responderemos lo antes posible, en un plazo máximo de 24 horas.",
-    services: {
-      fiscal: "Fiscal y Contable",
-      laboral: "Laboral",
-      mercantil: "Mercantil y Societario",
-      sucesiones: "Sucesiones"
-    }
-  },
-  en: {
-    title: "Legal advice for companies and families",
-    description: "Specialists in inheritance and commercial law. We also assist you with tax/accounting and labor matters.",
-    buttonText: "Contact",
-    formTitle: "Legal consultation",
-    formServicePlaceholder: "Select a service",
-    formNamePlaceholder: "Name",
-    formEmailPlaceholder: "Email",
-    formPhonePlaceholder: "Phone",
-    formMessagePlaceholder: "Briefly describe your consultation",
-    formSubmitButton: "Send consultation",
-    formSuccessMessage: "Thank you for sending your message! We will respond as soon as possible, within a maximum of 24 hours.",
-    services: {
-      fiscal: "Tax and Accounting",
-      laboral: "Labor Law",
-      mercantil: "Commercial and Corporate",
-      sucesiones: "Inheritance"
-    }
-  },
-  ca: {
-    title: "Assessorament legal per a empreses i famílies",
-    description: "Especialistes en successions i mercantil. També t'acompanyem en fiscal/comptable i laboral.",
-    buttonText: "Contactar",
-    formTitle: "Consulta legal",
-    formServicePlaceholder: "Selecciona un servei",
-    formNamePlaceholder: "Nom",
-    formEmailPlaceholder: "Email",
-    formPhonePlaceholder: "Telèfon",
-    formMessagePlaceholder: "Descriu breument la teva consulta",
-    formSubmitButton: "Enviar consulta",
-    formSuccessMessage: "Gràcies per enviar el teu missatge! Et respondrem el més aviat possible, en un termini màxim de 24 hores.",
-    services: {
-      fiscal: "Fiscal i Comptable",
-      laboral: "Laboral",
-      mercantil: "Mercantil i Societari",
-      sucesiones: "Successions"
-    }
-  }
-};
-
-// Función helper para obtener traducciones con fallback
-function getTranslation(key: string) {
-  const translation = t(`hero.${key}`);
-  if (translation === `hero.${key}`) {
-    // Si no se encuentra la traducción, usar fallback
-    const keys = key.split('.');
-    let fallback = fallbackTranslations[lang];
-    for (const k of keys) {
-      fallback = fallback?.[k];
-    }
-    return fallback || key;
-  }
-  return translation;
-}
 ---
 
-<section class="hero-overlay" style={`height: ${height}vh; background-image: url('${imageSrc}');`}>
+<section class="hero-overlay" style={`background-image: url('${imageSrc}');`}>
   <div class="hero-overlay-dark"></div>
   <div class="hero-overlay-content">
     <div class="container">
       <div class="hero-layout">
-        <div class="hero-text-container">
+        <div class="hero-text-container hero-animate">
           <div class="hero-text">
-            <h1 class="hero-title">{getTranslation('title')}</h1>
-            <p class="hero-description">{getTranslation('description')}</p>
+            <h1 class="hero-title">{t('title')}</h1>
+            <p class="hero-description">{t('description')}</p>
             <div class="hero-cta">
-              <ButtonPrimaryDark href={`${prefix}/contacto`} width="fit-content">{getTranslation('buttonText')}</ButtonPrimaryDark>
+              <ButtonPrimaryDark href={`${prefix}/contacto`} width="fit-content">{t('buttonText')}</ButtonPrimaryDark>
             </div>
           </div>
         </div>
         
-        <div class="hero-form-container">
-          <div class="hero-quote-form">
-            <h3 class="quote-title">{getTranslation('formTitle')}</h3>
-            <form class="quote-form" id="hero-form">
-              <div class="form-group">
-                <select class="form-select" required>
-                  <option value="">{getTranslation('formServicePlaceholder')}</option>
-                  <option value="fiscal">{getTranslation('services.fiscal')}</option>
-                  <option value="laboral">{getTranslation('services.laboral')}</option>
-                  <option value="mercantil">{getTranslation('services.mercantil')}</option>
-                  <option value="sucesiones">{getTranslation('services.sucesiones')}</option>
-                </select>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <input type="text" class="form-input" placeholder={getTranslation('formNamePlaceholder')} required>
-                </div>
-                <div class="form-group">
-                  <input type="email" class="form-input" placeholder={getTranslation('formEmailPlaceholder')} required>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="tel" class="form-input" placeholder={getTranslation('formPhonePlaceholder')}>
-              </div>
-              <div class="form-group">
-                <textarea class="form-textarea" placeholder={getTranslation('formMessagePlaceholder')} rows="3"></textarea>
-              </div>
-              <button type="submit" class="quote-submit">{getTranslation('formSubmitButton')}</button>
-            </form>
-            <div class="form-success" id="form-success" style="display: none;">
-              <p>{getTranslation('formSuccessMessage')}</p>
-            </div>
-          </div>
+        <div class="hero-image-container hero-animate">
+          <div class="hero-image" style="background-image: url('/images/abogadas.webp');"></div>
         </div>
       </div>
     </div>
@@ -153,12 +46,35 @@ function getTranslation(key: string) {
   .hero-overlay {
     position: relative;
     width: 100%;
-    background-size: cover;
+    background-size: cover !important; /* Forzar cover desde el inicio */
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     padding-top: 60px; /* compensar header fijo */
+    min-height: 80vh; /* Como estaba antes */
+    animation: heroBackgroundZoom 2.5s ease-out forwards;
+  }
+
+  @keyframes heroBackgroundZoom {
+    from {
+      background-size: 105%;
+    }
+    to {
+      background-size: 100%;
+    }
+  }
+
+  /* Animaciones fade in up */
+  .hero-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .hero-animate.animate {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .hero-overlay-dark {
@@ -175,28 +91,38 @@ function getTranslation(key: string) {
     position: relative;
     z-index: 2;
     width: 100%;
-    min-height: calc(80vh - 60px);
   }
 
   .hero-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    height: calc(80vh - 60px);
+    min-height: calc(80vh - 60px);
     align-items: stretch;
   }
 
   .hero-text-container {
     display: flex;
     align-items: flex-end;
+    padding-top: 20px;
     padding-bottom: 60px;
   }
 
-  .hero-form-container {
+  .hero-image-container {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding-top: 0;
+  }
+
+  .hero-image {
+    width: 420px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .hero-text {
@@ -341,21 +267,46 @@ function getTranslation(key: string) {
   }
 
   /* Responsive */
+  @media (max-width: 1300px) {
+    .hero-overlay {
+      background-size: cover !important;
+      background-position: center center;
+    }
+  }
+
   @media (max-width: 1024px) {
+    .hero-overlay {
+      padding-top: 70px;
+      background-size: cover !important;
+      background-position: center center;
+      min-height: auto; /* Sin altura fija en tablet */
+    }
+    
     .hero-layout {
       grid-template-columns: 1fr;
       gap: 30px;
+      min-height: auto;
     }
     
     .hero-text-container {
-      align-items: center;
+      align-items: flex-start;
       padding-bottom: 0;
+      padding-top: 60px; /* Más espaciado hacia arriba */
     }
     
-    .hero-form-container {
-      align-items: center;
+    .hero-image-container {
+      align-items: flex-start;
       padding-top: 0;
-      justify-content: center;
+      padding-bottom: 40px; /* Espaciado hacia abajo */
+      justify-content: flex-start;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 580px;
+      height: auto;
+      aspect-ratio: 4/5; /* Mantener proporciones */
+      background-position: center top;
     }
     
     .hero-quote-form {
@@ -365,20 +316,33 @@ function getTranslation(key: string) {
 
   @media (max-width: 768px) {
     .hero-overlay {
-      height: 80vh;
+      padding-top: 80px;
+      background-size: cover !important;
+      background-position: center center;
+      min-height: auto; /* Sin altura fija en mobile */
     }
     
     .hero-layout {
       gap: 20px;
+      min-height: auto;
     }
     
     .hero-text-container {
+      padding-top: 40px;
       padding-bottom: 20px;
     }
     
-    .hero-form-container {
+    .hero-image-container {
       padding-top: 0;
-      justify-content: center;
+      padding-bottom: 16px; /* Espaciado hacia abajo en mobile */
+      justify-content: flex-start;
+    }
+
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 1/1;
+      height: auto;
+      background-position: center top;
     }
     
     .hero-title {
@@ -403,7 +367,26 @@ function getTranslation(key: string) {
 
   @media (max-width: 480px) {
     .hero-overlay {
-      height: 80vh;
+      padding-top: 90px;
+      background-size: cover !important;
+      background-position: center center;
+      min-height: auto; /* Sin altura fija en mobile pequeño */
+    }
+    
+    .hero-text-container {
+      padding-top: 30px;
+      padding-bottom: 15px;
+    }
+    
+    .hero-image-container {
+      padding-bottom: 20px; /* Espaciado hacia abajo en mobile pequeño */
+      justify-content: flex-start;
+    }
+    
+    .hero-image {
+      aspect-ratio: 1/1;
+      height: auto;
+      background-position: center top;
     }
     
     .hero-title {
@@ -419,6 +402,36 @@ function getTranslation(key: string) {
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Animaciones fade in up escalonadas para el Hero
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Añadir delay escalonado
+          if (entry.target.classList.contains('hero-text-container')) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, 100);
+          } else if (entry.target.classList.contains('hero-image-container')) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, 200);
+          } else {
+            entry.target.classList.add('animate');
+          }
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observar elementos con animación del Hero
+    const heroAnimatedElements = document.querySelectorAll('.hero-animate');
+    heroAnimatedElements.forEach(el => {
+      observer.observe(el);
+    });
+
+    // Formulario (si existe)
     const form = document.getElementById('hero-form');
     const successMessage = document.getElementById('form-success');
     

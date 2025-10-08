@@ -9,53 +9,10 @@ interface Props {
 const { lang } = Astro.props;
 const t = await loadT(lang, ['about']);
 
-// Fallback translations para about si el sistema no funciona
-const aboutFallback = {
-  es: {
-    title: "JF Legal es un despacho de abogados especializado en asesoramiento integral para empresas y familias.",
-    description: "Nuestros abogados experimentados aportan soluciones creativas en las etapas pre-contrato, ejecución contractual y post-contrato, proporcionando soluciones prácticas y rentables adaptadas a las necesidades únicas de cada cliente.",
-    buttons: {
-      team: "NUESTRO EQUIPO",
-      services: "NUESTROS SERVICIOS"
-    }
-  },
-  en: {
-    title: "JF Legal is a law firm specialized in comprehensive legal advice for companies and families.",
-    description: "Our experienced lawyers provide creative solutions in pre-contract, contractual execution and post-contract stages, delivering practical and profitable solutions tailored to each client's unique needs.",
-    buttons: {
-      team: "OUR TEAM",
-      services: "OUR SERVICES"
-    }
-  },
-  ca: {
-    title: "JF Legal és un despatx d'advocats especialitzat en assessorament legal integral per a empreses i famílies.",
-    description: "Els nostres advocats experimentats aporten solucions creatives en les etapes pre-contrat, execució contractual i post-contrat, proporcionant solucions pràctiques i rendibles adaptades a les necessitats úniques de cada client.",
-    buttons: {
-      team: "EL NOSTRE EQUIP",
-      services: "ELS NOSTRES SERVEIS"
-    }
-  }
-};
-
-// Función helper para obtener traducciones del about con fallback
-function getAboutTranslation(key: string) {
-  const translation = t(`about.${key}`);
-  if (translation === `about.${key}`) {
-    // Si no se encuentra la traducción, usar fallback
-    const keys = key.split('.');
-    let value = aboutFallback[lang];
-    for (const k of keys) {
-      value = value?.[k];
-    }
-    return value || key;
-  }
-  return translation;
-}
-
-const title = getAboutTranslation('title');
-const description = getAboutTranslation('description');
-const button1Text = getAboutTranslation('buttons.team');
-const button2Text = getAboutTranslation('buttons.services');
+const title = t('title');
+const description = t('description');
+const button1Text = t('buttons.team');
+const button2Text = t('buttons.services');
 const button1Href = `/${lang}/despacho`;
 const button2Href = `/${lang}/servicios`;
 ---
@@ -136,16 +93,47 @@ const button2Href = `/${lang}/servicios`;
   } else {
     initAnimatedText();
   }
+
+  // Animaciones fade in up escalonadas para About
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Añadir delay escalonado
+          if (entry.target.classList.contains('about-split-header')) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, 100);
+          } else if (entry.target.classList.contains('about-split-bottom')) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, 200);
+          } else {
+            entry.target.classList.add('animate');
+          }
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observar elementos con animación del About
+    const aboutAnimatedElements = document.querySelectorAll('.about-animate');
+    aboutAnimatedElements.forEach(el => {
+      observer.observe(el);
+    });
+  });
 </script>
 
 <section class="about-split">
   <div class="about-split-container">
     <div class="about-split-content">
-      <div class="about-split-header">
+      <div class="about-split-header about-animate">
         <h2 class="about-split-title" id="about-animated-title">{title}</h2>
       </div>
       
-      <div class="about-split-bottom">
+      <div class="about-split-bottom about-animate">
         <div class="about-split-description-container">
           <p class="about-split-description">{description}</p>
           <div class="about-split-buttons">
@@ -162,6 +150,18 @@ const button2Href = `/${lang}/servicios`;
   .about-split {
     background-color: var(--color-background-alt);
     padding: var(--space-8) 0;
+  }
+
+  /* Animaciones fade in up */
+  .about-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .about-animate.animate {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .about-split-container {
@@ -243,18 +243,36 @@ const button2Href = `/${lang}/servicios`;
       padding: var(--space-6) 0;
     }
     
+    .about-split-content {
+      gap: var(--space-6);
+    }
+    
     .about-split-title {
       font-size: 32px;
       line-height: 40px;
     }
     
+    .about-split-description {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
     .about-split-buttons {
       flex-direction: column;
       gap: var(--space-3);
+      align-items: flex-start;
     }
   }
 
   @media (max-width: 480px) {
+    .about-split {
+      padding: var(--space-4) 0;
+    }
+    
+    .about-split-content {
+      gap: var(--space-4);
+    }
+    
     .about-split-title {
       font-size: 26px;
       line-height: 34px;
@@ -262,6 +280,11 @@ const button2Href = `/${lang}/servicios`;
     
     .about-split-description {
       font-size: 15px;
+      line-height: 1.4;
+    }
+    
+    .about-split-buttons {
+      gap: var(--space-2);
     }
   }
 </style>

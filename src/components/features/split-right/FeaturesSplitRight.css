@@ -34,7 +34,8 @@
 .features-split-content {
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .features-split-title {
@@ -147,6 +148,7 @@
   }
   
   .features-split-content {
+    justify-content: flex-start;
     gap: 24px;
   }
   

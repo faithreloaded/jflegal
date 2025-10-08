@@ -1,0 +1,77 @@
+---
+import '../../../styles/main.css';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import HeaderMega from '../../../components/header/header-mega/Header.astro';
+import FooterGrid from '../../../components/footer/footer-grid/Footer.astro';
+import PageBanner from '../../../components/hero/page-banner/PageBanner.astro';
+import { LOCALES, type Locale, loadT } from '../../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['header', 'footer', 'services']);
+
+// Fallback translations para servicios si el sistema no funciona
+const servicesFallback = {
+  es: {
+    laboral: {
+      title: "Laboral",
+      subtitle: "Asesoramiento jurídico especializado en derecho laboral",
+      description: "Asesoramiento jurídico especializado en derecho laboral"
+    }
+  },
+  en: {
+    laboral: {
+      title: "Labor Law",
+      subtitle: "Specialized legal advice in labor law",
+      description: "Specialized legal advice in labor law"
+    }
+  },
+  ca: {
+    laboral: {
+      title: "Laboral",
+      subtitle: "Assessorament jurídic especialitzat en dret laboral",
+      description: "Assessorament jurídic especialitzat en dret laboral"
+    }
+  }
+};
+
+// Función helper para obtener traducciones de servicios con fallback
+function getServicesTranslation(key: string) {
+  const translation = t(`services.${key}`);
+  if (translation === `services.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let fallbackValue = servicesFallback[lang];
+    for (const k of keys) {
+      fallbackValue = fallbackValue?.[k];
+    }
+    return fallbackValue || key;
+  }
+  return translation;
+}
+
+const title = getServicesTranslation('laboral.title');
+const subtitle = getServicesTranslation('laboral.subtitle');
+const description = getServicesTranslation('laboral.description');
+---
+
+<BaseLayout 
+  title={`${title} | JF Legal`} 
+  description={subtitle}
+>
+  <HeaderMega lang={lang} />
+  
+  <main class="main">
+    <!-- Page Hero -->
+    <PageBanner 
+      title={title} 
+      subtitle={subtitle}
+      backgroundImage="/images/laboral.webp"
+    />
+  </main>
+  
+  <FooterGrid lang={lang} />
+</BaseLayout>

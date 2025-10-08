@@ -1,21 +1,21 @@
 {
   "sucesiones": {
-    "title": "Sucesiones: planificación y tramitación integral",
-    "description": "Te acompañamos en herencias, testamentos y pactos sucesorios. Optimizamos la carga fiscal y prevenimos conflictos familiares. Gestión completa: desde documentación y liquidación del Impuesto de Sucesiones hasta inscripción registral."
+    "title": "Nuestra forma de entender el derecho",
+    "description": "Creemos que el derecho no es solo normativa, sino también confianza, equilibrio y humanidad.\nAcompañamos a empresas y familias en decisiones importantes, ofreciendo seguridad jurídica y calma en momentos clave."
   },
   "mercantil": {
-    "title": "Mercantil y societario: seguridad en tus decisiones",
-    "subtitle": "Constitución de sociedades, pactos entre socios y contratación mercantil con rigor jurídico.",
+    "title": "Cómo te ayudamos",
+    "subtitle": "En JF Legal acompañamos tanto a empresas como a familias en los momentos clave de su actividad o patrimonio.",
     "sections": {
       "constitucion": {
-        "title": "Constitución y reorganización de sociedades",
-        "description": "Asesoramiento integral para elegir forma jurídica, constitución, reformas estatutarias, fusiones y adquisiciones, y estructuras holding."
+        "title": "Asesoramos a emprendedores que inician su proyecto, a sociedades que necesitan reorganizarse o resolver conflictos entre socios, y a familias que buscan planificar su herencia con seguridad jurídica y eficiencia fiscal.",
+        "description": ""
       },
       "contratacion": {
-        "title": "Contratación mercantil",
-        "description": "Redacción y revisión de contratos de distribución, suministro, franquicia y arrendamientos con protección real de intereses."
+        "title": "También prestamos apoyo continuo en materia contable, fiscal y laboral, garantizando el cumplimiento normativo y ayudando a optimizar recursos.",
+        "description": ""
       }
     },
-    "additional": "También te ayudamos en disoluciones, concursos y reestructuraciones societarias."
+    "additional": "Nuestra forma de trabajar se basa en la cercanía, la comunicación constante y el análisis riguroso de cada detalle, para ofrecer soluciones prácticas y personalizadas que eviten riesgos y generen tranquilidad."
   }
 }

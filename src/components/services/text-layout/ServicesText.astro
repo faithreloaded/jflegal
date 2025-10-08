@@ -8,139 +8,75 @@ interface Props {
 const { lang } = Astro.props;
 const t = await loadT(lang, ['services']);
 
-// Fallback translations para services si el sistema no funciona
-const servicesFallback = {
-  es: {
-    title: "Nuestros servicios",
-    description: "Especialistas en asesoramiento legal integral para empresas y particulares. Ofrecemos soluciones personalizadas en las áreas de derecho fiscal, laboral, mercantil y sucesiones, adaptadas a las necesidades específicas de cada cliente.",
-    services: {
-      fiscal: {
-        number: "01",
-        title: "Fiscal y Contable",
-        description: "Asesoramiento fiscal integral, contabilidad empresarial y optimización tributaria para empresas y particulares."
-      },
-      laboral: {
-        number: "02",
-        title: "Laboral",
-        description: "Derecho laboral, contratos, despidos, negociación colectiva y asesoramiento en recursos humanos."
-      },
-      mercantil: {
-        number: "03",
-        title: "Mercantil y Societario",
-        description: "Constitución de empresas, fusiones, adquisiciones, contratos mercantiles y derecho corporativo."
-      },
-      sucesiones: {
-        number: "04",
-        title: "Sucesiones",
-        description: "Planificación sucesoria, testamentos, herencias, liquidación de impuestos y gestión patrimonial."
-      }
-    },
-    buttonText: "VERMÁS"
-  },
-  en: {
-    title: "Our services",
-    description: "Specialists in comprehensive legal advice for companies and individuals. We offer personalized solutions in the areas of tax, labor, commercial and inheritance law, adapted to the specific needs of each client.",
-    services: {
-      fiscal: {
-        number: "01",
-        title: "Tax and Accounting",
-        description: "Comprehensive tax advice, business accounting and tax optimization for companies and individuals."
-      },
-      laboral: {
-        number: "02",
-        title: "Labor Law",
-        description: "Labor law, contracts, dismissals, collective bargaining and human resources consulting."
-      },
-      mercantil: {
-        number: "03",
-        title: "Commercial and Corporate",
-        description: "Company formation, mergers, acquisitions, commercial contracts and corporate law."
-      },
-      sucesiones: {
-        number: "04",
-        title: "Inheritance",
-        description: "Succession planning, wills, inheritances, tax settlement and wealth management."
-      }
-    },
-    buttonText: "SEE MORE"
-  },
-  ca: {
-    title: "Els nostres serveis",
-    description: "Especialistes en assessorament legal integral per a empreses i particulars. Oferim solucions personalitzades en les àrees de dret fiscal, laboral, mercantil i successions, adaptades a les necessitats específiques de cada client.",
-    services: {
-      fiscal: {
-        number: "01",
-        title: "Fiscal i Comptable",
-        description: "Assessorament fiscal integral, comptabilitat empresarial i optimització tributària per a empreses i particulars."
-      },
-      laboral: {
-        number: "02",
-        title: "Laboral",
-        description: "Dret laboral, contractes, acomiadaments, negociació col·lectiva i assessorament en recursos humans."
-      },
-      mercantil: {
-        number: "03",
-        title: "Mercantil i Societari",
-        description: "Constitució d'empreses, fusions, adquisicions, contractes mercantils i dret corporatiu."
-      },
-      sucesiones: {
-        number: "04",
-        title: "Successions",
-        description: "Planificació successòria, testaments, herències, liquidació d'impostos i gestió patrimonial."
-      }
-    },
-    buttonText: "VEURE MÉS"
-  }
-};
-
-// Función helper para obtener traducciones de services con fallback
-function getServicesTranslation(key: string) {
-  const translation = t(`services.${key}`);
-  if (translation === `services.${key}`) {
-    // Si no se encuentra la traducción, usar fallback
-    const keys = key.split('.');
-    let value: any = servicesFallback[lang];
-    for (const k of keys) {
-      value = value?.[k];
-    }
-    return value || key;
-  }
-  return translation;
-}
-
-const title = getServicesTranslation('title');
-const description = getServicesTranslation('description');
-const buttonText = getServicesTranslation('buttonText');
+const title = t('title');
+const description = t('description');
+const buttonText = t('buttonText');
 
 // Construir array de servicios desde las traducciones
 const services = [
   {
-    name: getServicesTranslation('services.fiscal.title'),
-    description: getServicesTranslation('services.fiscal.description'),
-    number: getServicesTranslation('services.fiscal.number')
+    name: t('services.fiscal.title'),
+    description: t('services.fiscal.description'),
+    number: t('services.fiscal.number')
   },
   {
-    name: getServicesTranslation('services.laboral.title'),
-    description: getServicesTranslation('services.laboral.description'),
-    number: getServicesTranslation('services.laboral.number')
+    name: t('services.laboral.title'),
+    description: t('services.laboral.description'),
+    number: t('services.laboral.number')
   },
   {
-    name: getServicesTranslation('services.mercantil.title'),
-    description: getServicesTranslation('services.mercantil.description'),
-    number: getServicesTranslation('services.mercantil.number')
+    name: t('services.mercantil.title'),
+    description: t('services.mercantil.description'),
+    number: t('services.mercantil.number')
   },
   {
-    name: getServicesTranslation('services.sucesiones.title'),
-    description: getServicesTranslation('services.sucesiones.description'),
-    number: getServicesTranslation('services.sucesiones.number')
+    name: t('services.sucesiones.title'),
+    description: t('services.sucesiones.description'),
+    number: t('services.sucesiones.number')
   }
 ];
 ---
 
+<script>
+  // Animaciones fade in up escalonadas para Services
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Añadir delay escalonado
+          if (entry.target.classList.contains('services-text-left')) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, 100);
+          } else if (entry.target.classList.contains('services-text-item')) {
+            // Para los items de servicios, usar el delay CSS existente
+            const delay = entry.target.style.getPropertyValue('--delay') || '0s';
+            const delayMs = parseFloat(delay) * 1000 + 200; // Convertir a ms y añadir 200ms base
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, delayMs);
+          } else {
+            entry.target.classList.add('animate');
+          }
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observar elementos con animación de Services
+    const servicesAnimatedElements = document.querySelectorAll('.services-animate');
+    servicesAnimatedElements.forEach(el => {
+      observer.observe(el);
+    });
+  });
+</script>
+
 <section class="services-text">
-  <div class="services-text-container">
+  <div class="container">
     <div class="services-text-layout">
-      <div class="services-text-left">
+      <div class="services-text-left services-animate">
         <h2 class="services-text-title">{title}</h2>
         <p class="services-text-description-main">
           Especialistas en asesoramiento legal integral para empresas y particulares. 
@@ -151,7 +87,7 @@ const services = [
       
       <div class="services-text-right">
         {services.map((service, index) => (
-          <div class="services-text-item" style={`--delay: ${index * 0.1}s;`}>
+          <div class="services-text-item services-animate" style={`--delay: ${index * 0.1}s;`}>
             <div class="services-text-item-header">
               <span class="services-text-number">{service.number}</span>
               <h3 class="services-text-service">{service.name}</h3>
@@ -159,7 +95,7 @@ const services = [
             <p class="services-text-description">{service.description}</p>
             <div class="services-text-item-cta">
               <a href={`/${lang}/servicios`} class="services-text-link">
-                VERMÁS
+                VER MÁS
               </a>
             </div>
             {index < services.length - 1 && <hr class="services-text-separator" />}
@@ -177,11 +113,6 @@ const services = [
     position: relative;
   }
 
-  .services-text-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-4);
-  }
 
   .services-text-layout {
     display: grid;
@@ -223,11 +154,19 @@ const services = [
     gap: 0;
   }
 
-  .services-text-item {
+  /* Animaciones fade in up */
+  .services-animate {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: var(--delay, 0s);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .services-animate.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .services-text-item {
     padding: var(--space-6) 0;
   }
 
@@ -307,12 +246,6 @@ const services = [
   }
 
 
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
   /* Responsive */
   @media (max-width: 1024px) {
@@ -327,7 +260,7 @@ const services = [
 
   @media (max-width: 768px) {
     .services-text {
-      padding: var(--space-6) 0;
+      padding: var(--space-4) 0;
     }
     
     .services-text-title {
@@ -336,11 +269,15 @@ const services = [
     
     .services-text-layout {
       grid-template-columns: 1fr;
-      gap: var(--space-6);
+      gap: var(--space-4);
     }
     
     .services-text-left {
-      gap: var(--space-4);
+      gap: var(--space-3);
+    }
+    
+    .services-text-item {
+      padding: var(--space-3) 0;
     }
     
     .services-text-service {
@@ -365,6 +302,18 @@ const services = [
   }
 
   @media (max-width: 480px) {
+    .services-text {
+      padding: var(--space-3) 0;
+    }
+    
+    .services-text-layout {
+      gap: var(--space-3);
+    }
+    
+    .services-text-item {
+      padding: var(--space-2) 0;
+    }
+    
     .services-text-title {
       font-size: 32px;
     }

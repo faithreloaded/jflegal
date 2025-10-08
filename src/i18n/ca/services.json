@@ -1,27 +1,27 @@
 {
-  "title": "Els nostres serveis",
-  "description": "Especialistes en assessorament legal integral per a empreses i particulars. Oferim solucions personalitzades en les àrees de dret fiscal, laboral, mercantil i successions, adaptades a les necessitats específiques de cada client.",
+  "title": "Àrees de pràctica",
+  "description": "Especialistes en assessorament jurídic integral per a empreses i particulars. Oferim solucions personalitzades en les àrees de dret fiscal, laboral, mercantil i successions, adaptades a les necessitats específiques de cada client.",
+  "buttonText": "VER MÉS",
   "services": {
     "fiscal": {
       "number": "01",
       "title": "Fiscal i Comptable",
-      "description": "Assessorament fiscal integral, comptabilitat empresarial i optimització tributària per a empreses i particulars."
+      "description": "Assessorament integral en matèria fiscal i comptable per a empreses i particulars"
     },
     "laboral": {
       "number": "02",
-      "title": "Laboral",
-      "description": "Dret laboral, contractes, acomiadaments, negociació col·lectiva i assessorament en recursos humans."
+      "title": "Laboral", 
+      "description": "Assessorament jurídic especialitzat en dret laboral"
     },
     "mercantil": {
       "number": "03",
       "title": "Mercantil i Societari",
-      "description": "Constitució d'empreses, fusions, adquisicions, contractes mercantils i dret corporatiu."
+      "description": "Constitució i gestió de societats mercantils"
     },
     "sucesiones": {
       "number": "04",
       "title": "Successions",
-      "description": "Planificació successòria, testaments, herències, liquidació d'impostos i gestió patrimonial."
+      "description": "Planificació i tramitació d'herències i testaments"
     }
-  },
-  "buttonText": "VEURE MÉS"
+  }
 }
