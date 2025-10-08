@@ -21,7 +21,6 @@ import ButtonLink from '../components/buttons/link/ButtonLink.astro';
                 <p class="e4m-desc fade-item">La URL puede estar mal escrita o la página ya no existe.</p>
                 <div class="e4m-actions fade-item">
                   <ButtonLink href="/">Volver al Inicio</ButtonLink>
-                  <ButtonLink href="/servicios">Explorar Servicios</ButtonLink>
                 </div>
               </div>
               <div class="e4m-hero fade-item"></div>
@@ -123,13 +122,14 @@ import ButtonLink from '../components/buttons/link/ButtonLink.astro';
     display:flex; 
     gap:12px; 
     flex-wrap:wrap; 
+    justify-content: flex-start;
   }
   
   .e4m-hero{ 
     grid-area: illustration; 
     border-radius: 0px; 
     border:1px solid rgba(0,0,0,0.08); 
-    background: url('/images/images/placeholder/placeholder.jpg') center/cover no-repeat; 
+    background: url('/images/megamenu/laboral.webp') center/cover no-repeat; 
     height: 100%; 
     min-height: 360px; 
     position:relative; 
@@ -179,19 +179,10 @@ import ButtonLink from '../components/buttons/link/ButtonLink.astro';
     } 
   }
 
-  /* Mantener botones lado a lado en móvil con tamaño adaptativo */
+  /* Botón único centrado en móvil */
   @media (max-width: 600px) {
     .e4m-actions { 
-      display: grid; 
-      grid-template-columns: 1fr 1fr; 
-      gap: 8px; 
-    }
-  }
-
-  /* En pantallas muy pequeñas, apilar los botones */
-  @media (max-width: 360px) {
-    .e4m-actions { 
-      grid-template-columns: 1fr; 
+      justify-content: center;
     }
   }
 </style>
