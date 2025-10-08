@@ -75,6 +75,9 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
                 </div>
               )}
             </div>
+            <div id="noResults" class="no-results" style="display: none;">
+              <p>{lang==='es' ? 'No se encontraron resultados para tu búsqueda' : lang==='ca' ? 'No s\'han trobat resultats per a la teva cerca' : 'No results found for your search'}</p>
+            </div>
           </section>
     </div>
   </main>
@@ -84,15 +87,21 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
 <script>
   const input = document.getElementById('blogSearchInput');
   const cards = Array.from(document.querySelectorAll('.blog-card'));
+  const noResults = document.getElementById('noResults');
   if (input && cards.length) {
     input.addEventListener('input', () => {
       const q = input.value.trim().toLowerCase();
+      let hasVisibleCards = false;
       cards.forEach((card) => {
         const title = (card.getAttribute('data-title') || '').toLowerCase();
         const excerpt = (card.getAttribute('data-excerpt') || '').toLowerCase();
         const match = !q || title.includes(q) || excerpt.includes(q);
         card.style.display = match ? 'block' : 'none';
+        if (match) hasVisibleCards = true;
       });
+      if (noResults) {
+        noResults.style.display = (q && !hasVisibleCards) ? 'block' : 'none';
+      }
     });
   }
 </script>
@@ -363,6 +372,14 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         padding: var(--space-8); 
         color: var(--color-text-muted); 
         font-size: 16px;
+      }
+      
+      .no-results {
+        text-align: center;
+        padding: var(--space-6);
+        color: var(--color-text-muted);
+        font-size: 14px;
+        font-style: italic;
       }
 
       /* Responsive */
