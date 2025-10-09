@@ -49,7 +49,7 @@
   height: 40px;
   width: auto;
   image-rendering: auto;
-  filter: none !important;
+  filter: brightness(0) invert(1);
   transform: none !important;
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
