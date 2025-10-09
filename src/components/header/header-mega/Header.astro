@@ -424,25 +424,61 @@ const prefix = `/${lang}`;
     const button = document.getElementById('lang-button');
     const menu = document.getElementById('lang-menu');
     if (!dropdown || !button || !menu) return;
+    
+    // Función para detectar si es dispositivo móvil
+    function isMobileDevice() {
+      return window.innerWidth <= 768 || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    }
+    
     function closeAll(){
       if (dropdown) dropdown.classList.remove('open');
       if (button) button.setAttribute('aria-expanded', 'false');
     }
+    
+    // Eventos de click (funcionan en todos los dispositivos)
     button && button.addEventListener('click', (e)=>{
       e.preventDefault();
       const isOpen = dropdown.classList.toggle('open');
       button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
+    
     document.addEventListener('click', (e)=>{
       if (!dropdown.contains(e.target as Node)) closeAll();
     });
-    dropdown && dropdown.addEventListener('mouseenter', ()=>{
-      dropdown.classList.add('open');
-      button.setAttribute('aria-expanded', 'true');
-    });
-    dropdown && dropdown.addEventListener('mouseleave', ()=>{
-      closeAll();
-    });
+    
+    // Re-evaluar en resize para cambiar comportamiento si es necesario
+    let hoverEnterHandler: (() => void) | null = null;
+    let hoverLeaveHandler: (() => void) | null = null;
+    
+    function setupHoverEvents() {
+      // Limpiar eventos anteriores
+      if (hoverEnterHandler && hoverLeaveHandler && dropdown) {
+        dropdown.removeEventListener('mouseenter', hoverEnterHandler);
+        dropdown.removeEventListener('mouseleave', hoverLeaveHandler);
+      }
+      
+      // Crear nuevos handlers
+      hoverEnterHandler = () => {
+        if (dropdown) dropdown.classList.add('open');
+        if (button) button.setAttribute('aria-expanded', 'true');
+      };
+      
+      hoverLeaveHandler = () => {
+        closeAll();
+      };
+      
+      // Agregar eventos solo en desktop
+      if (!isMobileDevice() && dropdown) {
+        dropdown.addEventListener('mouseenter', hoverEnterHandler);
+        dropdown.addEventListener('mouseleave', hoverLeaveHandler);
+      }
+    }
+    
+    // Configurar eventos inicialmente
+    setupHoverEvents();
+    
+    // Re-evaluar en resize
+    window.addEventListener('resize', setupHoverEvents);
 
     // Guardar preferencia antes de navegar
     const items = menu.querySelectorAll('.lang-item');
