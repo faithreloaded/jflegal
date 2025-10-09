@@ -1,12 +1,12 @@
 
 export default new Map([
-["src/content/blog/ca/blog-post-1.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fca%2Fblog-post-1.mdx&astroContentModuleFlag=true")],
-["src/content/blog/ca/blog-post-2.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fca%2Fblog-post-2.mdx&astroContentModuleFlag=true")],
-["src/content/blog/ca/blog-post-3.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fca%2Fblog-post-3.mdx&astroContentModuleFlag=true")],
-["src/content/blog/en/blog-post-1.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fen%2Fblog-post-1.mdx&astroContentModuleFlag=true")],
-["src/content/blog/en/blog-post-2.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fen%2Fblog-post-2.mdx&astroContentModuleFlag=true")],
-["src/content/blog/en/blog-post-3.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fen%2Fblog-post-3.mdx&astroContentModuleFlag=true")],
-["src/content/blog/es/blog-post-1.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fes%2Fblog-post-1.mdx&astroContentModuleFlag=true")],
-["src/content/blog/es/blog-post-2.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fes%2Fblog-post-2.mdx&astroContentModuleFlag=true")],
-["src/content/blog/es/blog-post-3.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fes%2Fblog-post-3.mdx&astroContentModuleFlag=true")]]);
+["src/content/blog/es/herencias-errores-comunes-proceso-sucesorio.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fes%2Fherencias-errores-comunes-proceso-sucesorio.mdx&astroContentModuleFlag=true")],
+["src/content/blog/es/verifactu-nuevo-sistema-facturacion-2026.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fes%2Fverifactu-nuevo-sistema-facturacion-2026.mdx&astroContentModuleFlag=true")],
+["src/content/blog/en/inheritance-common-errors-succession-process.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fen%2Finheritance-common-errors-succession-process.mdx&astroContentModuleFlag=true")],
+["src/content/blog/ca/herencies-errors-comuns-proces-successori.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fca%2Fherencies-errors-comuns-proces-successori.mdx&astroContentModuleFlag=true")],
+["src/content/blog/en/corporate-tax-changes-2026.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fen%2Fcorporate-tax-changes-2026.mdx&astroContentModuleFlag=true")],
+["src/content/blog/es/novedades-impuesto-sociedades-2026.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fes%2Fnovedades-impuesto-sociedades-2026.mdx&astroContentModuleFlag=true")],
+["src/content/blog/en/verifactu-new-invoicing-system-2026.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fen%2Fverifactu-new-invoicing-system-2026.mdx&astroContentModuleFlag=true")],
+["src/content/blog/ca/novetats-impost-societats-2026.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fca%2Fnovetats-impost-societats-2026.mdx&astroContentModuleFlag=true")],
+["src/content/blog/ca/verifactu-nou-sistema-facturacio-2026.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2Fca%2Fverifactu-nou-sistema-facturacio-2026.mdx&astroContentModuleFlag=true")]]);
 		

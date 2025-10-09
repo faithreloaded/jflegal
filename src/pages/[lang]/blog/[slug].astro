@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import HeaderMega from '../../../components/header/header-mega/Header.astro';
 import FooterGrid from '../../../components/footer/footer-grid/Footer.astro';
+import ContinueReading from '../../../components/blog/continue-reading/ContinueReading.astro';
 import { getCollection } from 'astro:content';
 import { LOCALES, type Locale, loadT } from '../../../i18n';
 
@@ -54,13 +55,16 @@ const postData = post[0].data;
           <a href={`/${lang}/blog`} class="back-to-blog">&larr; {lang==='es' ? 'Volver al blog' : 'Back to blog'}</a>
         </div>
       </article>
+      
+      <!-- Sección Seguir Leyendo -->
+      <ContinueReading lang={lang} currentSlug={`${lang}/${slug}`} />
     </div>
   </main>
   <FooterGrid lang={lang} />
 </BaseLayout>
 
 <style>
-  .blog-post { padding: var(--space-8) 0; max-width: 800px; margin: 0 auto; }
+  .blog-post { padding: var(--space-8) 0 0 0; max-width: 800px; margin: 0 auto; }
   .post-header { text-align: center; margin-bottom: var(--space-8); }
   .post-title { font-size: 48px; font-weight: 500; color: var(--color-black); margin: 0 0 var(--space-4) 0; line-height: 1.1; letter-spacing: -0.02em; }
   .post-excerpt { font-size: 1.125rem; color: rgba(0,0,0,0.6); margin: 0 0 var(--space-4) 0; line-height: 1.6; }
@@ -68,7 +72,15 @@ const postData = post[0].data;
   .date-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 0px; background: var(--color-container); color: var(--color-text-secondary); }
   .date-pill time { line-height: 1; }
   .post-image-container { width: 100%; height: 400px; overflow: hidden; border-radius: 0px; margin-top: var(--space-6); }
-  .post-image { width: 100%; height: 100%; object-fit: cover; }
+  .post-image { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+  }
 
   .post-content {
     font-size: 16px;

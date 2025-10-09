@@ -6,9 +6,11 @@ import ButtonLink from '../../buttons/link/ButtonLink.astro';
 interface Props {
   lang: Locale;
   title?: string;
+  currentSlug?: string;
+  hideBackground?: boolean;
 }
 
-const { lang, title } = Astro.props as Props;
+const { lang, title, currentSlug, hideBackground } = Astro.props as Props;
 const t = await loadT(lang, ['featured']);
 
 // Fallback translations para featured si el sistema no funciona
@@ -68,7 +70,9 @@ const posts = allPosts
   .filter((p) => p.id.startsWith(`${lang}/`))
   .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date));
 
-const list = posts.slice(0, 3);
+// Filtrar el post actual si se proporciona
+const filteredPosts = currentSlug ? posts.filter(post => post.slug !== currentSlug) : posts;
+const list = filteredPosts.slice(0, 3);
 ---
 
 <script>
@@ -84,7 +88,7 @@ const list = posts.slice(0, 3);
             }, 100);
           } else if (entry.target.classList.contains('blog-card')) {
             // Para las cards, usar delays más cortos y escalonados
-            const delay = entry.target.style.getPropertyValue('--delay') || '0s';
+            const delay = (entry.target as HTMLElement).style.getPropertyValue('--delay') || '0s';
             const delayMs = parseFloat(delay) * 300 + 200; // Convertir a ms y añadir 200ms base (más rápido)
             setTimeout(() => {
               entry.target.classList.add('animate');
@@ -108,47 +112,55 @@ const list = posts.slice(0, 3);
 </script>
 
 {list.length > 0 ? (
-  <section class="featured-section">
-    <div class="featured">
-      <header class="featured-header featured-animate">
-        <h2 class="featured-title">{heading}</h2>
-        <ButtonLink href={`/${lang}/blog`}>{buttonText}</ButtonLink>
-      </header>
-      <div class="featured-grid">
-        {list.map((post, idx) => (
-          <a class="blog-card featured-animate" href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}`} style={`--delay: ${idx * 0.1}s;`}>
-            <img class="blog-card-bg" src={post.data.image || "/images/images/placeholder/placeholder.jpg"} alt={post.data.title} />
-            <div class="blog-card-overlay-bottom">
-              <div class="blog-card-row">
-                <h4 class="blog-card-heading">{post.data.title}</h4>
-                <div class="blog-date-pill">{new Date(post.data.date).toLocaleDateString(lang)}</div>
+  <section class={`featured-section ${hideBackground ? 'no-background' : ''}`}>
+    <div class="container">
+      <div class="featured">
+        <header class="featured-header featured-animate">
+          <h2 class="featured-title">{heading}</h2>
+          <ButtonLink href={`/${lang}/blog`}>{buttonText}</ButtonLink>
+        </header>
+        <div class="featured-grid">
+          {list.map((post, idx) => (
+            <a class="blog-card featured-animate" href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}`} style={`--delay: ${idx * 0.1}s;`}>
+              <img class="blog-card-bg" src={post.data.image || "/images/images/placeholder/placeholder.jpg"} alt={post.data.title} />
+              <div class="blog-card-overlay-bottom">
+                <div class="blog-card-row">
+                  <h3 class="blog-card-heading">{post.data.shortTitle || post.data.title}</h3>
+                  <div class="blog-date-pill">{new Date(post.data.date).toLocaleDateString(lang)}</div>
+                </div>
+                <p class="blog-card-description">{post.data.excerpt}</p>
+                <div class="blog-card-tags">
+                  <span class="blog-tag">{post.data.category || 'Fiscal'}</span>
+                </div>
+                <button class="blog-card-cta">{getFeaturedTranslation('cta')}</button>
               </div>
-              <p class="blog-card-description">{post.data.excerpt}</p>
-              <div class="blog-card-tags">
-                <span class="blog-tag">{getFeaturedTranslation('tags.blog')}</span>
-                <span class="blog-tag">{getFeaturedTranslation('tags.article')}</span>
-              </div>
-              <button class="blog-card-cta">{getFeaturedTranslation('cta')}</button>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   </section>
 ) : (
   <section class="featured-section">
-    <div class="featured">
-      <h3 class="featured-title">{heading}</h3>
-      <div class="no-posts">{getFeaturedTranslation('noPosts')}</div>
+    <div class="container">
+      <div class="featured">
+        <h3 class="featured-title">{heading}</h3>
+        <div class="no-posts">{getFeaturedTranslation('noPosts')}</div>
+      </div>
     </div>
   </section>
 )}
 
 <style>
-  .featured { max-width: 1200px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+  .featured { max-width: 1200px; margin: 0 auto; }
   
   .featured-section {
     background-color: var(--color-background-alt);
+    padding: var(--space-8) 0;
+  }
+
+  .featured-section.no-background {
+    background-color: transparent;
     padding: var(--space-8) 0;
   }
 
@@ -167,7 +179,19 @@ const list = posts.slice(0, 3);
   .featured-title { font-size: 40px; font-weight: 400; margin: 0; color: var(--color-black); }
   .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
   .blog-card { position: relative; border-radius: 0px; overflow: hidden; background: #0b0b0c; aspect-ratio: 4 / 5; width: 100%; text-decoration: none; color: inherit; display: block; }
-  .blog-card-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover; transition: transform 0.3s ease; }
+  .blog-card-bg { 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    object-fit: cover; 
+    object-position: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: high-quality;
+    transition: transform 0.3s ease; 
+  }
   .blog-card:hover .blog-card-bg { transform: scale(1.05); }
   .blog-card-overlay-bottom { position: absolute; bottom: -60px; left: 0; right: 0; background: rgba(10,10,11,0.30); border-top: 1px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 16px; display: flex; flex-direction: column; min-height: 34%; text-align: left; transition: bottom 0.4s ease; }
   .blog-card:hover .blog-card-overlay-bottom { bottom: 0; }

@@ -88,17 +88,25 @@ const metaDescription = lang === 'es'
               </div>
               <div class="team-card-content">
                 <h3 class="team-card-name">Ana</h3>
-                <p class="team-card-role">Socia Fundadora</p>
+                <p class="team-card-role">
+                  {lang === 'es' ? 'Socia Fundadora' : 
+                   lang === 'ca' ? 'Sòcia Fundadora' : 
+                   'Founding Partner'}
+                </p>
               </div>
             </div>
             <div class="team-card team-animate" style="--delay: 0.2s;">
               <div class="team-card-image">
-                <div class="team-card-image-bg" style="background-image: url('/images/contact.webp');">
+                <div class="team-card-image-bg" style="background-image: url('/images/aboutuspicture.webp');">
                 </div>
               </div>
               <div class="team-card-content">
                 <h3 class="team-card-name">Guiomar</h3>
-                <p class="team-card-role">Socia Fundadora</p>
+                <p class="team-card-role">
+                  {lang === 'es' ? 'Socia Fundadora' : 
+                   lang === 'ca' ? 'Sòcia Fundadora' : 
+                   'Founding Partner'}
+                </p>
               </div>
             </div>
           </div>
@@ -108,9 +116,9 @@ const metaDescription = lang === 'es'
         <div class="team-right team-animate" style="--delay: 0.3s;">
           <div class="team-description">
             <h2 class="team-description-title team-animate" style="--delay: 0.4s;">
-              {lang === 'es' ? 'Sobre nosotros' : 
-               lang === 'ca' ? 'Sobre nosaltres' : 
-               'About us'}
+              {lang === 'es' ? 'Quiénes somos' : 
+               lang === 'ca' ? 'Qui som' : 
+               'Who we are'}
             </h2>
             <p class="team-description-text team-animate" style="--delay: 0.5s;">
               {lang === 'es' ? 'Con más de 15 años de experiencia en derecho fiscal, laboral, mercantil y sucesiones, ofrecemos un enfoque personalizado y cercano a cada cliente. Nuestro compromiso es brindar seguridad jurídica y tranquilidad en cada decisión importante.' :
@@ -307,10 +315,43 @@ const metaDescription = lang === 'es'
       gap: 40px;
     }
     
+    /* Cambiar orden: texto primero, fotos después */
     .team-right {
+      order: 1;
       gap: 32px;
       min-height: auto;
       height: auto;
+    }
+    
+    .team-left {
+      order: 2;
+      min-height: auto;
+      height: auto;
+    }
+    
+    .team-cards {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    
+    .team-card {
+      width: 100%;
+      aspect-ratio: 1/1;
+      height: auto;
+    }
+    
+    .team-card-image {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .team-card-image-bg {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
     
     .team-description-title {

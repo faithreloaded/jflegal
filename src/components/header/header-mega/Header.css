@@ -121,6 +121,13 @@
   margin: 0;
 }
 
+.mega-menu-service-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-black);
+  margin-bottom: var(--space-2);
+}
+
 .mega-menu-content {
   padding: 0 30px 20px 30px;
   display: grid;

@@ -19,6 +19,24 @@ const lang: Locale = langProp ?? getLangFromUrl(Astro.url);
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jflegalconsulting.com" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://jflegalconsulting.com/images/opengraph.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="J.F. Legal Consulting" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://jflegalconsulting.com" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://jflegalconsulting.com/images/opengraph.jpg" />
+    
     <link rel="icon" type="image/png" href="/images/favicon.png?v=1" />
     <link rel="icon" type="image/jpeg" href="/images/favicon.jpg?v=1" />
     <link rel="shortcut icon" type="image/png" href="/images/favicon.png?v=1" />

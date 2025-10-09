@@ -136,7 +136,7 @@ const prefix = `/${lang}`;
     <div class="contact-grid">
       <!-- Columna izquierda: Información -->
       <div class="contact-info contact-animate">
-        <h3 class="contact-main-title">{title}</h3>
+        <h3 class={`contact-main-title ${(Astro.url.pathname === '/' || Astro.url.pathname.match(/^\/(es|en|ca)\/?$/)) ? 'homepage-title' : ''}`} data-pathname={Astro.url.pathname}>{title}</h3>
         
         <div class="contact-description">
           <p>{description}</p>
@@ -295,6 +295,10 @@ const prefix = `/${lang}`;
     font-weight: 400;
     margin: 0 0 var(--space-4) 0;
     color: var(--color-black);
+  }
+  
+  .contact-main-title.homepage-title {
+    max-width: 320px !important;
   }
   
   .contact-description {

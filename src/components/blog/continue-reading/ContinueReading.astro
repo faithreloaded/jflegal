@@ -1,0 +1,20 @@
+---
+import FeaturedNews from '../featured/FeaturedNews.astro';
+
+export interface Props {
+  lang: string;
+  currentSlug?: string;
+}
+
+const { lang, currentSlug } = Astro.props;
+---
+
+<FeaturedNews 
+  lang={lang} 
+  currentSlug={currentSlug} 
+  title={lang === 'es' ? 'Seguir leyendo' : 
+         lang === 'ca' ? 'Continuar llegint' : 
+         'Continue reading'}
+  hideBackground={true}
+/>
+

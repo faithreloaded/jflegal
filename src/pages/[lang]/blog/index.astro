@@ -53,17 +53,16 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
               {posts.length > 0 ? Array.from({ length: Math.min(3, posts.length) }, (_, index) => {
                 const post = posts[index]; // Usar el post correspondiente al índice
                 return (
-                  <a class="blog-card" data-title={post.data.title} data-excerpt={post.data.excerpt} href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}`} key={index}>
+                  <a class="blog-card" data-title={post.data.title} data-excerpt={post.data.excerpt} href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}`}>
                     <img class="blog-card-bg" src={post.data.image || "/images/images/placeholder/placeholder.jpg"} alt={post.data.title} />
                     <div class="blog-card-overlay-bottom">
                       <div class="blog-card-row">
-                        <h4 class="blog-card-heading">{post.data.title}</h4>
+                        <h3 class="blog-card-heading">{post.data.shortTitle || post.data.title}</h3>
                         <div class="blog-date-pill">{new Date(post.data.date).toLocaleDateString(lang)}</div>
                       </div>
                       <p class="blog-card-description">{post.data.excerpt}</p>
                       <div class="blog-card-tags">
-                        <span class="blog-tag">{lang==='es' ? 'Blog' : lang==='ca' ? 'Blog' : 'Blog'}</span>
-                        <span class="blog-tag">{lang==='es' ? 'Artículo' : lang==='ca' ? 'Article' : 'Article'}</span>
+                        <span class="blog-tag">{post.data.category || 'Blog'}</span>
                       </div>
                       <button class="blog-card-cta">{lang==='es' ? 'Leer más' : lang==='ca' ? 'Llegir més' : 'Read more'}</button>
                     </div>
@@ -90,13 +89,13 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
   const noResults = document.getElementById('noResults');
   if (input && cards.length) {
     input.addEventListener('input', () => {
-      const q = input.value.trim().toLowerCase();
+      const q = (input as HTMLInputElement).value.trim().toLowerCase();
       let hasVisibleCards = false;
       cards.forEach((card) => {
         const title = (card.getAttribute('data-title') || '').toLowerCase();
         const excerpt = (card.getAttribute('data-excerpt') || '').toLowerCase();
         const match = !q || title.includes(q) || excerpt.includes(q);
-        card.style.display = match ? 'block' : 'none';
+        (card as HTMLElement).style.display = match ? 'block' : 'none';
         if (match) hasVisibleCards = true;
       });
       if (noResults) {
@@ -164,6 +163,12 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         background: var(--color-container);
         color: var(--color-text);
         border-color: var(--color-text-muted);
+      }
+      
+      .chip.active {
+        background: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
       }
 
       /* Minimal search */
@@ -307,6 +312,8 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         font-weight: var(--font-weight-light);
         font-size: 14px;
         backdrop-filter: blur(3px);
+        align-self: flex-start;
+        margin-left: auto;
       }
       
       .blog-card-description {
@@ -501,4 +508,96 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
         }
       }
     </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.chip');
+        const blogCards = document.querySelectorAll('.blog-card');
+        const searchInput = document.getElementById('blogSearchInput');
+        
+        // Función para filtrar por categoría
+        function filterByCategory(category: string) {
+          blogCards.forEach(card => {
+            const cardCategory = card.querySelector('.blog-tag')?.textContent?.trim();
+            const shouldShow = category === 'all' || cardCategory === category;
+            
+            if (shouldShow) {
+              (card as HTMLElement).style.display = 'block';
+              (card as HTMLElement).style.animation = 'fadeUp 0.3s ease-out';
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          });
+        }
+        
+        // Función para buscar por texto
+        function searchPosts(searchTerm: string) {
+          blogCards.forEach(card => {
+            const title = card.querySelector('.blog-card-heading')?.textContent?.toLowerCase() || '';
+            const description = card.querySelector('.blog-card-description')?.textContent?.toLowerCase() || '';
+            const category = card.querySelector('.blog-tag')?.textContent?.toLowerCase() || '';
+            
+            const matches = title.includes(searchTerm) || 
+                          description.includes(searchTerm) || 
+                          category.includes(searchTerm);
+            
+            if (matches) {
+              (card as HTMLElement).style.display = 'block';
+              (card as HTMLElement).style.animation = 'fadeUp 0.3s ease-out';
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          });
+        }
+        
+        // Event listeners para filtros
+        filterButtons.forEach(button => {
+          button.addEventListener('click', function(this: HTMLElement) {
+            // Remover clase activa de todos los botones
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Añadir clase activa al botón clickeado
+            this.classList.add('active');
+            
+            // Obtener categoría del botón
+            const category = this.textContent?.trim() || '';
+            
+            // Mapeo directo de categorías
+            let filterCategory = 'all';
+            if (category.toLowerCase().includes('todos') || category.toLowerCase().includes('tots') || category.toLowerCase().includes('all')) {
+              filterCategory = 'all';
+            } else if (category.toLowerCase().includes('fiscal')) {
+              filterCategory = 'Fiscal';
+            } else if (category.toLowerCase().includes('laboral') || category.toLowerCase().includes('labor')) {
+              filterCategory = 'Laboral';
+            } else if (category.toLowerCase().includes('mercantil') || category.toLowerCase().includes('commercial')) {
+              filterCategory = 'Mercantil';
+            } else if (category.toLowerCase().includes('sucesiones') || category.toLowerCase().includes('successions') || category.toLowerCase().includes('inheritance')) {
+              filterCategory = 'Sucesiones';
+            }
+            
+            filterByCategory(filterCategory);
+          });
+        });
+        
+        // Event listener para búsqueda
+        if (searchInput) {
+          searchInput.addEventListener('input', function(this: HTMLInputElement) {
+            const searchTerm = this.value.toLowerCase();
+            if (searchTerm === '') {
+              // Si no hay búsqueda, mostrar todos
+              blogCards.forEach(card => {
+                (card as HTMLElement).style.display = 'block';
+              });
+            } else {
+              searchPosts(searchTerm);
+            }
+          });
+        }
+        
+        // Activar primer filtro por defecto
+        if (filterButtons.length > 0) {
+          filterButtons[0].classList.add('active');
+        }
+      });
+    </script>
 
