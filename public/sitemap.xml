@@ -2,25 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home pages -->
   <url>
-    <loc>https://jflegal.com/</loc>
+    <loc>https://www.jflegalconsulting.com/</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/es/</loc>
+    <loc>https://www.jflegalconsulting.com/es/</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/en/</loc>
+    <loc>https://www.jflegalconsulting.com/en/</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/ca/</loc>
+    <loc>https://www.jflegalconsulting.com/ca/</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -28,38 +28,38 @@
 
   <!-- Main pages -->
   <url>
-    <loc>https://jflegal.com/es/contacto</loc>
+    <loc>https://www.jflegalconsulting.com/es/contacto</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/en/contacto</loc>
+    <loc>https://www.jflegalconsulting.com/en/contacto</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/ca/contacto</loc>
+    <loc>https://www.jflegalconsulting.com/ca/contacto</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://jflegal.com/es/despacho</loc>
+    <loc>https://www.jflegalconsulting.com/es/despacho</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/en/despacho</loc>
+    <loc>https://www.jflegalconsulting.com/en/despacho</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/ca/despacho</loc>
+    <loc>https://www.jflegalconsulting.com/ca/despacho</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -67,75 +67,75 @@
 
   <!-- Services -->
   <url>
-    <loc>https://jflegal.com/es/servicios/fiscal</loc>
+    <loc>https://www.jflegalconsulting.com/es/servicios/fiscal</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/es/servicios/laboral</loc>
+    <loc>https://www.jflegalconsulting.com/es/servicios/laboral</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/es/servicios/mercantil-societario</loc>
+    <loc>https://www.jflegalconsulting.com/es/servicios/mercantil-societario</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/es/servicios/sucesiones</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://jflegal.com/en/servicios/fiscal</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jflegal.com/en/servicios/laboral</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jflegal.com/en/servicios/mercantil-societario</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jflegal.com/en/servicios/sucesiones</loc>
+    <loc>https://www.jflegalconsulting.com/es/servicios/sucesiones</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://jflegal.com/ca/servicios/fiscal</loc>
+    <loc>https://www.jflegalconsulting.com/en/servicios/fiscal</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/ca/servicios/laboral</loc>
+    <loc>https://www.jflegalconsulting.com/en/servicios/laboral</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/ca/servicios/mercantil-societario</loc>
+    <loc>https://www.jflegalconsulting.com/en/servicios/mercantil-societario</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/ca/servicios/sucesiones</loc>
+    <loc>https://www.jflegalconsulting.com/en/servicios/sucesiones</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jflegalconsulting.com/ca/servicios/fiscal</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jflegalconsulting.com/ca/servicios/laboral</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jflegalconsulting.com/ca/servicios/mercantil-societario</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jflegalconsulting.com/ca/servicios/sucesiones</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -143,19 +143,19 @@
 
   <!-- Blog -->
   <url>
-    <loc>https://jflegal.com/es/blog</loc>
+    <loc>https://www.jflegalconsulting.com/es/blog</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/en/blog</loc>
+    <loc>https://www.jflegalconsulting.com/en/blog</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/ca/blog</loc>
+    <loc>https://www.jflegalconsulting.com/ca/blog</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -163,31 +163,31 @@
 
   <!-- Legal pages -->
   <url>
-    <loc>https://jflegal.com/es/aviso-legal</loc>
+    <loc>https://www.jflegalconsulting.com/es/aviso-legal</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/es/politica-privacidad</loc>
+    <loc>https://www.jflegalconsulting.com/es/politica-privacidad</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/es/terminos-condiciones</loc>
+    <loc>https://www.jflegalconsulting.com/es/terminos-condiciones</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/en/privacy</loc>
+    <loc>https://www.jflegalconsulting.com/en/privacy</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://jflegal.com/en/legal</loc>
+    <loc>https://www.jflegalconsulting.com/en/legal</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
