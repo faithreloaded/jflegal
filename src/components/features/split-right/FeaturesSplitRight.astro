@@ -14,52 +14,19 @@ const featuresFallback = {
   es: {
     mercantil: {
       title: "Nuestra filosofía",
-      subtitle: "Trabajamos desde la transparencia, el análisis y la confianza.",
-      sections: {
-        constitucion: {
-          title: "No buscamos acumular clientes, sino relaciones duraderas basadas en resultados y buen trato.",
-          description: ""
-        },
-        contratacion: {
-          title: "Nos implicamos personalmente en cada expediente, asegurando que cada paso tenga sentido legal y humano.",
-          description: ""
-        }
-      },
-      additional: "Nuestra filosofía\nTrabajamos desde la transparencia, el análisis y la confianza.\n\nNo buscamos acumular clientes, sino relaciones duraderas basadas en resultados y buen trato.\n\nNos implicamos personalmente en cada expediente, asegurando que cada paso tenga sentido legal y humano."
+      subtitle: "Trabajamos desde la transparencia, el análisis y la confianza."
     }
   },
   en: {
     mercantil: {
-      title: "How we help you",
-      subtitle: "At JF Legal we accompany both companies and families in the key moments of their activity or assets.",
-      sections: {
-        constitucion: {
-          title: "We advise entrepreneurs who start their project, companies that need to reorganize or resolve conflicts between partners, and families who seek to plan their inheritance with legal security and tax efficiency.",
-          description: ""
-        },
-        contratacion: {
-          title: "We also provide continuous support in accounting, tax and labor matters, ensuring regulatory compliance and helping to optimize resources.",
-          description: ""
-        }
-      },
-      additional: "Our philosophy\nWe work from transparency, analysis and trust.\n\nWe don't seek to accumulate clients, but lasting relationships based on results and good treatment.\n\nWe get personally involved in each case, ensuring that every step has legal and human meaning."
+      title: "Our philosophy",
+      subtitle: "We work from transparency, analysis and trust."
     }
   },
   ca: {
     mercantil: {
-      title: "Com t'ajudem",
-      subtitle: "A JF Legal acompanyem tant a empreses com a famílies en els moments clau de la seva activitat o patrimoni.",
-      sections: {
-        constitucion: {
-          title: "Assessorem a emprenedors que inicien el seu projecte, a societats que necessiten reorganitzar-se o resoldre conflictes entre socis, i a famílies que busquen planificar la seva herència amb seguretat jurídica i eficiència fiscal.",
-          description: ""
-        },
-        contratacion: {
-          title: "També prestem suport continu en matèria comptable, fiscal i laboral, garantint el compliment normatiu i ajudant a optimitzar recursos.",
-          description: ""
-        }
-      },
-      additional: "La nostra filosofia\nTreballam des de la transparència, l'anàlisi i la confiança.\n\nNo busquem acumular clients, sinó relacions duradores basades en resultats i bon tracte.\n\nEns implicam personalment en cada expedient, assegurant que cada pas tingui sentit legal i humà."
+      title: "La nostra filosofia",
+      subtitle: "Treballam des de la transparència, l'anàlisi i la confiança."
     }
   }
 };
@@ -81,11 +48,6 @@ function getFeaturesTranslation(key: string) {
 
 const title = getFeaturesTranslation('mercantil.title');
 const subtitle = getFeaturesTranslation('mercantil.subtitle');
-const constitucionTitle = getFeaturesTranslation('mercantil.sections.constitucion.title');
-const constitucionDescription = getFeaturesTranslation('mercantil.sections.constitucion.description');
-const contratacionTitle = getFeaturesTranslation('mercantil.sections.contratacion.title');
-const contratacionDescription = getFeaturesTranslation('mercantil.sections.contratacion.description');
-const additional = getFeaturesTranslation('mercantil.additional');
 ---
 
 <section class="features-split-section">
@@ -105,18 +67,8 @@ const additional = getFeaturesTranslation('mercantil.additional');
         <div class="features-split-items-container features-split-animate">
           <div class="features-split-item features-split-animate">
             <p class="features-split-description features-split-animate">
-              {constitucionTitle}
+              En JF Legal creemos en un ejercicio del derecho cercano, claro y honesto. Cada caso merece atención real, sin prisas ni automatismos. Trabajamos con criterio jurídico, empatía y transparencia, porque entendemos que detrás de cada trámite hay una persona y una historia que proteger.
             </p>
-          </div>
-
-          <div class="features-split-item features-split-animate">
-            <p class="features-split-description features-split-animate">
-              {contratacionTitle}
-            </p>
-          </div>
-
-          <div class="features-split-cta features-split-animate">
-            <p>{additional}</p>
           </div>
         </div>
       </div>

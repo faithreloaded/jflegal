@@ -64,7 +64,7 @@
 .footer-cta-logo-img {
   height: 40px;
   width: auto;
-  filter: none;
+  filter: brightness(0);
   image-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
