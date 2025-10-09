@@ -1,0 +1,201 @@
+---
+import './ServiceLayout.css';
+
+interface Props {
+  title: string;
+  description: string;
+  serviceTitle: string;
+  paragraph1: string;
+  paragraph2: string;
+  paragraph3: string;
+  additionalContent: Array<{
+    sectionTitle: string;
+    content?: string;
+    subsections?: Array<{
+      title: string;
+      content: string;
+    }>;
+  }>;
+  lang: string;
+}
+
+const { title, description, serviceTitle, paragraph1, paragraph2, paragraph3, additionalContent, lang } = Astro.props;
+---
+
+<section class="service-layout">
+  <div class="container">
+    <div class="service-grid">
+      <!-- Contenido principal -->
+      <div class="service-content">
+        
+        <div class="service-text">
+          <div class="service-content-main">
+            <h2 class="service-main-title">{serviceTitle}</h2>
+            <p class="service-paragraph">{paragraph1}</p>
+            <p class="service-paragraph">{paragraph2}</p>
+            <p class="service-paragraph">{paragraph3}</p>
+          </div>
+
+          <!-- Índice de la página -->
+          {additionalContent && additionalContent.length > 0 && (
+            <div class="toc">
+              <div class="toc-header">{lang === 'es' ? 'En esta página' : lang === 'ca' ? 'En aquesta pàgina' : 'On this page'}</div>
+              <ul class="toc-list">
+                {(additionalContent.slice(0, -1)).map((section, i) => {
+                  const anchor = section.sectionTitle
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/\p{Diacritic}/gu, '')
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .trim()
+                    .replace(/\s+/g, '-');
+                  const num = String(i + 1).padStart(2, '0');
+                  return (
+                    <li class="toc-item">
+                      <a href={`#${anchor}`} class="toc-link"><span class="toc-num">{num}</span><span class="toc-text">{section.sectionTitle}</span></a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+          
+          <!-- HR separador -->
+          <hr class="service-content-divider" />
+          
+          <!-- Contenido adicional -->
+          <div class="service-additional-content">
+            {additionalContent.map((section, sectionIndex) => {
+              const anchor = section.sectionTitle
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/\p{Diacritic}/gu, '')
+                .replace(/[^a-z0-9\s-]/g, '')
+                .trim()
+                .replace(/\s+/g, '-');
+              return (
+              <div class="additional-section" key={sectionIndex} id={anchor}>
+                {sectionIndex === 1 && <hr class="service-content-divider" />}
+                {sectionIndex === additionalContent.length - 1 && <hr class="service-content-divider" />}
+                <h2 class="additional-section-title">{section.sectionTitle}</h2>
+                {section.content ? (
+                  <div class="additional-section-content">
+                    {section.content.split('\n\n').map((paragraph, paragraphIndex) => (
+                      <p class="additional-paragraph" key={paragraphIndex} set:html={paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/Consulta sin compromiso|Consulta sense compromís|Consultation without commitment/g, `<a href="/${lang}/contacto" class="btn-primary">$&</a>`)}></p>
+                    ))}
+                  </div>
+                ) : section.subsections ? (
+                  section.subsections.map((subsection, subsectionIndex) => (
+                    <div class="additional-subsection" key={subsectionIndex}>
+                      <h3 class="additional-subsection-title">{subsection.title}</h3>
+                      <div class="additional-subsection-content">
+                        {subsection.content.split('\n\n').map((paragraph, paragraphIndex) => (
+                          <p class="additional-paragraph" key={paragraphIndex}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                ) : null}
+              </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Formulario fijo -->
+      <div class="service-form-container">
+        <div class="service-form-wrapper">
+          <div class="service-form-header">
+            <div class="form-header-content">
+              <div class="form-header-text">
+                <h3 class="service-form-title">
+                  {lang === 'es' ? 'Habla con nosotros hoy' : lang === 'ca' ? 'Parla amb nosaltres avui' : 'Talk to us today'}
+                </h3>
+                <p class="service-form-subtitle">
+                  {lang === 'es' ? 'Sin compromiso' : lang === 'ca' ? 'Sense compromís' : 'No commitment'}
+                </p>
+              </div>
+              <div class="form-header-image">
+                <img src="/images/abogadas.webp" alt="J.F. Legal Consulting" class="lawyer-photo" />
+              </div>
+            </div>
+            <hr class="form-divider" />
+          </div>
+          
+          <form class="service-form" action="#" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <input 
+                  type="text" 
+                  name="firstName" 
+                  placeholder={lang === 'es' ? 'Nombre' : lang === 'ca' ? 'Nom' : 'First Name'}
+                  required 
+                />
+              </div>
+              <div class="form-group">
+                <input 
+                  type="text" 
+                  name="lastName" 
+                  placeholder={lang === 'es' ? 'Apellidos' : lang === 'ca' ? 'Cognoms' : 'Last Name'}
+                  required 
+                />
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="Email"
+                required 
+              />
+            </div>
+            
+            <div class="form-group">
+              <input 
+                type="tel" 
+                name="phone" 
+                placeholder={lang === 'es' ? 'Teléfono' : lang === 'ca' ? 'Telèfon' : 'Phone'}
+                required 
+              />
+            </div>
+            
+            <div class="form-group">
+              <textarea 
+                name="message" 
+                placeholder={lang === 'es' ? 'Cuéntanos tu caso...' : lang === 'ca' ? 'Explica\'ns el teu cas...' : 'Tell us about your case...'}
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            
+            <button type="submit" class="service-form-submit">
+              {lang === 'es' ? 'Enviar consulta' : lang === 'ca' ? 'Enviar consulta' : 'Send inquiry'}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Smooth scroll con offset para el header
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.header, .header-left, .header-center, .header-right, .header-mega');
+    const offset = header ? (header as HTMLElement).offsetHeight || 80 : 80;
+    document.querySelectorAll('.toc-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        if (!href) return;
+        const id = href.replace('#', '');
+        const target = document.getElementById(id);
+        if (!target) return;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset - 12;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  });
+</script>

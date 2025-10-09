@@ -4,6 +4,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import HeaderMega from '../../../components/header/header-mega/Header.astro';
 import FooterGrid from '../../../components/footer/footer-grid/Footer.astro';
 import PageBanner from '../../../components/hero/page-banner/PageBanner.astro';
+import ServiceLayout from '../../../components/services/service-layout/ServiceLayout.astro';
+import FeaturedNews from '../../../components/blog/featured/FeaturedNews.astro';
 import { LOCALES, type Locale, loadT } from '../../../i18n';
 
 export async function getStaticPaths() {
@@ -44,7 +46,7 @@ function getServicesTranslation(key: string) {
   if (translation === `services.${key}`) {
     // Si no se encuentra la traducción, usar fallback
     const keys = key.split('.');
-    let fallbackValue = servicesFallback[lang];
+    let fallbackValue: any = servicesFallback[lang];
     for (const k of keys) {
       fallbackValue = fallbackValue?.[k];
     }
@@ -56,6 +58,95 @@ function getServicesTranslation(key: string) {
 const title = getServicesTranslation('fiscal.title');
 const subtitle = getServicesTranslation('fiscal.subtitle');
 const description = getServicesTranslation('fiscal.description');
+
+// Contenido estructurado con traducciones
+const serviceTitle = lang === 'es' ? 'Fiscal y Contable' : 
+                     lang === 'ca' ? 'Fiscal i Comptable' : 
+                     'Tax and Accounting';
+
+const paragraph1 = lang === 'es' ? 'Si eres autónomo o diriges una empresa, sabemos que la fiscalidad puede ser abrumadora: altas, modelos, plazos, inspecciones. Está bien no saber por dónde empezar.' :
+                   lang === 'ca' ? 'Si ets autònom o dirigeixes una empresa, sabem que la fiscalitat pot ser aclaparadora: altes, models, terminis, inspeccions. Està bé no saber per on començar.' :
+                   'If you are self-employed or run a company, we know that taxation can be overwhelming: registrations, forms, deadlines, inspections. It\'s okay not to know where to start.';
+
+const paragraph2 = lang === 'es' ? 'Contar con un equipo fiscal que te acompañe te da tranquilidad, orden y seguridad jurídica.' :
+                   lang === 'ca' ? 'Comptar amb un equip fiscal que t\'acompanyi et dóna tranquil·litat, ordre i seguretat jurídica.' :
+                   'Having a tax team to accompany you gives you peace of mind, order and legal security.';
+
+const paragraph3 = '';
+
+// Contenido adicional estructurado con traducciones
+const additionalContent: any[] = [
+  {
+    sectionTitle: lang === 'es' ? 'Qué cubrimos' : 
+                  lang === 'ca' ? 'Què cobrim' : 
+                  'What we cover',
+    content: lang === 'es' ? 
+      '• **Alta y puesta en marcha:** elección de forma jurídica (autónomo o sociedad), alta censal y planificación inicial.\n\n• **Contabilidad y cumplimiento:** llevanza contable para autónomos y sociedades, cierres y legalización de libros.\n\n• **Impuestos periódicos:** IVA (303/390), retenciones (111/190 y 115/180), Impuesto sobre Sociedades (200), resúmenes anuales.\n\n• **Renta y Patrimonio:** preparación integral de IRPF y Patrimonio, con revisión de deducciones y situaciones familiares.\n\n• **Tributos locales:** IBI, IAE y otras tasas municipales.\n\n• **Requerimientos e inspecciones:** respuesta a notificaciones, alegaciones y defensa ante la Agencia Tributaria.\n\n• **Revisión fiscal proactiva:** auditoría de obligaciones y correcciones antes de que haya sanción.\n\n• **Planificación fiscal estratégica:** deducciones, bonificaciones y herramientas como reserva de nivelación y capitalización; revisión de nóminas y efectos fiscales.\n\n• **No residentes – Ley Beckham:** análisis de requisitos, solicitud en plazo y gestión del régimen especial cuando aplica.' :
+      lang === 'ca' ?
+      '• **Alta i posada en marxa:** elecció de forma jurídica (autònom o societat), alta censal i planificació inicial.\n\n• **Comptabilitat i compliment:** portada comptable per a autònoms i societats, tancaments i legalització de llibres.\n\n• **Impostos periòdics:** IVA (303/390), retencions (111/190 i 115/180), Impost sobre Societats (200), resums anuals.\n\n• **Renda i Patrimoni:** preparació integral d\'IRPF i Patrimoni, amb revisió de deduccions i situacions familiars.\n\n• **Tributs locals:** IBI, IAE i altres taxes municipals.\n\n• **Requeriments i inspeccions:** resposta a notificacions, al·legacions i defensa davant l\'Agència Tributària.\n\n• **Revisió fiscal proactiva:** auditoria d\'obligacions i correccions abans que hi hagi sanció.\n\n• **Planificació fiscal estratègica:** deduccions, bonificacions i eines com reserva de nivellació i capitalització; revisió de nòmines i efectes fiscals.\n\n• **No residents – Llei Beckham:** anàlisi de requisits, sol·licitud en termini i gestió del règim especial quan aplica.' :
+      '• **Registration and startup:** choice of legal form (self-employed or company), census registration and initial planning.\n\n• **Accounting and compliance:** accounting management for self-employed and companies, closures and legalization of books.\n\n• **Periodic taxes:** VAT (303/390), withholdings (111/190 and 115/180), Corporate Tax (200), annual summaries.\n\n• **Income and Wealth:** comprehensive preparation of Personal Income Tax and Wealth Tax, with review of deductions and family situations.\n\n• **Local taxes:** IBI, IAE and other municipal fees.\n\n• **Requirements and inspections:** response to notifications, allegations and defense before the Tax Agency.\n\n• **Proactive tax review:** audit of obligations and corrections before there is a penalty.\n\n• **Strategic tax planning:** deductions, bonuses and tools such as leveling reserve and capitalization; review of payroll and tax effects.\n\n• **Non-residents – Beckham Law:** analysis of requirements, application on time and management of the special regime when applicable.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Autónomo o Sociedad: te ayudamos a decidir' :
+                  lang === 'ca' ? 'Autònom o Societat: t\'ajudem a decidir' :
+                  'Freelancer or Company: we help you decide',
+    content: lang === 'es' ? 
+      'Valoramos tu actividad, previsión de crecimiento, riesgos y objetivos.\n\n• **Autónomo:** gestión más simple y económica, pero responsabilidad ilimitada.\n\n• **Sociedad:** protección patrimonial (responsabilidad limitada al capital) y más flexibilidad para financiación y expansión.' :
+      lang === 'ca' ?
+      'Valorem la teva activitat, previsió de creixement, riscos i objectius.\n\n• **Autònom:** gestió més senzilla i econòmica, però responsabilitat il·limitada.\n\n• **Societat:** protecció patrimonial (responsabilitat limitada al capital) i més flexibilitat per a finançament i expansió.' :
+      'We evaluate your activity, growth forecast, risks and objectives.\n\n• **Freelancer:** simpler and more economical management, but unlimited responsibility.\n\n• **Company:** asset protection (limited liability to capital) and more flexibility for financing and expansion.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Inspecciones y requerimientos' :
+                  lang === 'ca' ? 'Inspeccions i requeriments' :
+                  'Inspections and requirements',
+    content: lang === 'es' ? 
+      'Si recibes una notificación, te representamos en todo el proceso.\n\nRevisamos documentación, contestamos requerimientos y preparamos alegaciones.\n\nBuscamos cerrar discrepancias con eficacia, minimizando riesgos y sanciones.' :
+      lang === 'ca' ?
+      'Si reps una notificació, et representem en tot el procés.\n\nRevisem documentació, contestem requeriments i preparem al·legacions.\n\nBusquem tancar discrepàncies amb eficàcia, minimitzant riscos i sancions.' :
+      'If you receive a notification, we represent you throughout the process.\n\nWe review documentation, respond to requirements and prepare allegations.\n\nWe seek to close discrepancies effectively, minimizing risks and penalties.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Declaraciones bien hechas y a tiempo' :
+                  lang === 'ca' ? 'Declaracions ben fetes i a temps' :
+                  'Well-made and timely declarations',
+    content: lang === 'es' ? 
+      'Presentamos tus impuestos correctamente y en plazo.\n\nTe indicamos qué deducciones y bonificaciones puedes aplicar para optimizar el resultado.\n\nHacemos previsión mensual de IRPF/Impuesto de Sociedades para evitar sorpresas.' :
+      lang === 'ca' ?
+      'Presentem els teus impostos correctament i en termini.\n\nT\'indicam quines deduccions i bonificacions pots aplicar per optimitzar el resultat.\n\nFem previsió mensual d\'IRPF/Impost sobre Societats per evitar sorpreses.' :
+      'We present your taxes correctly and on time.\n\nWe tell you what deductions and bonuses you can apply to optimize the result.\n\nWe make monthly forecasts of Personal Income Tax/Corporate Tax to avoid surprises.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Qué puedes esperar' :
+                  lang === 'ca' ? 'Què pots esperar' :
+                  'What you can expect',
+    content: lang === 'es' ? 
+      '• **Cumplimiento sin sobresaltos** y calendario fiscal claro.\n\n• **Menos riesgo** de sanciones e intereses.\n\n• **Ahorro fiscal** dentro de la norma.\n\n• **Acompañamiento continuo** y respuestas en lenguaje simple.' :
+      lang === 'ca' ?
+      '• **Compliment sense sobresalts** i calendari fiscal clar.\n\n• **Menys risc** de sancions i interessos.\n\n• **Estalvi fiscal** dins de la norma.\n\n• **Acompanyament continu** i respostes en llenguatge senzill.' :
+      '• **Compliance without surprises** and clear tax calendar.\n\n• **Less risk** of penalties and interest.\n\n• **Tax savings** within the norm.\n\n• **Continuous support** and answers in simple language.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Por qué JF Legal Consulting' :
+                  lang === 'ca' ? 'Per què JF Legal Consulting' :
+                  'Why JF Legal Consulting',
+    content: lang === 'es' ? 
+      '• **Cercanía y comunicación** constante.\n\n• **Análisis riguroso** y soluciones prácticas adaptadas a tu caso.\n\n• **Defensa ante la Administración** cuando hace falta.\n\n• **Enfoque preventivo:** revisamos antes de que haya problemas.' :
+      lang === 'ca' ?
+      '• **Proximitat i comunicació** constant.\n\n• **Anàlisi rigorós** i solucions pràctiques adaptades al teu cas.\n\n• **Defensa davant l\'Administració** quan cal.\n\n• **Enfocament preventiu:** revisem abans que hi hagi problemes.' :
+      '• **Closeness and communication** constant.\n\n• **Rigorous analysis** and practical solutions adapted to your case.\n\n• **Defense before the Administration** when needed.\n\n• **Preventive approach:** we review before there are problems.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Empecemos hoy' :
+                  lang === 'ca' ? 'Comencem avui' :
+                  'Let\'s start today',
+    content: lang === 'es' ? 
+      'Cuéntanos tu situación. Diseñamos un plan fiscal claro y nos ocupamos del resto.\n\nConsulta sin compromiso.' :
+      lang === 'ca' ?
+      'Explica\'ns la teva situació. Dissenyem un pla fiscal clar i ens ocupem de la resta.\n\nConsulta sense compromís.' :
+      'Tell us about your situation. We design a clear tax plan and take care of the rest.\n\nConsultation without commitment.'
+  }
+];
 ---
 
 <BaseLayout 
@@ -71,6 +162,21 @@ const description = getServicesTranslation('fiscal.description');
       subtitle={subtitle}
       backgroundImage="/images/fiscalycontable.webp"
     />
+    
+    <!-- Service Content -->
+    <ServiceLayout 
+      title={title}
+      description={subtitle}
+      serviceTitle={serviceTitle}
+      paragraph1={paragraph1}
+      paragraph2={paragraph2}
+      paragraph3={paragraph3}
+      additionalContent={additionalContent}
+      lang={lang}
+    />
+
+    <!-- Noticias destacadas al final de la página de servicio -->
+    <FeaturedNews lang={lang} />
   </main>
   
   <FooterGrid lang={lang} />
