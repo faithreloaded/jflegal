@@ -6,13 +6,27 @@ export async function getStaticPaths() {
   return [];
 }
 
-// Redireccionar a la versión en español por defecto
+// Redirección del lado del servidor
 ---
 <script>
-  // Redirección inmediata al español
-  window.location.replace('/es/');
+  // Redirección inmediata sin mostrar contenido
+  if (typeof window !== 'undefined') {
+    window.location.replace('/es/');
+  }
 </script>
 
-<!-- Fallback para SEO -->
+<!-- Meta tags para redirección inmediata -->
 <meta http-equiv="refresh" content="0; url=/es/">
-<p>Redirigiendo a <a href="/es/">JF Legal Consulting</a>...</p>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- CSS para ocultar todo el contenido -->
+<style>
+  body {
+    display: none !important;
+  }
+</style>
+
+<!-- Contenido mínimo invisible -->
+<div style="display: none;">
+  <p>Redirigiendo...</p>
+</div>
