@@ -1,128 +1,184 @@
 ---
 import './FeaturesGrid.css';
+import { type Locale, loadT } from '../../../i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = await loadT(lang, ['services']);
+
+// Fallback translations para servicios
+const servicesFallback = {
+  es: {
+    fiscal: {
+      title: "Fiscal y Contable",
+      description: "Asesoramiento integral en materia fiscal y contable para autónomos y empresas."
+    },
+    laboral: {
+      title: "Laboral",
+      description: "Especialistas en derecho laboral y relaciones laborales para empresas y trabajadores."
+    },
+    mercantil: {
+      title: "Mercantil y Societario",
+      description: "Constitución de sociedades, fusiones, adquisiciones y derecho societario."
+    },
+    sucesiones: {
+      title: "Sucesiones",
+      description: "Planificación sucesoria, testamentos y gestión de herencias con seguridad jurídica."
+    }
+  },
+  en: {
+    fiscal: {
+      title: "Tax and Accounting",
+      description: "Comprehensive tax and accounting advice for self-employed and companies."
+    },
+    laboral: {
+      title: "Labor Law",
+      description: "Specialists in labor law and employment relations for companies and workers."
+    },
+    mercantil: {
+      title: "Commercial and Corporate",
+      description: "Company formation, mergers, acquisitions and corporate law."
+    },
+    sucesiones: {
+      title: "Successions",
+      description: "Succession planning, wills and inheritance management with legal security."
+    }
+  },
+  ca: {
+    fiscal: {
+      title: "Fiscal i Comptable",
+      description: "Assessorament integral en matèria fiscal i comptable per a autònoms i empreses."
+    },
+    laboral: {
+      title: "Laboral",
+      description: "Especialistes en dret laboral i relacions laborals per a empreses i treballadors."
+    },
+    mercantil: {
+      title: "Mercantil i Societari",
+      description: "Constitució de societats, fusions, adquisicions i dret societari."
+    },
+    sucesiones: {
+      title: "Successions",
+      description: "Planificació successòria, testaments i gestió d'herències amb seguretat jurídica."
+    }
+  }
+};
+
+// Función helper para obtener traducciones de servicios
+function getServiceTranslation(key: string) {
+  const translation = t(`services.${key}`);
+  if (translation === `services.${key}`) {
+    const keys = key.split('.');
+    let value: any = servicesFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+const services = [
+  {
+    title: getServiceTranslation('fiscal.title'),
+    description: getServiceTranslation('fiscal.description'),
+    href: `/${lang}/servicios/fiscal`,
+    icon: 'fiscal'
+  },
+  {
+    title: getServiceTranslation('laboral.title'),
+    description: getServiceTranslation('laboral.description'),
+    href: `/${lang}/servicios/laboral`,
+    icon: 'laboral'
+  },
+  {
+    title: getServiceTranslation('mercantil.title'),
+    description: getServiceTranslation('mercantil.description'),
+    href: `/${lang}/servicios/mercantil-societario`,
+    icon: 'mercantil'
+  },
+  {
+    title: getServiceTranslation('sucesiones.title'),
+    description: getServiceTranslation('sucesiones.description'),
+    href: `/${lang}/servicios/sucesiones`,
+    icon: 'sucesiones'
+  }
+];
+
+const sectionTitle = lang === 'es' ? 'Nuestros servicios' : 
+                    lang === 'ca' ? 'Els nostres serveis' : 
+                    'Our services';
+
+const sectionDescription = lang === 'es' ? 'Especialistas en derecho fiscal, laboral, mercantil y sucesiones con más de 15 años de experiencia.' :
+                        lang === 'ca' ? 'Especialistes en dret fiscal, laboral, mercantil i successions amb més de 15 anys d\'experiència.' :
+                        'Specialists in tax, labor, commercial and succession law with over 15 years of experience.';
 ---
 
 <section class="features-grid-section">
   <div class="container">
     <header class="features-grid-header">
-      <span class="section-pill features-header-item">Core Features</span>
-      <h2 class="features-grid-title features-header-item">Powerful Capabilities</h2>
+      <span class="section-pill features-header-item">
+        {lang === 'es' ? 'Servicios' : lang === 'ca' ? 'Serveis' : 'Services'}
+      </span>
+      <h2 class="features-grid-title features-header-item">{sectionTitle}</h2>
       <p class="features-grid-description features-header-item">
-        Discover the comprehensive set of tools and features designed to enhance your workflow
+        {sectionDescription}
       </p>
     </header>
 
     <div class="features-grid">
-      <article class="feature-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <polyline points="21,15 16,10 5,21"/>
-          </svg>
-        </div>
-        <h3 class="feature-title">Flexible Environments</h3>
-        <p class="feature-description">
-          Bring your own image or build one in Python, scale resources as needed, and leverage state-of-the-art infrastructure for high-performance computing.
-        </p>
-        <div class="feature-action">
-          <a href="#" class="feature-link">Learn more</a>
-        </div>
-      </article>
-
-      <article class="feature-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-            <path d="M12 11h4"/>
-            <path d="M12 16h4"/>
-            <path d="M8 11h.01"/>
-            <path d="M8 16h.01"/>
-          </svg>
-        </div>
-        <h3 class="feature-title">Seamless Integrations</h3>
-        <p class="feature-description">
-          Export function logs to monitoring providers and easily mount cloud storage from major providers with simple configuration.
-        </p>
-        <div class="feature-action">
-          <a href="#" class="feature-link">Learn more</a>
-        </div>
-      </article>
-
-      <article class="feature-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="12" cy="5" rx="9" ry="3"/>
-            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-          </svg>
-        </div>
-        <h3 class="feature-title">Data Storage</h3>
-        <p class="feature-description">
-          Manage data effortlessly with storage solutions including network volumes, key-value stores and queues using familiar syntax.
-        </p>
-        <div class="feature-action">
-          <a href="#" class="feature-link">Learn more</a>
-        </div>
-      </article>
-
-      <article class="feature-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12,6 12,12 16,14"/>
-          </svg>
-        </div>
-        <h3 class="feature-title">Job Scheduling</h3>
-        <p class="feature-description">
-          Take control of your workloads with powerful scheduling. Set up cron jobs, retries, and timeouts, or use batching to optimize resource usage.
-        </p>
-        <div class="feature-action">
-          <a href="#" class="feature-link">Learn more</a>
-        </div>
-      </article>
-
-      <article class="feature-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-        </div>
-        <h3 class="feature-title">Web Endpoints</h3>
-        <p class="feature-description">
-          Deploy and manage web services with ease. Create custom domains, set up streaming and websockets, and serve functions as secure HTTPS endpoints.
-        </p>
-        <div class="feature-action">
-          <a href="#" class="feature-link">Learn more</a>
-        </div>
-      </article>
-
-      <article class="feature-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8 2v4"/>
-            <path d="M16 2v4"/>
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-            <path d="M3 10h18"/>
-            <path d="M8 14h.01"/>
-            <path d="M12 14h.01"/>
-            <path d="M16 14h.01"/>
-            <path d="M8 18h.01"/>
-            <path d="M12 18h.01"/>
-            <path d="M16 18h.01"/>
-          </svg>
-        </div>
-        <h3 class="feature-title">Built-In Debugging</h3>
-        <p class="feature-description">
-          Troubleshoot efficiently with built-in debugging tools. Use interactive debugging and set breakpoints to pinpoint issues quickly.
-        </p>
-        <div class="feature-action">
-          <a href="#" class="feature-link">Learn more</a>
-        </div>
-      </article>
+      {services.map((service, index) => (
+        <a href={service.href} class="feature-card-link">
+          <article class="feature-card">
+            <div class="feature-icon">
+              {service.icon === 'fiscal' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14,2 14,8 20,8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10,9 9,9 8,9"/>
+                </svg>
+              )}
+              {service.icon === 'laboral' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                  <path d="M12 11h4"/>
+                  <path d="M12 16h4"/>
+                </svg>
+              )}
+              {service.icon === 'mercantil' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21,15 16,10 5,21"/>
+                </svg>
+              )}
+              {service.icon === 'sucesiones' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 2v4"/>
+                  <path d="M16 2v4"/>
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <path d="M3 10h18"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="feature-title">{service.title}</h3>
+            <p class="feature-description">
+              {service.description}
+            </p>
+            <div class="feature-action">
+              <span class="feature-link">
+                {lang === 'es' ? 'Ver más' : lang === 'ca' ? 'Veure més' : 'Learn more'}
+              </span>
+            </div>
+          </article>
+        </a>
+      ))}
     </div>
   </div>
 </section>
