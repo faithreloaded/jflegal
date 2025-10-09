@@ -1,0 +1,18 @@
+---
+// Redirección automática a la versión en español
+import { LOCALES } from '../i18n';
+
+export async function getStaticPaths() {
+  return [];
+}
+
+// Redireccionar a la versión en español por defecto
+---
+<script>
+  // Redirección inmediata al español
+  window.location.replace('/es/');
+</script>
+
+<!-- Fallback para SEO -->
+<meta http-equiv="refresh" content="0; url=/es/">
+<p>Redirigiendo a <a href="/es/">JF Legal Consulting</a>...</p>
