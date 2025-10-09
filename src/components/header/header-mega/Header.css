@@ -364,7 +364,7 @@
 .header-mega .no-transition { transition: none !important; }
 .header-mega .mobile-nav-header { padding: var(--space-4) var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; opacity: 0; transform: translateY(-10px); transition: all 0.4s ease 0.1s; }
 .header-mega .mobile-nav-menu.active .mobile-nav-header { opacity: 1; transform: translateY(0); }
-.header-mega .mobile-nav-menu .mobile-logo { height: 32px; border-radius: 6px; object-fit: cover; filter: none; }
+.header-mega .mobile-nav-menu .mobile-logo { height: 48px; border-radius: 6px; object-fit: cover; filter: none; }
 .header-mega .mobile-close-btn { background: none; border: none; cursor: pointer; padding: var(--space-1); color: var(--color-black); border-radius: 4px; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; min-width: 40px; min-height: 40px; }
 .header-mega .mobile-close-btn *,
 .header-mega .menu-toggle *,
