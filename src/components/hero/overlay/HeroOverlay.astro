@@ -119,7 +119,7 @@ const prefix = `/${lang}`;
     width: 420px;
     height: 500px;
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
     border-radius: 0px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -264,6 +264,14 @@ const prefix = `/${lang}`;
     margin: 0;
     font-size: 14px;
     line-height: 1.5;
+  }
+
+  /* Desktop específico para imagen hero */
+  @media (min-width: 1025px) {
+    .hero-image {
+      background-position: center center !important;
+      background-size: cover !important;
+    }
   }
 
   /* Responsive */
