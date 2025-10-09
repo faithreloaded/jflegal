@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://www.jflegalconsulting.com/sitemap-index.xml
+
+# Crawl-delay for social media crawlers
+User-agent: facebookexternalhit
+Crawl-delay: 1
+
+User-agent: Twitterbot
+Crawl-delay: 1
+
+User-agent: WhatsApp
+Crawl-delay: 1
+
+User-agent: LinkedInBot
+Crawl-delay: 1

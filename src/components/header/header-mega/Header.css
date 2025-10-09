@@ -45,17 +45,15 @@
 }
 
 .header-mega .logo-img { 
-  height: 40px; 
-  width: auto; 
-  filter: brightness(0) invert(1); 
-  /* Optimizado para renderizado vectorial nítido */
+  display: block;
+  height: 40px;
+  width: auto;
   image-rendering: auto;
+  filter: none !important;
+  transform: none !important;
+  backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  shape-rendering: auto;
-  /* Forzar aceleración GPU para renderizado nítido */
-  transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 .nav-mega { display: flex; gap: var(--space-4); justify-self: center; align-items: center; }
@@ -475,29 +473,12 @@ body.menu-open .lang-dropdown::after { display: none !important; }
 .header-mega .desktop-nav { display: flex; }
 .header-mega .mobile-nav { display: none; }
 @media (max-width: 1024px) { .header-mega-content { grid-template-columns: auto 1fr auto; gap: var(--space-2); } .nav-mega { gap: var(--space-2); } }
-@media (max-width: 768px) { 
-  .header-mega-content { grid-template-columns: 1fr auto; gap: var(--space-2); } 
-  .nav-mega { display: none; } 
-  .header-mega .desktop-nav { display: none; } 
-  .header-mega .mobile-nav { display: flex; } 
-  .header-mega-actions .buy-desktop { display: none !important; } 
-  .header-mega-actions { justify-self: end; }
-  /* Optimizar logo para tablets y móviles */
-  .header-mega .logo-img {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    will-change: auto;
-  }
+@media (max-width: 768px) { .header-mega-content { grid-template-columns: 1fr auto; gap: var(--space-2); } .nav-mega { display: none; } .header-mega .desktop-nav { display: none; } .header-mega .mobile-nav { display: flex; } .header-mega-actions .buy-desktop { display: none !important; } .header-mega-actions { justify-self: end; } }
+@media (max-width: 768px) {
+  .header-mega .logo-img { height: 32px; }
 }
+
 @media (max-width: 480px) { 
   .header-mega { padding: var(--space-1) 0; } 
-  .header-mega .logo-img { 
-    height: 32px; 
-    /* Forzar renderizado nítido en móviles */
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    will-change: auto;
-  } 
+  .header-mega .logo-img { height: 32px; } 
 }
