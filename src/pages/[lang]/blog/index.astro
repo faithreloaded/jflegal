@@ -50,8 +50,8 @@ console.log('All posts:', allPosts.map(p => ({ id: p.id, slug: p.slug })));
           <section class="latest">
             <h3 class="latest-title">{lang==='es' ? 'Últimos posts' : lang==='ca' ? 'Últims posts' : 'Latest posts'}</h3>
             <div class="latest-grid">
-              {posts.length > 0 ? Array.from({ length: 3 }, (_, index) => {
-                const post = posts[0]; // Usar el primer (y único) post
+              {posts.length > 0 ? Array.from({ length: Math.min(3, posts.length) }, (_, index) => {
+                const post = posts[index]; // Usar el post correspondiente al índice
                 return (
                   <a class="blog-card" data-title={post.data.title} data-excerpt={post.data.excerpt} href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}`} key={index}>
                     <img class="blog-card-bg" src={post.data.image || "/images/images/placeholder/placeholder.jpg"} alt={post.data.title} />
