@@ -4,6 +4,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import HeaderMega from '../../../components/header/header-mega/Header.astro';
 import FooterGrid from '../../../components/footer/footer-grid/Footer.astro';
 import PageBanner from '../../../components/hero/page-banner/PageBanner.astro';
+import ServiceLayout from '../../../components/services/service-layout/ServiceLayout.astro';
+import FeaturedNews from '../../../components/blog/featured/FeaturedNews.astro';
 import { LOCALES, type Locale, loadT } from '../../../i18n';
 
 export async function getStaticPaths() {
@@ -17,37 +19,33 @@ const t = await loadT(lang, ['header', 'footer', 'services']);
 const servicesFallback = {
   es: {
     laboral: {
-      title: "Laboral",
-      subtitle: "Asesoramiento jurídico especializado en derecho laboral",
-      description: "Asesoramiento jurídico especializado en derecho laboral"
+      title: "Área Laboral",
+      subtitle: "Asesoramiento jurídico laboral para empresas y profesionales",
+      description: "Asesoramiento jurídico laboral para empresas y profesionales"
     }
   },
   en: {
     laboral: {
       title: "Labor Law",
-      subtitle: "Specialized legal advice in labor law",
-      description: "Specialized legal advice in labor law"
+      subtitle: "Specialized labor law advisory for companies and professionals",
+      description: "Specialized labor law advisory for companies and professionals"
     }
   },
   ca: {
     laboral: {
-      title: "Laboral",
-      subtitle: "Assessorament jurídic especialitzat en dret laboral",
-      description: "Assessorament jurídic especialitzat en dret laboral"
+      title: "Àrea Laboral",
+      subtitle: "Assessorament jurídic laboral per a empreses i professionals",
+      description: "Assessorament jurídic laboral per a empreses i professionals"
     }
   }
 };
 
-// Función helper para obtener traducciones de servicios con fallback
 function getServicesTranslation(key: string) {
   const translation = t(`services.${key}`);
   if (translation === `services.${key}`) {
-    // Si no se encuentra la traducción, usar fallback
     const keys = key.split('.');
-    let fallbackValue = servicesFallback[lang];
-    for (const k of keys) {
-      fallbackValue = fallbackValue?.[k];
-    }
+    let fallbackValue: any = (servicesFallback as any)[lang];
+    for (const k of keys) fallbackValue = fallbackValue?.[k];
     return fallbackValue || key;
   }
   return translation;
@@ -56,6 +54,47 @@ function getServicesTranslation(key: string) {
 const title = getServicesTranslation('laboral.title');
 const subtitle = getServicesTranslation('laboral.subtitle');
 const description = getServicesTranslation('laboral.description');
+
+// Contenido traducido (ES/CA/EN)
+const serviceTitle = lang === 'es' ? 'Área Laboral'
+  : lang === 'ca' ? 'Àrea Laboral'
+  : 'Labor Law';
+
+const paragraph1 = lang === 'es'
+  ? 'El área laboral de nuestro despacho está orientada a acompañar a empresas y profesionales en el cumplimiento riguroso de la normativa laboral y de Seguridad Social, ofreciendo asesoramiento integral y soluciones eficaces ante cualquier situación laboral.'
+  : lang === 'ca'
+  ? 'L’àrea laboral del nostre despatx està orientada a acompanyar empreses i professionals en el compliment rigorós de la normativa laboral i de Seguretat Social, oferint assessorament integral i solucions eficaces davant qualsevol situació laboral.'
+  : 'Our labor law department supports companies and professionals in strictly complying with labor and Social Security regulations, providing comprehensive advice and effective solutions for any labor situation.';
+
+const paragraph2 = '';
+const paragraph3 = '';
+
+const additionalContent: any[] = [
+  {
+    sectionTitle: lang === 'es' ? 'Qué hacemos' : lang === 'ca' ? 'Què fem' : 'What we do',
+    content: (lang === 'es')
+      ? '• **Nóminas y Seguridad Social**\nElaboración y gestión de nóminas, seguros sociales, altas, bajas y variaciones en la Tesorería General de la Seguridad Social.\nControl de costes laborales y planificación de retribuciones.\n\n• **Inspecciones de Trabajo**\nRepresentación y defensa ante la Inspección de Trabajo.\nRevisión de documentación laboral y acompañamiento durante todo el procedimiento.\n\n• **Despidos y sanciones**\nAsesoramiento previo y asistencia en despidos disciplinarios, objetivos o colectivos.\nRedacción de cartas de despido, cálculo de indemnizaciones y representación ante el SMAC o los tribunales.\n\n• **Modificación de condiciones laborales**\nAnálisis y gestión de cambios sustanciales en jornada, salario, funciones o centro de trabajo.\nNegociación con el personal o la representación sindical para minimizar riesgos legales.\n\n• **Aplicación de convenios colectivos**\nAsesoramiento en la correcta aplicación del convenio sectorial o de empresa.\nAdaptación de contratos, tablas salariales y políticas internas según la normativa vigente.\n\n• **Prestaciones y capitalización del paro**\nTramitación de prestaciones por desempleo y gestión de la capitalización del paro para el inicio de actividad como autónomo.\nAsesoramiento sobre bonificaciones y ayudas laborales disponibles.'
+      : (lang === 'ca')
+      ? '• **Nòmines i Seguretat Social**\nElaboració i gestió de nòmines, assegurances socials, altes, baixes i variacions a la Tresoreria General de la Seguretat Social.\nControl de costos laborals i planificació de retribucions.\n\n• **Inspeccions de Treball**\nRepresentació i defensa davant la Inspecció de Treball.\nRevisió de documentació laboral i acompanyament durant tot el procediment.\n\n• **Acomiadaments i sancions**\nAssessorament previ i assistència en acomiadaments disciplinaris, objectius o col·lectius.\nRedacció de cartes d’acomiadament, càlcul d’indemnitzacions i representació davant el SMAC o els tribunals.\n\n• **Modificació de condicions laborals**\nAnàlisi i gestió de canvis substancials en jornada, salari, funcions o centre de treball.\nNegociació amb el personal o la representació sindical per minimitzar riscos legals.\n\n• **Aplicació de convenis col·lectius**\nAssessorament en l’aplicació correcta del conveni sectorial o d’empresa.\nAdaptació de contractes, taules salarials i polítiques internes segons la normativa vigent.\n\n• **Prestacions i capitalització de l’atur**\nTramitació de prestacions per desocupació i gestió de la capitalització de l’atur per iniciar activitat com a autònom.\nAssessorament sobre bonificacions i ajudes laborals disponibles.'
+      : '• **Payroll and Social Security**\nPreparation and management of payroll, social security contributions, registrations, deregistrations and changes with Social Security.\nControl of labor costs and compensation planning.\n\n• **Labor Inspections**\nRepresentation and defense before the Labor Inspectorate.\nReview of labor documentation and support throughout the entire procedure.\n\n• **Dismissals and sanctions**\nPre-advice and assistance in disciplinary, objective or collective dismissals.\nDrafting of dismissal letters, calculation of severance and representation before mediation bodies or courts.\n\n• **Modification of working conditions**\nAnalysis and management of substantial changes in working hours, salary, duties or workplace.\nNegotiation with staff or union representatives to minimize legal risks.\n\n• **Application of collective agreements**\nAdvice on the correct application of sectoral or company agreements.\nAdaptation of contracts, salary tables and internal policies according to current regulations.\n\n• **Benefits and unemployment capitalization**\nProcessing of unemployment benefits and management of lump-sum unemployment capitalization to start self-employment.\nAdvice on available labor bonuses and aids.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Nuestro enfoque' : lang === 'ca' ? 'El nostre enfocament' : 'Our approach',
+    content: (lang === 'es')
+      ? 'Combinamos rigor técnico y cercanía.\nNuestra prioridad es ofrecer seguridad jurídica, prevenir conflictos y garantizar el cumplimiento laboral de forma eficiente, evitando sanciones y fortaleciendo las relaciones laborales dentro de la empresa.'
+      : (lang === 'ca')
+      ? 'Combinen rigor tècnic i proximitat.\nLa nostra prioritat és oferir seguretat jurídica, prevenir conflictes i garantir el compliment laboral de manera eficient, evitant sancions i enfortint les relacions laborals dins de l’empresa.'
+      : 'We combine technical rigor and a close, practical approach.\nOur priority is to provide legal certainty, prevent disputes and ensure efficient labor compliance, avoiding penalties and strengthening workplace relations.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Empecemos hoy' : lang === 'ca' ? 'Comencem avui' : 'Let\'s start today',
+    content: (lang === 'es')
+      ? 'Cuéntanos tu situación. Diseñamos un plan laboral claro y nos ocupamos del resto.\n\nConsulta sin compromiso.'
+      : (lang === 'ca')
+      ? 'Explica\'ns la teva situació. Dissenyem un pla laboral clar i ens ocupem de la resta.\n\nConsulta sense compromís.'
+      : 'Tell us about your situation. We design a clear labor plan and take care of the rest.\n\nConsultation without commitment.'
+  }
+];
 ---
 
 <BaseLayout 
@@ -65,12 +104,25 @@ const description = getServicesTranslation('laboral.description');
   <HeaderMega lang={lang} />
   
   <main class="main">
-    <!-- Page Hero -->
     <PageBanner 
       title={title} 
       subtitle={subtitle}
       backgroundImage="/images/laboral.webp"
     />
+
+    <ServiceLayout 
+      title={title}
+      description={subtitle}
+      serviceTitle={serviceTitle}
+      paragraph1={paragraph1}
+      paragraph2={paragraph2}
+      paragraph3={paragraph3}
+      additionalContent={additionalContent}
+      lang={lang}
+    />
+
+    <!-- Noticias destacadas al final -->
+    <FeaturedNews lang={lang} />
   </main>
   
   <FooterGrid lang={lang} />

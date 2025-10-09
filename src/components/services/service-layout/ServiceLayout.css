@@ -426,6 +426,7 @@
   font-family: var(--font-family);
 }
 
+/* Botón submit estilo original + loader */
 .service-form-submit {
   background: white;
   color: var(--color-primary);
@@ -439,6 +440,12 @@
   margin-top: var(--space-2);
   letter-spacing: 0.5px;
   font-family: var(--font-family);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* centrar texto */
+  gap: 8px;
+  width: 100%;
 }
 
 .service-form-submit:hover {
@@ -448,6 +455,48 @@
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
+.btn-loader {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  position: absolute;
+  right: 16px; /* loader a la derecha sin mover el texto */
+}
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.service-form.loading .btn-loader { display: inline-block; }
+.service-form.loading .service-form-submit { opacity: 0.95; cursor: progress; }
+
+/* Caja de éxito que sustituye al formulario */
+.form-success-box {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: var(--space-5);
+  border-radius: 0px;
+  text-align: center;
+}
+.form-success-title { font-size: 16px; color: #16a34a; margin: 0 0 var(--space-2) 0; }
+.form-success-text { font-size: 14px; color: var(--color-text-secondary); margin: 0; }
+
+.form-consent {
+  margin: var(--space-2) 0 var(--space-2) 0;
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.form-consent label { display: flex; align-items: flex-start; gap: 8px; }
+.form-consent a { color: white; text-decoration: underline; }
+.form-consent input[type="checkbox"] { margin: 2px 0 0 0; width: 16px; height: 16px; vertical-align: top; }
 
 /* Responsive */
 @media (max-width: 1200px) {

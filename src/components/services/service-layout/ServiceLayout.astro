@@ -123,7 +123,7 @@ const { title, description, serviceTitle, paragraph1, paragraph2, paragraph3, ad
             <hr class="form-divider" />
           </div>
           
-          <form class="service-form" action="#" method="POST">
+          <form id="serviceForm" class="service-form" action="https://formspree.io/f/xgvnlgbq" method="POST">
             <div class="form-row">
               <div class="form-group">
                 <input 
@@ -142,23 +142,24 @@ const { title, description, serviceTitle, paragraph1, paragraph2, paragraph3, ad
                 />
               </div>
             </div>
-            
-            <div class="form-group">
-              <input 
-                type="email" 
-                name="email" 
-                placeholder="Email"
-                required 
-              />
-            </div>
-            
-            <div class="form-group">
-              <input 
-                type="tel" 
-                name="phone" 
-                placeholder={lang === 'es' ? 'Teléfono' : lang === 'ca' ? 'Telèfon' : 'Phone'}
-                required 
-              />
+
+            <div class="form-row">
+              <div class="form-group">
+                <input 
+                  type="email" 
+                  name="email" 
+                  placeholder="Email"
+                  required 
+                />
+              </div>
+              <div class="form-group">
+                <input 
+                  type="tel" 
+                  name="phone" 
+                  placeholder={lang === 'es' ? 'Teléfono' : lang === 'ca' ? 'Telèfon' : 'Phone'}
+                  required 
+                />
+              </div>
             </div>
             
             <div class="form-group">
@@ -169,11 +170,25 @@ const { title, description, serviceTitle, paragraph1, paragraph2, paragraph3, ad
                 required
               ></textarea>
             </div>
+
+            <div class="form-consent">
+              <label>
+                <input type="checkbox" name="consent" required />
+                <span>
+                  {lang === 'es' ? 'Acepto la ' : lang === 'ca' ? 'Accepto la ' : 'I accept the '} 
+                  <a href={`/${lang}/politica-privacidad`} target="_blank" rel="noopener">{lang === 'es' ? 'Política de Privacidad' : lang === 'ca' ? 'Política de Privacitat' : 'Privacy Policy'}</a>
+                  {lang === 'es' ? ' y los ' : lang === 'ca' ? ' i els ' : ' and the '}
+                  <a href={`/${lang}/terminos-condiciones`} target="_blank" rel="noopener">{lang === 'es' ? 'Términos y Condiciones' : lang === 'ca' ? 'Termes i Condicions' : 'Terms and Conditions'}</a>
+                </span>
+              </label>
+            </div>
             
-            <button type="submit" class="service-form-submit">
+            <button type="submit" class="service-form-submit" id="serviceFormBtn">
               {lang === 'es' ? 'Enviar consulta' : lang === 'ca' ? 'Enviar consulta' : 'Send inquiry'}
+              <span class="btn-loader" aria-hidden="true"></span>
             </button>
           </form>
+          <div id="serviceFormMessage" class="form-message" style="display:none;"></div>
         </div>
       </div>
     </div>
@@ -181,14 +196,14 @@ const { title, description, serviceTitle, paragraph1, paragraph2, paragraph3, ad
 </section>
 
 <script>
-  // Smooth scroll con offset para el header
+  // Smooth scroll con offset para el header y envío de formulario a Formspree
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.header, .header-left, .header-center, .header-right, .header-mega');
-    const offset = header ? (header as HTMLElement).offsetHeight || 80 : 80;
+    const offset = (header && header instanceof HTMLElement) ? (header.offsetHeight || 80) : 80;
     document.querySelectorAll('.toc-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        const href = (e.currentTarget).getAttribute('href');
         if (!href) return;
         const id = href.replace('#', '');
         const target = document.getElementById(id);
@@ -197,5 +212,41 @@ const { title, description, serviceTitle, paragraph1, paragraph2, paragraph3, ad
         window.scrollTo({ top, behavior: 'smooth' });
       });
     });
+
+    const form = document.getElementById('serviceForm');
+    const message = document.getElementById('serviceFormMessage');
+    const btn = document.getElementById('serviceFormBtn');
+    if (form && message && btn) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        form.classList.add('loading');
+        const formData = new FormData(form);
+        try {
+          const res = await fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            const wrapper = form.parentElement;
+            if (wrapper) {
+              wrapper.innerHTML = `<div class=\"form-success-box\"><p class=\"form-success-title\">✓ ${'Mensaje enviado correctamente'}</p><p class=\"form-success-text\">${'Gracias por contactarnos. Te responderemos pronto.'}</p></div>`;
+            } else {
+              message.innerHTML = `<div style=\"text-align:center; padding: var(--space-4);\"><div style=\"font-size:16px; color:#16a34a; margin-bottom: var(--space-2);\">✓ ${'Mensaje enviado correctamente'}</div><div style=\"font-size:14px; color: var(--color-text-secondary);\">${'Gracias por contactarnos. Te responderemos pronto.'}</div></div>`;
+              message.className = 'form-message success';
+              message.style.display = 'block';
+            }
+          } else {
+            throw new Error('Request failed');
+          }
+        } catch (err) {
+          message.innerHTML = `<div style=\"text-align:center; padding: var(--space-4);\"><div style=\"font-size:16px; color:#dc2626; margin-bottom: var(--space-2);\">✗ ${'Error al enviar el mensaje'}</div><div style=\"font-size:14px; color: var(--color-text-secondary);\">${'Por favor, inténtalo de nuevo o contacta por teléfono.'}</div></div>`;
+          message.className = 'form-message error';
+          message.style.display = 'block';
+        } finally {
+          form.classList.remove('loading');
+        }
+      });
+    }
   });
 </script>

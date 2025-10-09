@@ -58,7 +58,7 @@ const {
           <div class="page-hero-form-container">
             <h3 class="page-hero-form-title">{formTitle}</h3>
             
-            <form id="pageHeroForm" class="page-hero-form-fields">
+            <form id="pageHeroForm" class="page-hero-form-fields" action="https://formspree.io/f/xgvnlgbq" method="POST">
               {formFields.map((field) => (
                 <div class="page-hero-form-group">
                   {field.type === 'select' ? (
@@ -80,9 +80,9 @@ const {
                 </div>
               ))}
               
-              <ButtonPrimary type="submit" class="page-hero-form-submit">
+              <button type="submit" class="btn btn-primary page-hero-form-submit">
                 {formSubmitText}
-              </ButtonPrimary>
+              </button>
             </form>
             
             <div id="pageHeroFormMessage" class="page-hero-form-message" style="display: none;"></div>
@@ -95,36 +95,26 @@ const {
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('pageHeroForm') as HTMLFormElement;
-    const messageDiv = document.getElementById('pageHeroFormMessage') as HTMLDivElement;
+    const form = document.getElementById('pageHeroForm');
+    const messageDiv = document.getElementById('pageHeroFormMessage');
     
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-        
-        // Simular envío (aquí conectarías con tu backend)
         try {
-          // Simular delay de red
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
-          // Mostrar mensaje de éxito
+          const res = await fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (!res.ok) throw new Error('Request failed');
           messageDiv.textContent = '¡Mensaje enviado correctamente!';
           messageDiv.className = 'page-hero-form-message success';
           messageDiv.style.display = 'block';
-          
-          // Limpiar formulario
           form.reset();
-          
-          // Ocultar mensaje después de 5 segundos
-          setTimeout(() => {
-            messageDiv.style.display = 'none';
-          }, 5000);
-          
+          setTimeout(() => { messageDiv.style.display = 'none'; }, 5000);
         } catch (error) {
-          // Mostrar mensaje de error
           messageDiv.textContent = 'Error al enviar el mensaje';
           messageDiv.className = 'page-hero-form-message error';
           messageDiv.style.display = 'block';
@@ -307,6 +297,40 @@ const {
     margin-top: var(--space-2);
     width: 100%;
   }
+  
+  /* Botón primario local (igual que ButtonPrimary) */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0px;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    border: 2px solid;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary {
+    gap: 4px;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-color: var(--color-primary);
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 100px;
+    line-height: 1.2;
+  }
+  .btn-primary:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--color-background);
+    text-decoration: none;
+    transform: translateY(-0.5px);
+  }
+  .btn-primary:active { transform: translateY(0); }
   
   .page-hero-form-message {
     margin-top: var(--space-3);

@@ -4,6 +4,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import HeaderMega from '../../../components/header/header-mega/Header.astro';
 import FooterGrid from '../../../components/footer/footer-grid/Footer.astro';
 import PageBanner from '../../../components/hero/page-banner/PageBanner.astro';
+import ServiceLayout from '../../../components/services/service-layout/ServiceLayout.astro';
+import FeaturedNews from '../../../components/blog/featured/FeaturedNews.astro';
 import { LOCALES, type Locale, loadT } from '../../../i18n';
 
 export async function getStaticPaths() {
@@ -16,62 +18,90 @@ const t = await loadT(lang, ['header', 'footer', 'services']);
 // Fallback translations para servicios si el sistema no funciona
 const servicesFallback = {
   es: {
-    mercantil: {
-      title: "Mercantil y Societario",
-      subtitle: "Constitución y gestión de sociedades mercantiles",
-      description: "Constitución y gestión de sociedades mercantiles"
-    }
-  },
-  en: {
-    mercantil: {
-      title: "Corporate and Commercial",
-      subtitle: "Company formation and commercial law management",
-      description: "Company formation and commercial law management"
-    }
+    title: 'Mercantil y Societario',
+    subtitle: 'Constitución y gestión de sociedades mercantiles',
+    description: 'Asesoramiento integral en derecho mercantil y societario para empresas y emprendedores'
   },
   ca: {
-    mercantil: {
-      title: "Mercantil i Societari",
-      subtitle: "Constitució i gestió de societats mercantils",
-      description: "Constitució i gestió de societats mercantils"
-    }
+    title: 'Mercantil i Societari',
+    subtitle: 'Constitució i gestió de societats mercantils',
+    description: 'Assessorament integral en dret mercantil i societari per a empreses i emprenedors'
+  },
+  en: {
+    title: 'Commercial and Corporate',
+    subtitle: 'Company formation and commercial law management',
+    description: 'Comprehensive commercial and corporate law advice for companies and entrepreneurs'
   }
 };
 
-// Función helper para obtener traducciones de servicios con fallback
-function getServicesTranslation(key: string) {
-  const translation = t(`services.${key}`);
-  if (translation === `services.${key}`) {
-    // Si no se encuentra la traducción, usar fallback
-    const keys = key.split('.');
-    let fallbackValue = servicesFallback[lang];
-    for (const k of keys) {
-      fallbackValue = fallbackValue?.[k];
-    }
-    return fallbackValue || key;
-  }
-  return translation;
-}
+// Contenido traducido (ES/CA/EN)
+const serviceTitle = lang === 'es' ? 'Mercantil y Societario'
+  : lang === 'ca' ? 'Mercantil i Societari'
+  : 'Commercial and Corporate';
 
-const title = getServicesTranslation('mercantil.title');
-const subtitle = getServicesTranslation('mercantil.subtitle');
-const description = getServicesTranslation('mercantil.description');
+const paragraph1 = lang === 'es'
+  ? 'Acompañamos a empresas y emprendedores en todas las etapas de su actividad mercantil, desde la constitución de sociedades hasta su transformación, reestructuración o disolución, garantizando seguridad jurídica y eficiencia en cada paso.'
+  : lang === 'ca'
+  ? 'Acompanyem empreses i emprenedors en totes les etapes de la seva activitat mercantil, des de la constitució de societats fins a la seva transformació, reestructuració o dissolució, garantint seguretat jurídica i eficiència en cada pas.'
+  : 'We accompany companies and entrepreneurs in all stages of their commercial activity, from the incorporation of companies to their transformation, restructuring or dissolution, guaranteeing legal security and efficiency at each step.';
+
+const paragraph2 = lang === 'es'
+  ? 'Nuestro objetivo es ofrecer un asesoramiento estratégico y práctico, que facilite el crecimiento y la estabilidad empresarial.'
+  : lang === 'ca'
+  ? 'El nostre objectiu és oferir un assessorament estratègic i pràctic, que faciliti el creixement i l\'estabilitat empresarial.'
+  : 'Our objective is to offer strategic and practical advice, which facilitates business growth and stability.';
+
+const paragraph3 = '';
+
+const additionalContent: any[] = [
+  {
+    sectionTitle: lang === 'es' ? 'Qué hacemos' : lang === 'ca' ? 'Què fem' : 'What we do',
+    content: lang === 'es' ?
+      '• **Constitución de sociedades**\nAsesoramos en la elección de la forma jurídica más adecuada según el perfil y objetivos del cliente (S.L., S.A., sociedad civil o autónomo con empleados).\nNos encargamos de toda la constitución, redacción de estatutos y registro mercantil.\n\n• **Sociedades holding**\nDiseño y constitución de estructuras holding para la gestión centralizada de varias empresas, optimizando la fiscalidad y protegiendo los activos.\nEvaluamos su conveniencia y gestionamos el proceso completo hasta la inscripción.\n\n• **Contratación mercantil**\nRedacción, revisión y negociación de contratos mercantiles: distribución, suministro, franquicia, arrendamiento, confidencialidad o no competencia.\nGarantizamos que cada contrato proteja tus intereses y cumpla con la legislación vigente.\n\n• **Fusiones y adquisiciones (M&A)**\nAsesoramiento integral en procesos de compra, venta o integración de empresas, desde la planificación hasta la ejecución.\nAnalizamos riesgos, optimizamos la estructura fiscal y aseguramos la viabilidad jurídica de la operación.\n\n• **Disolución y liquidación de sociedades**\nTramitamos la disolución y liquidación completa de sociedades, gestionando actas, balances finales, pagos a acreedores y cancelación registral, de forma ordenada y sin riesgos futuros.\n\n• **Concursal y preconcursal**\nAsesoramiento en situaciones de insolvencia o dificultades económicas.\nAnalizamos la viabilidad de la empresa y acompañamos en el proceso de restructuración o concurso de acreedores, buscando preservar el negocio o minimizar el impacto financiero.\n\n• **Reestructuraciones societarias**\nGestionamos procesos de fusión, absorción, escisión o transformación jurídica, con un enfoque estratégico y fiscal que mejora la eficiencia y competitividad empresarial.\n\n• **Aumentos y reducciones de capital**\nAsesoramiento legal y fiscal en modificaciones del capital social para financiar el crecimiento, sanear balances o reequilibrar la estructura económica.\n\n• **Reformas estatutarias**\nActualización de estatutos sociales para adaptarlos a cambios normativos o estructurales de la empresa.\nNos ocupamos de la redacción, aprobación en junta y presentación ante el Registro Mercantil.' :
+      lang === 'ca' ?
+      '• **Constitució de societats**\nAssessorem en l\'elecció de la forma jurídica més adequada segons el perfil i objectius del client (S.L., S.A., societat civil o autònom amb empleats).\nEns encarreguem de tota la constitució, redacció d\'estatuts i registre mercantil.\n\n• **Societats holding**\nDisseny i constitució d\'estructures holding per a la gestió centralitzada de diverses empreses, optimitzant la fiscalitat i protegint els actius.\nAvaluem la seva conveniència i gestionem el procés complet fins a la inscripció.\n\n• **Contractació mercantil**\nRedacció, revisió i negociació de contractes mercantils: distribució, subministrament, franquícia, arrendament, confidencialitat o no competència.\nGarantim que cada contracte protegeixi els teus interessos i compleixi amb la legislació vigent.\n\n• **Fusions i adquisicions (M&A)**\nAssessorament integral en processos de compra, venda o integració d\'empreses, des de la planificació fins a l\'execució.\nAnalitzem riscos, optimitzem l\'estructura fiscal i assegurem la viabilitat jurídica de l\'operació.\n\n• **Dissolució i liquidació de societats**\nTramitem la dissolució i liquidació completa de societats, gestionant actes, balanços finals, pagaments a creditors i cancel·lació registral, de forma ordenada i sense riscos futurs.\n\n• **Concursal i preconcursal**\nAssessorament en situacions d\'insolvència o dificultats econòmiques.\nAnalitzem la viabilitat de l\'empresa i acompanyem en el procés de reestructuració o concurs de creditors, buscant preservar el negoci o minimitzar l\'impacte financer.\n\n• **Reestructuracions societàries**\nGestionem processos de fusió, absorció, escissió o transformació jurídica, amb un enfocament estratègic i fiscal que millora l\'eficiència i competitivitat empresarial.\n\n• **Augments i reduccions de capital**\nAssessorament legal i fiscal en modificacions del capital social per finançar el creixement, sanejar balanços o reequilibrar l\'estructura econòmica.\n\n• **Reformes estatutàries**\nActualització d\'estatuts socials per adaptar-los a canvis normatius o estructurals de l\'empresa.\nEns ocupem de la redacció, aprovació en junta i presentació davant el Registre Mercantil.' :
+      '• **Company incorporation**\nWe advise on choosing the most appropriate legal form according to the client\'s profile and objectives (LLC, SA, civil partnership or self-employed with employees).\nWe handle the entire incorporation, drafting of articles of association and commercial registry.\n\n• **Holding companies**\nDesign and incorporation of holding structures for centralized management of several companies, optimizing taxation and protecting assets.\nWe evaluate their convenience and manage the complete process until registration.\n\n• **Commercial contracting**\nDrafting, review and negotiation of commercial contracts: distribution, supply, franchise, lease, confidentiality or non-competition.\nWe guarantee that each contract protects your interests and complies with current legislation.\n\n• **Mergers and acquisitions (M&A)**\nComprehensive advice on company purchase, sale or integration processes, from planning to execution.\nWe analyze risks, optimize the tax structure and ensure the legal viability of the operation.\n\n• **Company dissolution and liquidation**\nWe process the complete dissolution and liquidation of companies, managing minutes, final balances, creditor payments and registry cancellation, in an orderly manner and without future risks.\n\n• **Insolvency and pre-insolvency**\nAdvice in situations of insolvency or economic difficulties.\nWe analyze the company\'s viability and accompany in the restructuring process or creditor bankruptcy, seeking to preserve the business or minimize financial impact.\n\n• **Corporate restructuring**\nWe manage merger, absorption, spin-off or legal transformation processes, with a strategic and tax approach that improves business efficiency and competitiveness.\n\n• **Capital increases and reductions**\nLegal and tax advice on modifications to share capital to finance growth, clean up balances or rebalance the economic structure.\n\n• **Statutory reforms**\nUpdating of corporate bylaws to adapt them to regulatory or structural changes in the company.\nWe handle drafting, board approval and presentation before the Commercial Registry.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Nuestro enfoque' : lang === 'ca' ? 'El nostre enfocament' : 'Our approach',
+    content: lang === 'es' ?
+      '• **Seguridad jurídica** en cada decisión.\n\n• **Estructuras eficientes** y sostenibles.\n\n• **Visión estratégica** y fiscal unificada.\n\n• **Prevención de riesgos** y conflictos societarios.' :
+      lang === 'ca' ?
+      '• **Seguretat jurídica** en cada decisió.\n\n• **Estructures eficients** i sostenibles.\n\n• **Visió estratègica** i fiscal unificada.\n\n• **Prevenció de riscos** i conflictes societaris.' :
+      '• **Legal security** in each decision.\n\n• **Efficient and sustainable** structures.\n\n• **Unified strategic** and tax vision.\n\n• **Risk prevention** and corporate conflicts.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Empecemos hoy' : lang === 'ca' ? 'Comencem avui' : 'Let\'s start today',
+    content: lang === 'es' ?
+      'Cuéntanos tu situación. En JF Legal Consulting analizamos tu estructura y te guiamos en cada decisión clave para proteger y hacer crecer tu empresa.\n\nConsulta sin compromiso.' :
+      lang === 'ca' ?
+      'Explica\'ns la teva situació. A JF Legal Consulting analitzem la teva estructura i et guiem en cada decisió clau per protegir i fer créixer la teva empresa.\n\nConsulta sense compromís.' :
+      'Tell us about your situation. At JF Legal Consulting we analyze your structure and guide you in each key decision to protect and grow your company.\n\nConsultation without commitment.'
+  }
+];
 ---
 
-<BaseLayout 
-  title={`${title} | JF Legal`} 
-  description={subtitle}
->
+<BaseLayout title={servicesFallback[lang].title} description={servicesFallback[lang].description}>
   <HeaderMega lang={lang} />
   
-  <main class="main">
-    <!-- Page Hero -->
     <PageBanner 
-      title={title} 
-      subtitle={subtitle}
-      backgroundImage="/images/mercantilhero.webp"
-    />
-  </main>
+    title={servicesFallback[lang].title}
+    subtitle={servicesFallback[lang].subtitle}
+    lang={lang}
+  />
+
+  <ServiceLayout
+    title={servicesFallback[lang].title}
+    description={servicesFallback[lang].description}
+    serviceTitle={serviceTitle}
+    paragraph1={paragraph1}
+    paragraph2={paragraph2}
+    paragraph3={paragraph3}
+    additionalContent={additionalContent}
+    lang={lang}
+  />
+
+  <FeaturedNews lang={lang} />
   
   <FooterGrid lang={lang} />
 </BaseLayout>

@@ -83,9 +83,9 @@ const list = posts.slice(0, 3);
               entry.target.classList.add('animate');
             }, 100);
           } else if (entry.target.classList.contains('blog-card')) {
-            // Para las cards, usar delays más largos y escalonados
+            // Para las cards, usar delays más cortos y escalonados
             const delay = entry.target.style.getPropertyValue('--delay') || '0s';
-            const delayMs = parseFloat(delay) * 2000 + 400; // Convertir a ms y añadir 400ms base (más lento)
+            const delayMs = parseFloat(delay) * 300 + 200; // Convertir a ms y añadir 200ms base (más rápido)
             setTimeout(() => {
               entry.target.classList.add('animate');
             }, delayMs);

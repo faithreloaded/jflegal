@@ -185,7 +185,7 @@ function getContactTranslation(key: string) {
             <div class="contact-form">
               <h2 class="form-title">{getContactTranslation('form.title')}</h2>
               
-              <form id="contactForm" class="form">
+              <form id="contactForm" class="form" action="https://formspree.io/f/xgvnlgbq" method="POST">
                 <div class="form-row">
                   <div class="form-group">
                     <input type="text" name="name" class="form-input" placeholder={getContactTranslation('form.fields.name')} required>
@@ -214,9 +214,22 @@ function getContactTranslation(key: string) {
                 <div class="form-group">
                   <textarea name="message" class="form-textarea" rows="4" placeholder={getContactTranslation('form.fields.messagePlaceholder')} required></textarea>
                 </div>
+
+                <div class="form-consent light">
+                  <label>
+                    <input type="checkbox" name="consent" required />
+                    <span>
+                      {lang === 'es' ? 'Acepto la ' : lang === 'ca' ? 'Accepto la ' : 'I accept the '} 
+                      <a href={`/${lang}/politica-privacidad`} target="_blank" rel="noopener">{lang === 'es' ? 'Política de Privacidad' : lang === 'ca' ? 'Política de Privacitat' : 'Privacy Policy'}</a>
+                      {lang === 'es' ? ' y los ' : lang === 'ca' ? ' i els ' : ' and the '}
+                      <a href={`/${lang}/terminos-condiciones`} target="_blank" rel="noopener">{lang === 'es' ? 'Términos y Condiciones' : lang === 'ca' ? 'Termes i Condicions' : 'Terms and Conditions'}</a>
+                    </span>
+                  </label>
+                </div>
                 
-                <button type="submit" class="form-submit">
+                <button type="submit" class="form-submit" id="contactSubmit">
                   {getContactTranslation('form.submit')}
+                  <span class="btn-loader" aria-hidden="true" style="display:none"></span>
                 </button>
               </form>
               
@@ -233,66 +246,61 @@ function getContactTranslation(key: string) {
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Formulario principal
-    const form = document.getElementById('contactForm') as HTMLFormElement;
-    const messageDiv = document.getElementById('formMessage') as HTMLDivElement;
-    
-    console.log('Formulario:', form);
-    console.log('MessageDiv:', messageDiv);
-    
+    const form = document.getElementById('contactForm');
+    const messageDiv = document.getElementById('formMessage');
+    const submitButton = document.getElementById('contactSubmit');
+
     if (form) {
-      console.log('Formulario encontrado:', form);
       form.addEventListener('submit', async (e) => {
-        console.log('Formulario enviado!');
         e.preventDefault();
-        
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-        console.log('Datos del formulario:', data);
-        
-        // Simular envío (aquí conectarías con tu backend)
+        // loader ON
+        const loader = submitButton?.querySelector('.btn-loader');
+        if (submitButton && loader) {
+          submitButton.setAttribute('disabled', 'true');
+          loader.setAttribute('style', 'display:inline-block');
+        }
         try {
-          // Simular delay de red
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
+          const res = await fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (!res.ok) throw new Error('Request failed');
+
           // Mostrar mensaje de éxito elegante
           messageDiv.innerHTML = `
             <div style="text-align: center; padding: var(--space-4);">
               <div style="font-size: 16px; color: #16a34a; margin-bottom: var(--space-2);">
-                ✓ Mensaje enviado correctamente
+                ✓ ${'Mensaje enviado correctamente'}
               </div>
               <div style="font-size: 14px; color: var(--color-text-secondary);">
-                Gracias por contactarnos. Te responderemos pronto.
+                ${'Gracias por contactarnos. Te responderemos pronto.'}
               </div>
             </div>
           `;
           messageDiv.className = 'form-message success';
           messageDiv.style.display = 'block';
-          
-          // Limpiar formulario
-          form.reset();
-          
-          // Scroll suave al mensaje
+          (form as HTMLFormElement).reset();
           messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          
-          // Ocultar mensaje después de 8 segundos
-          setTimeout(() => {
-            messageDiv.style.display = 'none';
-          }, 8000);
-          
+          setTimeout(() => { messageDiv.style.display = 'none'; }, 8000);
         } catch (error) {
-          // Mostrar mensaje de error
           messageDiv.innerHTML = `
             <div style="text-align: center; padding: var(--space-4);">
               <div style="font-size: 16px; color: #dc2626; margin-bottom: var(--space-2);">
-                ✗ Error al enviar el mensaje
+                ✗ ${'Error al enviar el mensaje'}
               </div>
               <div style="font-size: 14px; color: var(--color-text-secondary);">
-                Por favor, inténtalo de nuevo o contacta por teléfono.
+                ${'Por favor, inténtalo de nuevo o contacta por teléfono.'}
               </div>
             </div>
           `;
           messageDiv.className = 'form-message error';
           messageDiv.style.display = 'block';
+        } finally {
+          if (submitButton && loader) {
+            submitButton.removeAttribute('disabled');
+            loader.setAttribute('style', 'display:none');
+          }
         }
       });
     }
@@ -471,6 +479,27 @@ function getContactTranslation(key: string) {
     color: #dc2626;
     border: 1px solid rgba(239, 68, 68, 0.2);
   }
+
+  .form-consent.light {
+    margin: var(--space-2) 0 var(--space-2) 0;
+    font-size: 13px;
+    color: var(--color-text);
+  }
+  .form-consent.light a { color: var(--color-black); text-decoration: underline; }
+  .form-consent.light input[type="checkbox"] { margin-right: 8px; }
+
+  .btn-loader {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff; /* contraste sobre fondo primario */
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   
   /* Responsive */
   @media (max-width: 1024px) {

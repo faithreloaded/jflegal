@@ -1,0 +1,320 @@
+---
+import '../../styles/main.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderMega from '../../components/header/header-mega/Header.astro';
+import FooterGrid from '../../components/footer/footer-grid/Footer.astro';
+import PageBanner from '../../components/hero/page-banner/PageBanner.astro';
+import FeaturesSplitLeft from '../../components/features/split-left/FeaturesSplitLeft.astro';
+import FeaturesSplitRight from '../../components/features/split-right/FeaturesSplitRight.astro';
+import FeaturesGrid from '../../components/features/grid/FeaturesGrid.astro';
+import FeaturedNews from '../../components/blog/featured/FeaturedNews.astro';
+import ContactSimple from '../../components/contact/simple/ContactSimple.astro';
+import { LOCALES, type Locale, loadT } from '../../i18n';
+
+export async function getStaticPaths() {
+  return (LOCALES as readonly string[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = await loadT(lang, ['header', 'footer']);
+
+// Fallback translations para despacho si el sistema no funciona
+const despachoFallback = {
+  es: {
+    title: 'Sobre nosotros',
+    subtitle: 'Conoce nuestro despacho y equipo profesional',
+    description: 'Despacho de abogados especializado en derecho fiscal, laboral, mercantil y sucesiones con más de 15 años de experiencia.'
+  },
+  ca: {
+    title: 'Sobre nosaltres',
+    subtitle: 'Coneix el nostre despatx i equip professional',
+    description: 'Despatx d\'advocats especialitzat en dret fiscal, laboral, mercantil i successions amb més de 15 anys d\'experiència.'
+  },
+  en: {
+    title: 'About us',
+    subtitle: 'Get to know our firm and professional team',
+    description: 'Law firm specialized in tax, labor, commercial and inheritance law with over 15 years of experience.'
+  }
+};
+
+// Función helper para obtener traducciones de despacho con fallback
+function getDespachoTranslation(key: string) {
+  const translation = t(`despacho.${key}`);
+  if (translation === `despacho.${key}`) {
+    // Si no se encuentra la traducción, usar fallback
+    const keys = key.split('.');
+    let value: any = despachoFallback[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  }
+  return translation;
+}
+
+const title = getDespachoTranslation('title');
+const subtitle = getDespachoTranslation('subtitle');
+const description = getDespachoTranslation('description');
+
+const metaTitle = `${title} | JF Legal`;
+const metaDescription = lang === 'es'
+  ? 'Conoce nuestro despacho: equipo y enfoque. Experiencia en fiscal, laboral, mercantil y sucesiones.'
+  : lang === 'ca'
+  ? 'Coneix el nostre despatx: equip i enfocament. Experiència en fiscal, laboral, mercantil i successions.'
+  : 'Get to know our firm: team and approach. Experience in tax, labor, commercial and succession law.'
+---
+
+<BaseLayout title={metaTitle} description={metaDescription}>
+  <HeaderMega lang={lang} />
+  
+  <PageBanner
+    title={title}
+    subtitle={subtitle}
+    backgroundImage="/images/aboutushero.webp"
+    lang={lang}
+  />
+
+  <!-- Sección del equipo -->
+  <section class="team-section">
+    <div class="container">
+      <div class="team-layout">
+        <!-- Columna izquierda - Equipo -->
+        <div class="team-left team-animate">
+          <div class="team-cards">
+            <div class="team-card team-animate" style="--delay: 0.1s;">
+              <div class="team-card-image">
+                <div class="team-card-image-bg" style="background-image: url('/images/abogadas.webp');">
+                </div>
+              </div>
+              <div class="team-card-content">
+                <h3 class="team-card-name">Ana</h3>
+                <p class="team-card-role">Socia Fundadora</p>
+              </div>
+            </div>
+            <div class="team-card team-animate" style="--delay: 0.2s;">
+              <div class="team-card-image">
+                <div class="team-card-image-bg" style="background-image: url('/images/contact.webp');">
+                </div>
+              </div>
+              <div class="team-card-content">
+                <h3 class="team-card-name">Guiomar</h3>
+                <p class="team-card-role">Socia Fundadora</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Columna derecha - Descripción -->
+        <div class="team-right team-animate" style="--delay: 0.3s;">
+          <div class="team-description">
+            <h2 class="team-description-title team-animate" style="--delay: 0.4s;">
+              {lang === 'es' ? 'Sobre nosotros' : 
+               lang === 'ca' ? 'Sobre nosaltres' : 
+               'About us'}
+            </h2>
+            <p class="team-description-text team-animate" style="--delay: 0.5s;">
+              {lang === 'es' ? 'Con más de 15 años de experiencia en derecho fiscal, laboral, mercantil y sucesiones, ofrecemos un enfoque personalizado y cercano a cada cliente. Nuestro compromiso es brindar seguridad jurídica y tranquilidad en cada decisión importante.' :
+               lang === 'ca' ? 'Amb més de 15 anys d\'experiència en dret fiscal, laboral, mercantil i successions, oferim un enfocament personalitzat i proper a cada client. El nostre compromís és brindar seguretat jurídica i tranquil·litat en cada decisió important.' :
+               'With over 15 years of experience in tax, labor, commercial and succession law, we offer a personalized and close approach to each client. Our commitment is to provide legal security and peace of mind in every important decision.'}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FeaturesSplitRight lang={lang} />
+  
+  <FeaturesSplitLeft lang={lang} />
+  
+  <FeaturesGrid />
+  
+  <FeaturedNews lang={lang} />
+  
+  <ContactSimple lang={lang} />
+
+  <FooterGrid lang={lang} />
+</BaseLayout>
+
+<script>
+  // Animaciones fade in up escalonadas para Team
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.style.getPropertyValue('--delay') || '0s';
+          const delayMs = parseFloat(delay) * 1000;
+          setTimeout(() => {
+            entry.target.classList.add('animate');
+          }, delayMs);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observar elementos con animación de Team
+    const teamAnimatedElements = document.querySelectorAll('.team-animate');
+    teamAnimatedElements.forEach(el => {
+      observer.observe(el);
+    });
+  });
+</script>
+
+<style>
+  .team-section {
+    padding: 120px 0;
+    background: #ffffff;
+  }
+
+  /* Animaciones fade in up */
+  .team-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .team-animate.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .team-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: stretch;
+    min-height: 600px;
+  }
+
+  .team-left {
+    position: relative;
+    height: 100%;
+    min-height: 600px;
+    border-radius: 0px;
+    overflow: hidden;
+  }
+
+  .team-cards {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border-radius: 0px;
+    overflow: hidden;
+    position: relative;
+    height: 300px;
+  }
+
+  .team-card-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .team-card-image-bg {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+  }
+
+  .team-card:hover .team-card-image-bg {
+    transform: scale(1.1);
+  }
+
+  .team-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent 0%, transparent 30%, rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0.9) 100%);
+    padding: 100px var(--space-4) var(--space-4);
+    color: white;
+  }
+
+  .team-card-name {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 0 var(--space-1) 0;
+    color: white;
+  }
+
+  .team-card-role {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+
+  .team-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    min-height: 600px;
+  }
+
+  .team-description {
+    max-width: 500px;
+    text-align: left;
+  }
+
+  .team-description-title {
+    font-size: 48px;
+    font-weight: 400;
+    margin: 0 0 var(--space-6) 0;
+    color: var(--color-black);
+    font-family: var(--font-sans);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+
+  .team-description-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-gray);
+    margin: 0;
+    font-weight: 400;
+  }
+
+  @media (max-width: 1024px) {
+    .team-layout {
+      gap: 60px;
+    }
+    
+    .team-description-title {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .team-section {
+      padding: 80px 0;
+    }
+    
+    .team-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    
+    .team-right {
+      gap: 32px;
+      min-height: auto;
+      height: auto;
+    }
+    
+    .team-description-title {
+      font-size: 36px;
+    }
+  }
+</style>

@@ -13,7 +13,8 @@ const t = await loadT(lang, ['header', 'megamenu']);
 const isHomePage = Astro.url.pathname === '/' || 
                   Astro.url.pathname.match(/^\/(es|en|ca)\/?$/);
 const hasPageHero = Astro.url.pathname.includes('/contacto') || 
-                   Astro.url.pathname.includes('/servicios/');
+                   Astro.url.pathname.includes('/servicios/') ||
+                   Astro.url.pathname.includes('/despacho');
 const is404Page = Astro.url.pathname === '/404' || Astro.url.pathname.endsWith('/404');
 const shouldBeTransparent = (isHomePage || hasPageHero) && !is404Page;
 

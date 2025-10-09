@@ -4,6 +4,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import HeaderMega from '../../../components/header/header-mega/Header.astro';
 import FooterGrid from '../../../components/footer/footer-grid/Footer.astro';
 import PageBanner from '../../../components/hero/page-banner/PageBanner.astro';
+import ServiceLayout from '../../../components/services/service-layout/ServiceLayout.astro';
+import FeaturedNews from '../../../components/blog/featured/FeaturedNews.astro';
 import { LOCALES, type Locale, loadT } from '../../../i18n';
 
 export async function getStaticPaths() {
@@ -16,62 +18,90 @@ const t = await loadT(lang, ['header', 'footer', 'services']);
 // Fallback translations para servicios si el sistema no funciona
 const servicesFallback = {
   es: {
-    sucesiones: {
-      title: "Sucesiones",
-      subtitle: "Planificación y tramitación de herencias y testamentos",
-      description: "Planificación y tramitación de herencias y testamentos"
-    }
-  },
-  en: {
-    sucesiones: {
-      title: "Successions",
-      subtitle: "Inheritance and will planning and processing",
-      description: "Inheritance and will planning and processing"
-    }
+    title: 'Sucesiones',
+    subtitle: 'Planificación y tramitación de herencias y testamentos',
+    description: 'Asesoramiento integral en derecho sucesorio para la gestión de herencias y planificación patrimonial'
   },
   ca: {
-    sucesiones: {
-      title: "Successions",
-      subtitle: "Planificació i tramitació d'herències i testaments",
-      description: "Planificació i tramitació d'herències i testaments"
-    }
+    title: 'Successions',
+    subtitle: 'Planificació i tramitació d\'herències i testaments',
+    description: 'Assessorament integral en dret successori per a la gestió d\'herències i planificació patrimonial'
+  },
+  en: {
+    title: 'Successions',
+    subtitle: 'Inheritance and will planning and processing',
+    description: 'Comprehensive succession law advice for inheritance management and estate planning'
   }
 };
 
-// Función helper para obtener traducciones de servicios con fallback
-function getServicesTranslation(key: string) {
-  const translation = t(`services.${key}`);
-  if (translation === `services.${key}`) {
-    // Si no se encuentra la traducción, usar fallback
-    const keys = key.split('.');
-    let fallbackValue = servicesFallback[lang];
-    for (const k of keys) {
-      fallbackValue = fallbackValue?.[k];
-    }
-    return fallbackValue || key;
-  }
-  return translation;
-}
+// Contenido traducido (ES/CA/EN)
+const serviceTitle = lang === 'es' ? 'Sucesiones'
+  : lang === 'ca' ? 'Successions'
+  : 'Successions';
 
-const title = getServicesTranslation('sucesiones.title');
-const subtitle = getServicesTranslation('sucesiones.subtitle');
-const description = getServicesTranslation('sucesiones.description');
+const paragraph1 = lang === 'es'
+  ? 'Acompañamos a nuestros clientes en todos los aspectos legales relacionados con herencias, sucesiones y donaciones, ofreciendo asesoramiento tanto en la planificación patrimonial como en la tramitación completa de herencias.'
+  : lang === 'ca'
+  ? 'Acompanyem els nostres clients en tots els aspectes legals relacionats amb herències, successions i donacions, oferint assessorament tant en la planificació patrimonial com en la tramitació completa d\'herències.'
+  : 'We accompany our clients in all legal aspects related to inheritances, successions and donations, offering advice both in estate planning and in the complete processing of inheritances.';
+
+const paragraph2 = lang === 'es'
+  ? 'Nuestro objetivo es garantizar una transmisión ordenada del patrimonio, reducir la carga fiscal y evitar conflictos familiares.'
+  : lang === 'ca'
+  ? 'El nostre objectiu és garantir una transmissió ordenada del patrimoni, reduir la càrrega fiscal i evitar conflictes familiars.'
+  : 'Our objective is to guarantee an orderly transmission of assets, reduce the tax burden and avoid family conflicts.';
+
+const paragraph3 = '';
+
+const additionalContent: any[] = [
+  {
+    sectionTitle: lang === 'es' ? 'Qué hacemos' : lang === 'ca' ? 'Què fem' : 'What we do',
+    content: lang === 'es' ?
+      '• **Asesoramiento en testamentos y pactos sucesorios**\nRedactamos y revisamos testamentos y pactos sucesorios adaptados a cada caso, evitando disputas y garantizando el cumplimiento de la voluntad del testador.\nAnalizamos la situación familiar, patrimonial y fiscal para elegir la mejor opción.\n\n• **Tramitación hereditaria integral**\nGestionamos todo el proceso: recopilación de documentación, escritura de aceptación de herencia, liquidación del Impuesto de Sucesiones y registro de los bienes a nombre de los herederos.\nAcompañamos en cada paso, asegurando que todo se realice dentro de los plazos legales.\n\n• **Liquidación del Impuesto de Sucesiones**\nCalculamos, preparamos y presentamos el impuesto dentro del plazo de 6 meses desde el fallecimiento, pudiendo solicitar prórroga si es necesario.\nBuscamos optimizar la carga fiscal aplicando todas las deducciones posibles.\n\n• **Planificación sucesoria y donaciones en vida**\nAyudamos a planificar la distribución del patrimonio, valorando opciones como la donación en vida o la transmisión por testamento.\nAnalizamos el impacto fiscal de cada alternativa para elegir la más ventajosa para los herederos.\n\n• **Reclamación de legítima y cuarta falcidia**\nDefendemos el derecho de los herederos forzosos (hijos, nietos o padres) a recibir su parte legítima, incluso si han sido excluidos en el testamento.\nTambién gestionamos la reclamación de la cuarta falcidia, que garantiza a los herederos conservar al menos una cuarta parte de la herencia.\n\n• **Impugnación de testamentos y desheredamientos**\nAsesoramos en la impugnación de testamentos cuando existen indicios de vicio de voluntad, coacción, engaño o incapacidad del testador.\nTambién gestionamos impugnaciones de desheredamiento y ayudamos a redactar cláusulas de desheredación válidas para evitar futuras reclamaciones.' :
+      lang === 'ca' ?
+      '• **Assessorament en testaments i pactes successoris**\nRedactem i revisem testaments i pactes successoris adaptats a cada cas, evitant disputes i garantint el compliment de la voluntat del testador.\nAnalitzem la situació familiar, patrimonial i fiscal per triar la millor opció.\n\n• **Tramitació hereditària integral**\nGestionem tot el procés: recopilació de documentació, escriptura d\'acceptació d\'herència, liquidació de l\'Impost de Successions i registre dels béns a nom dels hereus.\nAcompanyem en cada pas, assegurant que tot es realitzi dins dels terminis legals.\n\n• **Liquidació de l\'Impost de Successions**\nCalculem, preparem i presentem l\'impost dins del termini de 6 mesos des del defunció, podent sol·licitar pròrroga si cal.\nBusquem optimitzar la càrrega fiscal aplicant totes les deduccions possibles.\n\n• **Planificació successòria i donacions en vida**\nAjudem a planificar la distribució del patrimoni, valorant opcions com la donació en vida o la transmissió per testament.\nAnalitzem l\'impacte fiscal de cada alternativa per triar la més avantatjosa per als hereus.\n\n• **Reclamació de legítima i quarta falcídia**\nDefensem el dret dels hereus forçosos (fills, nets o pares) a rebre la seva part legítima, fins i tot si han estat exclosos en el testament.\nTambé gestionem la reclamació de la quarta falcídia, que garanteix als hereus conservar almenys una quarta part de l\'herència.\n\n• **Impugnació de testaments i desheretaments**\nAssessorem en la impugnació de testaments quan existeixen indicis de vici de voluntat, coacció, engany o incapacitat del testador.\nTambé gestionem impugnacions de desheretament i ajudem a redactar clàusules de desheretació vàlides per evitar futures reclamacions.' :
+      '• **Advice on wills and succession agreements**\nWe draft and review wills and succession agreements adapted to each case, avoiding disputes and guaranteeing compliance with the testator\'s will.\nWe analyze the family, patrimonial and tax situation to choose the best option.\n\n• **Comprehensive inheritance processing**\nWe manage the entire process: documentation collection, inheritance acceptance deed, Inheritance Tax settlement and registration of assets in the name of heirs.\nWe accompany at each step, ensuring that everything is done within legal deadlines.\n\n• **Inheritance Tax settlement**\nWe calculate, prepare and file the tax within 6 months from death, being able to request an extension if necessary.\nWe seek to optimize the tax burden by applying all possible deductions.\n\n• **Succession planning and lifetime donations**\nWe help plan the distribution of assets, considering options such as lifetime donation or transmission by will.\nWe analyze the tax impact of each alternative to choose the most advantageous for the heirs.\n\n• **Claim for legitimate share and falcidian quarter**\nWe defend the right of forced heirs (children, grandchildren or parents) to receive their legitimate share, even if they have been excluded in the will.\nWe also manage the claim for the falcidian quarter, which guarantees heirs to retain at least a quarter of the inheritance.\n\n• **Will challenges and disinheritance**\nWe advise on will challenges when there are indications of vitiated will, coercion, fraud or testator incapacity.\nWe also manage disinheritance challenges and help draft valid disinheritance clauses to avoid future claims.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Nuestro enfoque' : lang === 'ca' ? 'El nostre enfocament' : 'Our approach',
+    content: lang === 'es' ?
+      '• **Planificación anticipada** y estratégica para evitar conflictos y reducir impuestos.\n\n• **Tramitación completa** y sin complicaciones, desde la documentación hasta el registro.\n\n• **Protección de derechos** sucesorios y defensa en procedimientos judiciales.\n\n• **Acompañamiento humano** y cercano en procesos delicados.' :
+      lang === 'ca' ?
+      '• **Planificació anticipada** i estratègica per evitar conflictes i reduir impostos.\n\n• **Tramitació completa** i sense complicacions, des de la documentació fins al registre.\n\n• **Protecció de drets** successoris i defensa en procediments judicials.\n\n• **Acompanyament humà** i proper en processos delicats.' :
+      '• **Anticipated planning** and strategic to avoid conflicts and reduce taxes.\n\n• **Complete processing** and without complications, from documentation to registration.\n\n• **Protection of succession rights** and defense in judicial proceedings.\n\n• **Human accompaniment** and close in delicate processes.'
+  },
+  {
+    sectionTitle: lang === 'es' ? 'Empecemos hoy' : lang === 'ca' ? 'Comencem avui' : 'Let\'s start today',
+    content: lang === 'es' ?
+      'En JF Legal Consulting te ayudamos a planificar, gestionar o resolver cualquier cuestión relacionada con herencias y sucesiones.\n\nCuéntanos tu caso y te orientaremos con claridad y eficacia.\n\nConsulta sin compromiso.' :
+      lang === 'ca' ?
+      'A JF Legal Consulting t\'ajudem a planificar, gestionar o resoldre qualsevol qüestió relacionada amb herències i successions.\n\nExplica\'ns el teu cas i et orientarem amb claredat i eficàcia.\n\nConsulta sense compromís.' :
+      'At JF Legal Consulting we help you plan, manage or resolve any issue related to inheritances and successions.\n\nTell us about your case and we will guide you with clarity and efficiency.\n\nConsultation without commitment.'
+  }
+];
 ---
 
-<BaseLayout 
-  title={`${title} | JF Legal`} 
-  description={subtitle}
->
+<BaseLayout title={servicesFallback[lang].title} description={servicesFallback[lang].description}>
   <HeaderMega lang={lang} />
   
-  <main class="main">
-    <!-- Page Hero -->
-    <PageBanner 
-      title={title} 
-      subtitle={subtitle} 
-    />
-  </main>
-  
+  <PageBanner
+    title={servicesFallback[lang].title}
+    subtitle={servicesFallback[lang].subtitle}
+    lang={lang}
+  />
+
+  <ServiceLayout
+    title={servicesFallback[lang].title}
+    description={servicesFallback[lang].description}
+    serviceTitle={serviceTitle}
+    paragraph1={paragraph1}
+    paragraph2={paragraph2}
+    paragraph3={paragraph3}
+    additionalContent={additionalContent}
+    lang={lang}
+  />
+
+  <FeaturedNews lang={lang} />
+
   <FooterGrid lang={lang} />
 </BaseLayout>
-
